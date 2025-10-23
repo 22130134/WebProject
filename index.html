@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="style/header.css">
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <link rel="stylesheet" href="Home/Category-sibar.css">
+    <link rel="stylesheet" href="Home/HomeProduct.css">
 </head>
 <body>
 <div class="container">
@@ -14,7 +16,7 @@
     <div class="topbar-container">
         <!-- Logo -->
         <div class="topbar-logo">
-            <h1>META</h1>
+            <h1>KHT</h1>
         </div>
 
         <!-- Ô tìm kiếm -->
@@ -43,7 +45,20 @@
         </div>
     </div>
 </header>
+    <div class="product">
+        <div class="category-sidebar" role="navigation" aria-label="Danh mụcsản phẩm">
+            <div class="category-header">
+                <div class="burger" aria-hidden="true"><i class="fa-solid fa-bars menu-icon"></i>
+                </div>
+            Danh mục sản phẩm
+            </div>
+
+            <div id="category-list" class="category-list" role="list"></div>
+        </div>
+    </div>
 </div>
+<script src="Home/Category-sibar.js"></script>
 
 </body>
+
 </html>
