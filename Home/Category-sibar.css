@@ -54,3 +54,39 @@
     background: #f8a7ea;
     transform: translateX(4px);
 }
+.category-item .chevron {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    translate: 0 -50%;
+    font-weight: 700;
+    opacity: 0;
+    transition: all .15s ease;
+    user-select: none;
+    pointer-events: auto; /* cho phép hover vào chính nó */
+    color: #9aa5b1;
+}
+.category-item:hover .chevron {
+    opacity: 1;
+    transform: translateX(4px);
+    color: #ffffff;
+}
+
+
+.category-item .submenu-panel {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: min(760px, 70vw);
+    height: 420px;                /* tạm thời */
+    background: #fff;
+    border: 1px solid #e6eaf0;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    display: none;                /* ẩn mặc định */
+    z-index: 9;
+}
+.category-item .chevron:hover + .submenu-panel,
+.category-item .submenu-panel:hover {
+    display: block;
+}

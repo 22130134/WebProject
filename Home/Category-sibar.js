@@ -26,9 +26,27 @@ function renderCategories() {
         const text = document.createElement("span");
         text.textContent = cat.name;
 
+        // Thêm dấu ">" bên phải
+        const chev = document.createElement("span");
+        chev.className = "chevron";
+        chev.textContent = ">";
+
+        // Tạo bảng trắng (submenu panel)
+        const panel = document.createElement("div");
+        panel.className = "submenu-panel";
+        panel.innerHTML = `
+      <div style="padding:16px; color:#999; font-size:14px;">
+        (Chưa có dữ liệu)
+      </div>
+    `;
+
+        // Gắn các phần tử vào .category-item
         div.appendChild(img);
         div.appendChild(text);
+        div.appendChild(chev);
+        div.appendChild(panel);
 
+        // Tạm thời giữ sự kiện click nếu cần
         div.addEventListener("click", () => {
             console.log("Clicked:", cat.name);
         });
