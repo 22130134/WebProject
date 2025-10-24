@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
     <link rel="stylesheet" href="Home/Category-sibar.css">
     <link rel="stylesheet" href="Home/HomeProduct.css">
+    <link rel="stylesheet" href="Home/Slide/slide.css">
+    <link rel="stylesheet" href="Home/productTypes.css">
 </head>
 <body>
-<div class="container">
-
 <header class="topbar">
     <div class="topbar-container">
         <!-- Logo -->
@@ -45,19 +45,28 @@
         </div>
     </div>
 </header>
+<div class="container">
     <div class="product">
         <div class="category-sidebar" role="navigation" aria-label="Danh mụcsản phẩm">
-            <div class="category-header">
-                <div class="burger" aria-hidden="true"><i class="fa-solid fa-bars menu-icon"></i>
+          <div class="category">
+                 <div class="category-header">
+                    <div class="burger" aria-hidden="true"><i class="fa-solid fa-bars menu-icon"></i></div>
+                    Danh mục sản phẩm
+                 </div>
+              <div id="category-list" class="category-list" role="list"></div>
+          </div><div id="slider"></div>
+            <div class="product-type-wrap">
+                <div id="product-type-grid" class="product-type-grid"></div>
+                <div class="product-type-actions">
+                    <button id="toggle-more" class="btn-more" aria-expanded="false">Xem thêm chuyên mục</button>
                 </div>
-            Danh mục sản phẩm
             </div>
-
-            <div id="category-list" class="category-list" role="list"></div>
         </div>
     </div>
 </div>
 <script src="Home/Category-sibar.js"></script>
+<script src="Home/Slide/silde.js"></script>
+<script src="Home/productTypes.js"></script>
 
 </body>
 
