@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <title>Admin • Thiết bị y tế</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+<!-- Header đỏ -->
+<header class="header">
+    <h1>MedHome • Trang quản trị</h1>
+    <nav class="header-actions">
+        <a class="btn btn-light" href="#modal-add">+ Thêm sản phẩm</a>
+    </nav>
+</header>
+
+<main class="container">
+    <!-- Thanh công cụ -->
+    <section class="toolbar">
+        <input class="input" placeholder="Tìm sản phẩm..." />
+        <select class="input input-sm">
+            <option>Tất cả danh mục</option>
+            <option>Thiết bị đo</option>
+            <option>Hỗ trợ vận động</option>
+            <option>Chăm sóc tại nhà</option>
+        </select>
+    </section>
+
+    <!-- Bảng sản phẩm (CRUD) -->
+    <section class="card">
+        <div class="card-head">
+            <h2>Danh sách sản phẩm</h2>
+        </div>
+        <div class="table-wrap">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Mã</th>
+                    <th>Sản phẩm</th>
+                    <th>Danh mục</th>
+                    <th>Giá (₫)</th>
+                    <th>Tồn</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>SP0001</td>
+                    <td>Máy đo huyết áp Omron HEM-7120</td>
+                    <td>Thiết bị đo</td>
+                    <td>690.000</td>
+                    <td>120</td>
+                    <td><span class="badge ok">Đang bán</span></td>
+                    <td>
+                        <a class="btn btn-sm" href="#modal-edit">Sửa</a>
+                        <a class="btn btn-sm btn-ghost" href="#modal-delete">Xóa</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>SP0002</td>
+                    <td>Nhiệt kế hồng ngoại Beurer FT 90</td>
+                    <td>Thiết bị đo</td>
+                    <td>520.000</td>
+                    <td>64</td>
+                    <td><span class="badge">Tạm ẩn</span></td>
+                    <td>
+                        <a class="btn btn-sm" href="#modal-edit">Sửa</a>
+                        <a class="btn btn-sm btn-ghost" href="#modal-delete">Xóa</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>SP0003</td>
+                    <td>Xe lăn nhôm gấp gọn TM-04</td>
+                    <td>Hỗ trợ vận động</td>
+                    <td>2.350.000</td>
+                    <td>18</td>
+                    <td><span class="badge ok">Đang bán</span></td>
+                    <td>
+                        <a class="btn btn-sm" href="#modal-edit">Sửa</a>
+                        <a class="btn btn-sm btn-ghost" href="#modal-delete">Xóa</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer class="foot">
+        © 2025 MedHome Admin
+    </footer>
+</main>
+
+<!-- MODAL: THÊM -->
+<div id="modal-add" class="modal">
+    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+    <div class="modal-body">
+        <h3>Thêm sản phẩm</h3>
+        <form class="form" action="#" method="post" data-action="create">
+            <label>Tên sản phẩm
+                <input class="input" name="name" required />
+            </label>
+            <label>Danh mục
+                <select class="input" name="category">
+                    <option>Thiết bị đo</option>
+                    <option>Hỗ trợ vận động</option>
+                    <option>Chăm sóc tại nhà</option>
+                </select>
+            </label>
+            <label>Giá (₫)
+                <input class="input" type="number" name="price" min="0" step="1000" required />
+            </label>
+            <label>Tồn kho
+                <input class="input" type="number" name="stock" min="0" step="1" required />
+            </label>
+            <label>Trạng thái
+                <select class="input" name="status">
+                    <option>Đang bán</option>
+                    <option>Tạm ẩn</option>
+                </select>
+            </label>
+            <div class="actions">
+                <a class="btn btn-ghost" href="#">Hủy</a>
+                <button class="btn" type="submit">Lưu</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL: SỬA -->
+<div id="modal-edit" class="modal">
+    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+    <div class="modal-body">
+        <h3>Sửa sản phẩm</h3>
+        <form class="form" action="#" method="post" data-action="update">
+            <input type="hidden" name="id" value="SP0001" />
+            <label>Tên sản phẩm
+                <input class="input" name="name" value="Máy đo huyết áp Omron HEM-7120" />
+            </label>
+            <label>Danh mục
+                <select class="input" name="category">
+                    <option selected>Thiết bị đo</option>
+                    <option>Hỗ trợ vận động</option>
+                    <option>Chăm sóc tại nhà</option>
+                </select>
+            </label>
+            <label>Giá (₫)
+                <input class="input" type="number" name="price" value="690000" />
+            </label>
+            <label>Tồn kho
+                <input class="input" type="number" name="stock" value="120" />
+            </label>
+            <label>Trạng thái
+                <select class="input" name="status">
+                    <option selected>Đang bán</option>
+                    <option>Tạm ẩn</option>
+                </select>
+            </label>
+            <div class="actions">
+                <a class="btn btn-ghost" href="#">Hủy</a>
+                <button class="btn" type="submit">Cập nhật</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL: XÓA -->
+<div id="modal-delete" class="modal modal-sm">
+    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+    <div class="modal-body">
+        <h3>Xóa sản phẩm?</h3>
+        <p>Bạn chắc chắn muốn xóa <strong>SP0001</strong>?</p>
+        <div class="actions">
+            <a class="btn btn-ghost" href="#">Hủy</a>
+            <button class="btn btn-danger" type="button">Xóa</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

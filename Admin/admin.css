@@ -1,0 +1,93 @@
+/* Nền trắng, header đỏ – phong cách tối giản */
+:root{
+    --red: #d32f2f;       /* header */
+    --red-dark: #b71c1c;  /* hover */
+    --text: #222;
+    --muted: #666;
+    --line: #e8e8e8;
+    --ok: #1b5e20;
+    --danger: #d32f2f;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+    margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color:var(--text); background:#fff; display:flex; flex-direction:column;
+}
+
+/* Header */
+.header{
+    background:var(--red); color:#fff; padding:14px 16px; display:flex; justify-content:space-between; align-items:center; gap:12px;
+    position:sticky; top:0; z-index:10;
+}
+.header h1{margin:0; font-size:18px; font-weight:700}
+.header-actions{display:flex; gap:8px}
+
+/* Container */
+.container{width:min(1100px, 92vw); margin:20px auto}
+
+/* Toolbar */
+.toolbar{display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap}
+.input{
+    padding:9px 10px; border:1px solid var(--line); border-radius:8px; outline:none; min-width:220px;
+}
+.input:focus{border-color:#c5c5c5}
+.input-sm{padding:8px 8px; min-width:180px}
+
+/* Card */
+.card{border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#fff}
+.card-head{padding:12px 14px; border-bottom:1px solid var(--line)}
+.card-head h2{margin:0; font-size:16px}
+
+/* Table */
+.table-wrap{overflow:auto}
+.table{width:100%; border-collapse:collapse; font-size:14px}
+.table th, .table td{padding:10px 12px; border-bottom:1px solid var(--line); text-align:left}
+.table th{background:#fafafa; font-weight:600}
+
+/* Badge */
+.badge{display:inline-block; padding:3px 8px; border-radius:999px; background:#f2f2f2; color:#444; font-size:12px; border:1px solid #eee}
+.badge.ok{background:#e8f5e9; color:var(--ok); border-color:#c8e6c9}
+
+/* Buttons */
+.btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    padding:9px 12px; border-radius:8px; border:1px solid transparent; background:var(--red); color:#fff; text-decoration:none; cursor:pointer;
+    font-weight:600; font-size:14px;
+}
+.btn:hover{background:var(--red-dark)}
+.btn-light{background:#fff; color:var(--red); border-color:var(--red)}
+.btn-light:hover{background:#fff5f5; border-color:var(--red-dark)}
+.btn-ghost{background:#fff; color:#333; border:1px solid var(--line)}
+.btn-ghost:hover{background:#f7f7f7}
+.btn-sm{padding:6px 10px; font-size:13px}
+.btn-danger{background:var(--danger)}
+.btn-danger:hover{background:#b71c1c}
+
+/* Footer */
+.foot{color:var(--muted); font-size:13px; padding:16px 2px}
+
+/* Modal (thuần CSS :target) */
+.modal{position:fixed; inset:0; display:none}
+.modal:target{display:block}
+.modal-overlay{position:absolute; inset:0; background:rgba(0,0,0,.35)}
+.modal-body{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:min(520px, 92vw); background:#fff; border-radius:10px; border:1px solid var(--line); padding:16px;
+}
+.modal-sm .modal-body{width:min(420px, 92vw)}
+.modal-body h3{margin:0 0 10px}
+
+/* Form */
+.form{display:grid; gap:10px}
+.form label{display:grid; gap:6px; font-size:14px}
+.actions{display:flex; gap:8px; justify-content:flex-end; margin-top:6px}
+
+/* Responsive */
+@media (max-width: 680px){
+    .table th:nth-child(3), .table td:nth-child(3), /* danh mục */
+    .table th:nth-child(5), .table td:nth-child(5), /* tồn */
+    .table th:nth-child(6), .table td:nth-child(6)  /* trạng thái */
+    {display:none}
+}
