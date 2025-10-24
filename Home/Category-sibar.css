@@ -1,0 +1,101 @@
+.category {
+    float: left;
+
+}
+.category-sidebar {
+    width: var(--sidebar-w);
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    font-weight: 700;
+    border-bottom: 1px solid #c8c8c8;
+    width: 230px;
+}
+
+.burger {
+    width: 26px;
+    height: 18px;
+    position: relative;
+    bottom: 3px;
+    margin-right: 8px;
+}
+
+
+
+.category-list {
+    float: left;
+
+    max-height: 600px;
+    width: 200px;
+}
+.category-item span{
+    font-size: 14px;
+}
+.category-item {
+    padding: 10px 14px;
+    gap: 10px;
+    width: 230px;
+    border-radius: 5px;
+    border-bottom: 1px solid var(--divider);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.category-item img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.category-item {
+    transition: all 0.2s ease;
+}
+.category-item:hover {
+    background: #f8a7ea;
+    transform: translateX(4px);
+}
+.category-item .chevron {
+    position: absolute;
+
+    right: 10px;
+    top: 50%;
+    translate: 0 -50%;
+    font-weight: 700;
+    opacity: 0;
+    transition: all .15s ease;
+    user-select: none;
+    pointer-events: auto; /* cho phép hover vào chính nó */
+    color: #9aa5b1;
+}
+.category-item:hover .chevron {
+    opacity: 1;
+    transform: translateX(4px);
+    color: #ffffff;
+}
+
+
+.category-item .submenu-panel {
+
+    position: absolute;
+    z-index: 99999;
+
+    top: 0;
+    left: 100%;
+    width: min(760px, 70vw);
+    height: 420px;                /* tạm thời */
+    background: #ff0000;
+    border: 1px solid #e6eaf0;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    display: none;
+}
+.category-item .chevron:hover + .submenu-panel,
+.category-item .submenu-panel:hover {
+    display: block;
+}
