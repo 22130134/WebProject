@@ -2,7 +2,10 @@
     float: left;
     position: relative;
     z-index: 10;
-    margin-top: 5px
+    margin-top: 5px;
+    background-color: #fafafa;
+    padding: 10px;
+
 }
 .category-sidebar {
     position: relative;;
@@ -93,7 +96,7 @@
     left: 100%;
     width: min(760px, 70vw);
     height: 420px;                /* tạm thời */
-    background: #ff0000;
+    background: #ffffff;
     border: 1px solid #e6eaf0;
     display: none;
 }
