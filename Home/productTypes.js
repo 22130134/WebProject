@@ -1,7 +1,7 @@
 // DATA mẫu (đổi ảnh/giảm giá theo bạn)
 const productTypes = [
-    { name: "Tivi", discount: "-44%", image: "img/tivi.png" },
-    { name: "Tủ lạnh", discount: "-43%", image: "img/tulanh.png" },
+    { name: "Tivi", discount: "-44%", image: "https://sieuthiyte.com.vn/data/images/San-Pham/may-chong-ngay-thong-minh-sleepmi-z3-av00.jpg" },
+    { name: "Tủ lạnh", discount: "-43%", image: "https://sieuthiyte.com.vn/data/images/San-Pham/cay-lan-massage-mat-va-body-kakusan-kb-213-av1-f1.jpg" },
     { name: "Điều hòa", discount: "-44%", image: "img/dieuhoa.png" },
     { name: "Máy giặt", discount: "-43%", image: "img/maygiat.png" },
     { name: "Quạt, Máy làm mát", discount: "-44%", image: "img/maylammat.png" },
