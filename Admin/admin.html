@@ -49,72 +49,69 @@
 
     <!-- ====== NỘI DUNG CHÍNH ====== -->
     <main class="content">
-        <!-- Thanh công cụ nhỏ -->
-        <section class="toolbar">
-            <h2>Danh sách sản phẩm</h2>
-            <div class="tool-actions">
-                <input class="input" placeholder="Tìm sản phẩm..." />
-                <select class="input input-sm">
-                    <option>Tất cả danh mục</option>
-                    <option>Thiết bị đo</option>
-                    <option>Hỗ trợ vận động</option>
-                    <option>Chăm sóc tại nhà</option>
-                </select>
-                <a class="btn" href="#modal-add">+ Thêm sản phẩm</a>
+        <h2>Bảng điều khiển tổng quan</h2>
+
+        <!-- Ô thống kê -->
+        <section class="stats">
+            <div class="stat-card">
+                <h3>🧰 Sản phẩm</h3>
+                <p class="value">128</p>
+                <p class="sub">+12 so với tuần trước</p>
+            </div>
+            <div class="stat-card">
+                <h3>🧾 Đơn hàng</h3>
+                <p class="value">54</p>
+                <p class="sub">7 đang xử lý</p>
+            </div>
+            <div class="stat-card">
+                <h3>💸 Doanh thu (tháng)</h3>
+                <p class="value">₫ 820.000.000</p>
+                <p class="sub">+8.3%</p>
+            </div>
+            <div class="stat-card">
+                <h3>👥 Người dùng</h3>
+                <p class="value">342</p>
+                <p class="sub">+5 mới hôm nay</p>
             </div>
         </section>
 
-        <!-- Bảng CRUD -->
+        <!-- Đơn hàng gần đây -->
         <section class="card">
+            <div class="card-head">
+                <h3>Đơn hàng gần đây</h3>
+            </div>
             <div class="table-wrap">
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Mã</th>
-                        <th>Sản phẩm</th>
-                        <th>Danh mục</th>
-                        <th>Giá (₫)</th>
-                        <th>Tồn</th>
+                        <th>Mã đơn</th>
+                        <th>Khách hàng</th>
+                        <th>Ngày đặt</th>
+                        <th>Tổng tiền (₫)</th>
                         <th>Trạng thái</th>
-                        <th>Thao tác</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>SP0001</td>
-                        <td>Máy đo huyết áp Omron HEM-7120</td>
-                        <td>Thiết bị đo</td>
-                        <td>690.000</td>
-                        <td>120</td>
-                        <td><span class="badge ok">Đang bán</span></td>
-                        <td>
-                            <a class="btn btn-sm" href="#modal-edit">Sửa</a>
-                            <a class="btn btn-sm btn-ghost" href="#modal-delete">Xóa</a>
-                        </td>
+                        <td>DH10234</td>
+                        <td>Nguyễn Văn A</td>
+                        <td>25/10/2025</td>
+                        <td>1.280.000</td>
+                        <td><span class="badge ok">Đã giao</span></td>
                     </tr>
                     <tr>
-                        <td>SP0002</td>
-                        <td>Nhiệt kế hồng ngoại Beurer FT 90</td>
-                        <td>Thiết bị đo</td>
+                        <td>DH10233</td>
+                        <td>Lê Thị B</td>
+                        <td>25/10/2025</td>
                         <td>520.000</td>
-                        <td>64</td>
-                        <td><span class="badge">Tạm ẩn</span></td>
-                        <td>
-                            <a class="btn btn-sm" href="#modal-edit">Sửa</a>
-                            <a class="btn btn-sm btn-ghost" href="#modal-delete">Xóa</a>
-                        </td>
+                        <td><span class="badge">Chờ xử lý</span></td>
                     </tr>
                     <tr>
-                        <td>SP0003</td>
-                        <td>Xe lăn nhôm gấp gọn TM-04</td>
-                        <td>Hỗ trợ vận động</td>
+                        <td>DH10232</td>
+                        <td>Phạm Văn C</td>
+                        <td>24/10/2025</td>
                         <td>2.350.000</td>
-                        <td>18</td>
-                        <td><span class="badge ok">Đang bán</span></td>
-                        <td>
-                            <a class="btn btn-sm" href="#modal-edit">Sửa</a>
-                            <a class="btn btn-sm btn-ghost" href="#modal-delete">Xóa</a>
-                        </td>
+                        <td><span class="badge ok">Đang giao</span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -123,6 +120,7 @@
 
         <footer class="foot">© 2025 MedHome Admin</footer>
     </main>
+
 </div>
 
 <!-- ====== MODAL (thuần CSS :target) ====== -->

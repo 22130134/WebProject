@@ -130,3 +130,17 @@ body{
     .table th:nth-child(6), .table td:nth-child(6)    /* Trạng thái */
     {display:none}
 }
+
+/* Tổng quan dashboard */
+.stats{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:14px; margin:10px 0 20px;
+}
+.stat-card{
+    background:#fff; border:1px solid var(--line); border-radius:10px;
+    padding:16px; text-align:center; box-shadow:0 2px 4px rgba(0,0,0,.05);
+}
+.stat-card h3{margin:0; font-size:15px; color:var(--muted)}
+.stat-card .value{font-size:24px; font-weight:700; color:var(--red); margin:6px 0}
+.stat-card .sub{font-size:13px; color:var(--muted)}
+
