@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <title>MedHome Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+<!-- ====== HEADER kiểu META ====== -->
+<header class="site-header">
+    <div class="header-left">
+        <!-- Toggle sidebar (checkbox hack, không cần JS) -->
+        <input type="checkbox" id="nav-toggle" hidden>
+        <label for="nav-toggle" class="hamburger" aria-label="Mở menu">☰</label>
+
+        <a href="#" class="logo">META</a>
+    </div>
+
+    <form class="searchbar" action="#" method="get">
+        <input type="text" name="q" placeholder="Bạn cần tìm quản lý gì?" />
+        <button type="submit">Tìm kiếm</button>
+    </form>
+
+    <div class="header-right">
+        <a class="topbtn" href="#">🔔 Thông báo</a>
+        <a class="topbtn" href="#">📞 Hỗ trợ</a>
+        <a class="topbtn" href="#">👤 Tài khoản</a>
+    </div>
+</header>
+
+<!-- ====== LAYOUT ====== -->
+<div class="layout">
+    <!-- ====== SIDEBAR QUẢN TRỊ ====== -->
+    <aside class="sidebar">
+        <div class="sidebar-title">Chức năng quản trị</div>
+        <nav class="menu">
+            <a class="menu-item is-active" href="#">🏠 Tổng quan</a>
+            <a class="menu-item" href="#accounts">👥 Quản lý tài khoản</a>
+            <a class="menu-item" href="#products">🧰 Quản lý sản phẩm</a>
+            <a class="menu-item" href="#orders">🧾 Quản lý đơn hàng</a>
+            <a class="menu-item" href="#revenue">💹 Xem doanh thu</a>
+            <a class="menu-item" href="#inventory">🏷️ Quản lý kho</a>
+            <a class="menu-item" href="#promos">🎟️ Khuyến mãi</a>
+            <a class="menu-item" href="#settings">⚙️ Cài đặt hệ thống</a>
+            <a class="menu-item danger" href="#logout">🚪 Đăng xuất</a>
+        </nav>
+    </aside>
+
+    <!-- ====== NỘI DUNG CHÍNH ====== -->
+    <main class="content">
+        <h2>Bảng điều khiển tổng quan</h2>
+
+        <!-- Ô thống kê -->
+        <section class="stats">
+            <div class="stat-card">
+                <h3>🧰 Sản phẩm</h3>
+                <p class="value">128</p>
+                <p class="sub">+12 so với tuần trước</p>
+            </div>
+            <div class="stat-card">
+                <h3>🧾 Đơn hàng</h3>
+                <p class="value">54</p>
+                <p class="sub">7 đang xử lý</p>
+            </div>
+            <div class="stat-card">
+                <h3>💸 Doanh thu (tháng)</h3>
+                <p class="value">₫ 820.000.000</p>
+                <p class="sub">+8.3%</p>
+            </div>
+            <div class="stat-card">
+                <h3>👥 Người dùng</h3>
+                <p class="value">342</p>
+                <p class="sub">+5 mới hôm nay</p>
+            </div>
+        </section>
+
+        <!-- Đơn hàng gần đây -->
+        <section class="card">
+            <div class="card-head">
+                <h3>Đơn hàng gần đây</h3>
+            </div>
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Khách hàng</th>
+                        <th>Ngày đặt</th>
+                        <th>Tổng tiền (₫)</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>DH10234</td>
+                        <td>Nguyễn Văn A</td>
+                        <td>25/10/2025</td>
+                        <td>1.280.000</td>
+                        <td><span class="badge ok">Đã giao</span></td>
+                    </tr>
+                    <tr>
+                        <td>DH10233</td>
+                        <td>Lê Thị B</td>
+                        <td>25/10/2025</td>
+                        <td>520.000</td>
+                        <td><span class="badge">Chờ xử lý</span></td>
+                    </tr>
+                    <tr>
+                        <td>DH10232</td>
+                        <td>Phạm Văn C</td>
+                        <td>24/10/2025</td>
+                        <td>2.350.000</td>
+                        <td><span class="badge ok">Đang giao</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="foot">© 2025 MedHome Admin</footer>
+    </main>
+
+</div>
+
+<!-- ====== MODAL (thuần CSS :target) ====== -->
+<!-- THÊM -->
+<div id="modal-add" class="modal">
+    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+    <div class="modal-body">
+        <h3>Thêm sản phẩm</h3>
+        <form class="form" action="#" method="post" data-action="create">
+            <label>Tên sản phẩm
+                <input class="input" name="name" required />
+            </label>
+            <label>Danh mục
+                <select class="input" name="category">
+                    <option>Thiết bị đo</option>
+                    <option>Hỗ trợ vận động</option>
+                    <option>Chăm sóc tại nhà</option>
+                </select>
+            </label>
+            <label>Giá (₫)
+                <input class="input" type="number" name="price" min="0" step="1000" required />
+            </label>
+            <label>Tồn kho
+                <input class="input" type="number" name="stock" min="0" step="1" required />
+            </label>
+            <label>Trạng thái
+                <select class="input" name="status">
+                    <option>Đang bán</option>
+                    <option>Tạm ẩn</option>
+                </select>
+            </label>
+            <div class="actions">
+                <a class="btn btn-ghost" href="#">Hủy</a>
+                <button class="btn" type="submit">Lưu</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- SỬA -->
+<div id="modal-edit" class="modal">
+    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+    <div class="modal-body">
+        <h3>Sửa sản phẩm</h3>
+        <form class="form" action="#" method="post" data-action="update">
+            <input type="hidden" name="id" value="SP0001" />
+            <label>Tên sản phẩm
+                <input class="input" name="name" value="Máy đo huyết áp Omron HEM-7120" />
+            </label>
+            <label>Danh mục
+                <select class="input" name="category">
+                    <option selected>Thiết bị đo</option>
+                    <option>Hỗ trợ vận động</option>
+                    <option>Chăm sóc tại nhà</option>
+                </select>
+            </label>
+            <label>Giá (₫)
+                <input class="input" type="number" name="price" value="690000" />
+            </label>
+            <label>Tồn kho
+                <input class="input" type="number" name="stock" value="120" />
+            </label>
+            <label>Trạng thái
+                <select class="input" name="status">
+                    <option selected>Đang bán</option>
+                    <option>Tạm ẩn</option>
+                </select>
+            </label>
+            <div class="actions">
+                <a class="btn btn-ghost" href="#">Hủy</a>
+                <button class="btn" type="submit">Cập nhật</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- XÓA -->
+<div id="modal-delete" class="modal modal-sm">
+    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+    <div class="modal-body">
+        <h3>Xóa sản phẩm?</h3>
+        <p>Bạn chắc chắn muốn xóa <strong>SP0001</strong>?</p>
+        <div class="actions">
+            <a class="btn btn-ghost" href="#">Hủy</a>
+            <button class="btn btn-danger" type="button">Xóa</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
