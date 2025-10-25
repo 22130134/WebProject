@@ -1,14 +1,16 @@
 .product-type-wrap{
     margin-top: 20px;
     float: right;
-    position: relative;
     width: 79%;
     height: auto;
-    top: 5px;
-    right: -13px;
+    top: -5px;
+    right: -17px;
+    position: relative;
     z-index: 1;
+
 }
 .product-type-grid{
+
     width:98%;
     display:grid;
     border-left:1px solid #9aa5b1;
@@ -23,7 +25,7 @@
     border-top:none;
 
     padding:10px;
-   height:112px;
+   height:166px;
     display:flex;
     flex-direction:column;
     align-items:center;

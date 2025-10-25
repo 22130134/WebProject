@@ -1,14 +1,14 @@
 const categories = [
-    { name: "Combo khuyến mãi",      icon: "https://cdn-icons-png.flaticon.com/128/2542/2542350.png" },
-    { name: "Y tế gia đình",         icon: "https://cdn-icons-png.flaticon.com/128/2966/2966480.png" },
-    { name: "Y tế chuyên dụng",      icon: "https://cdn-icons-png.flaticon.com/128/2966/2966482.png" },
-    { name: "Chăm sóc sắc đẹp",      icon: "https://cdn-icons-png.flaticon.com/128/706/706195.png" },
-    { name: "Chăm sóc sức khỏe",     icon: "https://cdn-icons-png.flaticon.com/128/2965/2965567.png" },
-    { name: "Thiết bị gia đình",     icon: "https://cdn-icons-png.flaticon.com/128/599/599502.png" },
-    { name: "Đồ dùng mẹ và bé",      icon: "https://cdn-icons-png.flaticon.com/128/2942/2942789.png" },
-    { name: "Đồ thể thao",           icon: "https://cdn-icons-png.flaticon.com/128/1041/1041928.png" },
-    { name: "Quà tặng",              icon: "https://cdn-icons-png.flaticon.com/128/891/891462.png" },
-    { name: "Flash Sale",            icon: "https://cdn-icons-png.flaticon.com/128/991/991952.png", promo: true }
+    { name: "Combo khuyến mãi",      icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Qua-tang-suc-khoe.png" },
+    { name: "Y tế gia đình",         icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Y-te-gia-dinh.png" },
+    { name: "Y tế chuyên dụng",      icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Y-te-chuyen-dung.png"},
+    { name: "Chăm sóc sắc đẹp",      icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Cham-soc-sac-dep.png" },
+    { name: "Chăm sóc sức khỏe",     icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Cham-soc-suc-khoe.png" },
+    { name: "Thiết bị gia đình",     icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Thiet-bi-gia-dinh.png" },
+    { name: "Đồ dùng mẹ và bé",      icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Do-dung-me-be.png" },
+    { name: "Đồ thể thao",           icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Do-the-thao.png" },
+    { name: "Quà tặng",              icon: "https://sieuthiyte.com.vn/data/images/San-Pham/icon-qua-tang-phong-thuy-70x70.png" },
+    { name: "Flash Sale",            icon: "https://sieuthiyte.com.vn/themes/images/flash-sale-styt.png?t=1", promo: true }
 ];
 
 

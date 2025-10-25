@@ -1,8 +1,8 @@
 // JS: ảnh + render + logic slider
 const images = [
-    "https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/11/tai-hinh-nen-dep-mien-phi.jpg",
-    "https://thietkewebchuyen.com/wp-content/uploads/slogan-benh-vien-phong-kham-y-te-1.jpg"
-];
+    "https://st.meta.vn/img/thumb.ashx/Data/2025/Thang10/chao-thu/LDP-chao-thu-990x280.png",
+    "https://st.meta.vn/img/thumb.ashx/Data/2025/Thang04/Banner-tivi-thong-minh-990x280-a.png",
+    "https://st.meta.vn/img/thumb.ashx/Data/2025/Thang10/Banner-Halloween-990x280.png"];
 
 function createSlider(containerId, imgs, {interval=4000} = {}){
     const root = document.getElementById(containerId);
