@@ -1,13 +1,13 @@
 .product-type-wrap{
+
     margin-top: 20px;
     float: right;
-    width: 79%;
+    width: 77%;
     height: auto;
     top: -5px;
-    right: -17px;
+    right: -9px;
     position: relative;
     z-index: 1;
-
 }
 .product-type-grid{
     width:98%;
@@ -69,3 +69,6 @@
 .btn-more:hover{background:#e8f0ff}
 
 .product-type-card.is-hidden{display:none}
+.product-type-card:hover .product-type-name {
+    color: red;
+}

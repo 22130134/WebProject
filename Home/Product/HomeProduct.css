@@ -1,7 +1,9 @@
+
 .product {
+    padding: 0 4px 0 4px;
     margin:0px 200px auto;
     max-width: 1200px;
     height: auto;
     position: absolute;
-background-color: white;
+background-color: rgb(247 248 249);
 }

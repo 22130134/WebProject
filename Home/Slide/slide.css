@@ -3,11 +3,11 @@
     float: right;
     position: relative;
     overflow: hidden;
-    width: 78%;
+    width: 77%;
     height: 300px;
     margin: auto;
     top: 5px;
-    right: -1px;
+    right: 1px;
     border-radius: 5px;
 }
 
