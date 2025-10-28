@@ -1,8 +1,8 @@
 // JS: ảnh + render + logic slider
 const images = [
-    "https://st.meta.vn/img/thumb.ashx/Data/2025/Thang10/chao-thu/LDP-chao-thu-990x280.png",
-    "https://st.meta.vn/img/thumb.ashx/Data/2025/Thang04/Banner-tivi-thong-minh-990x280-a.png",
-    "https://st.meta.vn/img/thumb.ashx/Data/2025/Thang10/Banner-Halloween-990x280.png"];
+    "https://sieuthiyte.com.vn/data/images/San-Pham/chuong-trinh-khuyen-mai-chuc-mung-phu-nu-viet-nam-14102025.jpg",
+    "https://sieuthiyte.com.vn/data/images/San-Pham/banner-slide-may-tao-oxy-03072025.jpg",
+    "https://sieuthiyte.com.vn/data/images/San-Pham/giai-phap-ho-tro-phuc-hoi-cot-song-co-alphay-slide-16052025.jpg"];
 
 function createSlider(containerId, imgs, {interval=4000} = {}){
     const root = document.getElementById(containerId);
