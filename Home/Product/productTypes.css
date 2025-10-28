@@ -1,16 +1,16 @@
 .product-type-wrap{
 
-    margin-top: 20px;
+    margin-top: 15px;
     float: right;
     width: 77%;
     height: auto;
     top: -5px;
-    right: -9px;
+    right: -2px;
     position: relative;
     z-index: 1;
 }
 .product-type-grid{
-    width:98%;
+    width:100%;
     display:grid;
     grid-template-columns:repeat(6,1fr); /* 6 cột cố định */
 

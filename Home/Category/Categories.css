@@ -15,7 +15,7 @@
     margin-bottom:12px;
 }
 .dm-head h2{
-    font-size:18px;
+    font-size:30px;
     line-height:1;
     margin:0;
     padding-left:10px;
@@ -23,7 +23,7 @@
 }
 .dm-viewall{
     font-size:14px;
-    color:#1e9bff;
+    color: #100d0d;
     text-decoration:none;
 }
 .dm-viewall:hover{ text-decoration:underline; }
@@ -72,7 +72,7 @@
 }
 .dm-subhead h3{
     margin:0;
-    font-size:18px;
+    font-size:30px;
 }
 .dm-btn{
     background:#ffa200;
@@ -168,6 +168,57 @@
     font-weight:700;
     color:#fff;
 }
+
+/* ===== Slider ===== */
+.dm-slider{
+    position:relative;
+    border-radius:6px; background:#fff;
+}
+.dm-track{
+    display:flex; gap: var(--gap);
+    overflow:hidden; scroll-behavior:smooth;
+    will-change: transform;
+    padding: 10px 0 8px;
+}
+.dm-card{
+    flex: 0 0 calc((100% - var(--gap) * (var(--ppv) - 1)) / var(--ppv));
+    display:block; text-decoration:none; color:#222; border:1px solid #eee; border-radius:8px;
+    padding:10px; position:relative; background:#fff;
+}
+.dm-card .thumb{ height:170px; display:flex; align-items:center; justify-content:center; margin-bottom:8px; }
+.dm-card .thumb img{ max-width:100%; max-height:100%; object-fit:contain; }
+.dm-card .brand{ color:#888; font-size:12px; margin-bottom:6px; }
+.dm-card .name{ font-size:13px; font-weight:500; line-height:1.35; height:35px; overflow:hidden; margin:0 0 8px; }
+.dm-card .price{ display:flex; gap:8px; align-items:baseline; }
+.dm-card .price .new{ color:#d70018; font-weight:700; }
+.dm-card .price .old{ color:#999; text-decoration:line-through; font-size:12px; }
+.dm-card .rating{ margin-top:6px; font-size:12px; color:#ffb400; }
+.dm-card .rating .count{ color:#777; margin-left:4px; }
+
+/* Badge sale kiểu dải chéo và badge quà tròn */
+.badge{
+    position:absolute; left:0; top:0; z-index:2;
+    font-size:12px; font-weight:700; color:#fff;
+}
+.badge--sale{
+    background:#ff4d4f; padding:4px 10px; clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+    border-top-left-radius:8px;
+}
+.badge--gift{
+    background:#ff9800; padding:4px 8px; border-bottom-right-radius:8px; border-top-left-radius:8px;
+}
+
+/* Nút điều hướng */
+.dm-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:36px; height:36px; border-radius:999px; border:1px solid #e6e6e6;
+    background:#fff; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,.06); user-select:none;
+}
+.dm-prev{ left:-12px; }
+.dm-next{ right:-12px; }
+.dm-nav[disabled]{ opacity:.4; cursor:default; }
+
 .badge--sale{ background:#e53935; }
 .badge--gift{ background:#ff6b00; left:auto; right:10px; }
 
@@ -185,5 +236,5 @@
 }
 @media (max-width:480px){
     .dm-cats{ grid-template-columns: repeat(2, 1fr); }
-    .dm-head h2{ font-size:16px; }
+    .dm-head h2{ font-size:30px; }
 }
