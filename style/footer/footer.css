@@ -1,0 +1,94 @@
+/* footer.css */
+/* Tổng thể footer */
+.site-footer {
+  background-color: #f9f9f9;
+  color: #222;
+  font-family: "Arial", sans-serif;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 2px solid #ddd;
+}
+
+/* Phần top: các icon dịch vụ */
+.footer-top {
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+}
+
+.footer-section {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+.footer-item {
+  text-align: center;
+}
+
+.footer-item .icon {
+  display: block;
+  font-size: 30px;
+  color: red;
+}
+
+/* Phần chính: chia cột */
+.footer-main {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 30px;
+  padding: 30px 80px;
+  line-height: 1.6;
+}
+
+.footer-column h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column li {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 5px;
+}
+
+.footer-column li:hover {
+  color: #e60000;
+  cursor: pointer;
+}
+
+/* Phần icon mạng xã hội */
+.social-icons p {
+  margin: 4px 0;
+}
+
+.lang {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #666;
+}
+
+/* Phần cuối cùng */
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #ccc;
+  padding: 20px 60px;
+  font-size: 14px;
+  color: #333;
+}
+
+.footer-bottom img {
+  width: 100px;
+  margin: 10px;
+}
+
+.footer-bottom strong {
+  color: #000;
+}

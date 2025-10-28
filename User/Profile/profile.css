@@ -1,0 +1,179 @@
+/* =================== RESET MẶC ĐỊNH =================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* =================== HEADER =================== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #d62828; /* Màu đỏ đặc trưng của META */
+  color: white;
+  padding: 10px 20px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.header-center input {
+  width: 50%;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+}
+
+.search-btn {
+  background: white;
+  color: #d62828;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.header-right a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+/* =================== BỐ CỤC CHÍNH =================== */
+.container {
+  display: flex;
+  min-height: calc(100vh - 60px);
+  background: #f8f8f8;
+}
+
+/* =================== THANH MENU BÊN TRÁI =================== */
+.sidebar {
+  width: 260px;
+  background: white;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+}
+
+.user-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  background: #c0392b;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 auto;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Danh sách menu */
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar a {
+  display: block;
+  color: #333;
+  padding: 10px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+  background: #ffe6e6;
+  color: #d62828;
+  font-weight: 600;
+}
+
+.logout {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+/* =================== PHẦN PROFILE =================== */
+.profile {
+  flex: 1;
+  background: white;
+  margin: 20px;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.avatar-large {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #b33939;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+}
+
+.change-avatar {
+  border: none;
+  background: transparent;
+  color: #d62828;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Các dòng thông tin */
+.info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-row {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  color: #333;
+}
+
+.info-row span {
+  font-weight: 600;
+  width: 180px;
+  display: inline-block;
+}
+
+.info-row a {
+  color: #1e88e5;
+  margin-left: 8px;
+  text-decoration: none;
+}
