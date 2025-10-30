@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm mới địa chỉ</title>
+    <link rel="stylesheet" href="add_address.css">
+</head>
+<body>
+    <div class="address-modal">
+        <div class="address-header">
+            <h2>Thêm mới địa chỉ</h2>
+            <button class="close-btn">✕</button>
+        </div>
+
+        <form class="address-form">
+            <label>Họ tên:</label>
+            <input type="text" placeholder="Nhập họ tên">
+
+            <label>Điện thoại:</label>
+            <input type="text" placeholder="Nhập số điện thoại">
+
+            <label>Email:</label>
+            <input type="email" placeholder="Nhập email">
+
+            <label>Tỉnh/TP:</label>
+            <select>
+                <option value="">Tỉnh/Thành phố</option>
+            </select>
+
+            <label>Quận/Huyện:</label>
+            <select>
+                <option value="">Quận/Huyện/Thị Xã</option>
+            </select>
+
+            <label>Phường/Xã:</label>
+            <select>
+                <option value="">Phường/Xã/Thị trấn</option>
+            </select>
+
+            <label>Địa chỉ:</label>
+            <textarea placeholder="Số nhà, tên đường, thôn, xóm, khóm, ấp..."></textarea>
+
+            <label>Loại địa chỉ:</label>
+            <div class="type-options">
+                <button type="button" class="type-btn active">Nhà Riêng</button>
+                <button type="button" class="type-btn">Văn Phòng</button>
+            </div>
+
+            <div class="default-option">
+                <input type="checkbox" id="default">
+                <label for="default">Sử dụng địa chỉ này làm mặc định</label>
+            </div>
+
+            <button type="submit" class="submit-btn">THÊM ĐỊA CHỈ</button>
+        </form>
+    </div>
+
+    <script>
+        // Chọn loại địa chỉ
+        const buttons = document.querySelectorAll('.type-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
