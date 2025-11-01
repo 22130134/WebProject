@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+}
+
+/* MAIN LAYOUT */
+.container {
+    display: flex;
+    padding: 20px 60px;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 230px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 20px 0;
+    margin-right: 30px;
+    height: fit-content;
+}
+
+.user-info {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.avatar {
+    background: #d9232d;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    line-height: 60px;
+    font-size: 24px;
+    margin: 0 auto;
+}
+
+.username {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu li:hover {
+    background: #f2f2f2;
+}
+
+.menu li.active {
+    color: #d9232d;
+    font-weight: bold;
+}
+
+/* CONTENT */
+.content {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.add-address-btn {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.add-address-btn:hover {
+    background: #f8f8f8;
+}
+
+.address-box {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 25px;
+    text-align: center;
+    color: #666;
+}
