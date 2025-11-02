@@ -1,0 +1,101 @@
+/* ===== Product Gallery – CSS fixed ===== */
+:root{
+    --pg-gap: 12px;
+    --pg-thumb: 84px;
+    --pg-radius: 12px;
+    --pg-border: #e5e7eb;
+    --pg-accent: #2563eb;
+}
+
+/* chống đụng global */
+.product-gallery, .product-gallery * {
+   }
+
+/* vỏ ngoài */
+.product-gallery{
+    max-width: 35%;
+    float: left;
+    background-color: white;
+}
+
+/* ảnh chính */
+.product-gallery .main-image{
+    width: 100%;
+    border: 1px solid #ffffff;
+    background: #fafafa;
+}
+.product-gallery .main-image img{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* hàng thumbnail + nút */
+.product-gallery .thumb-row{
+    display: flex;
+    align-items: center;
+    gap: var(--pg-gap);
+    min-width: 0;                      /* tránh tràn flex-item */
+}
+
+.product-gallery .btn-nav{
+    width: 40px;
+    height: 40px;
+    border: 1px solid gray;
+    background: #fff;
+    font-size: 18px;
+}
+.product-gallery .btn-nav:hover{ background: #f8fafc; border-color: #d1d5db; }
+.product-gallery .btn-nav:active{ transform: scale(.95); }
+.product-gallery .btn-nav:disabled{ opacity:.4; cursor: default; }
+
+.product-gallery .thumb-viewport{
+    flex: 1 1 auto;                    /* chiếm hết phần giữa */
+    overflow: hidden;                   /* che phần thừa khi cuộn */
+    min-width: 0;
+}
+
+/* dải thumbnail: dùng flex thay vì grid-auto-flow để tương thích rộng */
+.product-gallery .thumbs{
+    display: flex;
+    gap: var(--pg-gap);
+    padding: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+}
+.product-gallery .thumbs::-webkit-scrollbar{ height: 8px; }
+.product-gallery .thumbs::-webkit-scrollbar-thumb{
+    background: #d1d5db; border-radius: 99px;
+}
+
+/* từng thumbnail */
+.product-gallery .thumb{
+    width: var(--pg-thumb);
+    height: var(--pg-thumb);
+    border: 1px solid var(--pg-border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+}
+.product-gallery .thumb img{
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    pointer-events: none;              /* để hover bắt trên .thumb */
+}
+
+.product-gallery .thumb:hover{
+    border-color: var(--pg-accent);
+    box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+}
+.product-gallery .thumb:active{ transform: scale(.98); }
+.product-gallery .thumb.is-active{
+    outline: 2px solid var(--pg-accent);
+    outline-offset: 2px;
+}
+
+/* mobile: thu nhỏ thumbnail một chút */
+@media (max-width: 420px){
+    :root{ --pg-thumb: 72px; }
+}

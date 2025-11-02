@@ -11,7 +11,7 @@
     display: flow-root;
     width: var(--sidebar-w);
     border: 1px solid var(--divider);
-    max-width: 1200px;
+    width: 100%;
     height: auto;
     background-color: #ffffff;
 }
