@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <title>Chi tiết sản phẩm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="ProductDetail.css">
+    <link rel="stylesheet" href="../Product/HomeProduct.css">
+    <link rel="stylesheet" href="../../style/style.css">
+
+</head>
+<body>
+<div id="header"></div>
+<div class="container">
+    <div class="product">
+        <div class="product-gallery" id="gallery">
+            <!-- Ảnh chính -->
+            <div class="main-image" aria-live="polite">
+                <img id="mainImg" src="" alt="Hình ảnh sản phẩm">
+            </div>
+
+            <!-- Hàng thumbnail + nút điều hướng -->
+            <div class="thumb-row">
+                <button class="btn-nav" id="btnPrev" aria-label="Ảnh trước">&larr;</button>
+
+                <div class="thumb-viewport">
+                    <div class="thumbs" id="thumbs" role="list"></div>
+                </div>
+
+                <button class="btn-nav" id="btnNext" aria-label="Ảnh sau">&rarr;</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="footer"></div>
+<script src="../../style/footer/footer.js"></script>
+<script src="../../style/header/Module_header.js"></script>
+<script src="product_detail.js"></script>
+
+
+</body>
+</html>
