@@ -13,8 +13,8 @@ body {
 }
 
 .container {
-    margin: 0px auto;
-    height: 1200px;
+    margin: auto;
+    height: 1200px ;
     background-color: white;
 
 }
