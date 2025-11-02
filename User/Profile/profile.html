@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - META</title>
+
+  <!-- Liên kết đến file CSS -->
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+  <!-- ==============User/Profile/profile.css===== PHẦN HEADER =================== -->
+  <header class="header">
+    <div class="header-left">
+      <!-- Nút menu (dành cho giao diện nhỏ) -->
+      <button class="menu-btn">☰</button>
+      <h1 class="logo">META</h1>
+    </div>
+
+    <!-- Ô tìm kiếm trung tâm -->
+    <div class="header-center">
+      <input type="text" placeholder="Bạn cần tìm kiếm sản phẩm gì?">
+      <button class="search-btn">Tìm kiếm</button>
+    </div>
+
+    <!-- Khu vực bên phải: giỏ hàng, hotline, tài khoản -->
+    <div class="header-right">
+      <a href="#" class="cart">🛒 Giỏ hàng</a>
+      <a href="#" class="hotline">📞 Hotline</a>
+      <a href="#" class="user">👤 Chào Tiến</a>
+    </div>
+  </header>
+
+  <!-- =================== PHẦN NỘI DUNG CHÍNH =================== -->
+  <main class="container">
+
+    <!-- ======== THANH MENU BÊN TRÁI ======== -->
+    <aside class="sidebar">
+      <div class="user-info">
+        <!-- Avatar dạng chữ cái -->
+        <div class="avatar">H</div>
+        <h2>Hung Truong Tiến</h2>
+      </div>
+
+      <!-- Danh sách liên kết menu -->
+      <ul>
+        <li><a href="#" class="active">Thông tin tài khoản</a></li>
+        <li><a href="#">Địa chỉ</a></li>
+        <li><a href="#">Lịch sử mua hàng</a></li>
+        <li><a href="#">Sản phẩm đã xem</a></li>
+        <li><a href="#">Đánh giá của tôi</a></li>
+        <li><a href="#">Mã giảm giá</a></li>
+        <li><a href="#">Tra cứu bảo hành</a></li>
+        <li><a href="#">Tra cứu hóa đơn</a></li>
+        <li><a href="#" class="logout">Đăng xuất</a></li>
+      </ul>
+    </aside>
+
+    <!-- ======== PHẦN THÔNG TIN TÀI KHOẢN ======== -->
+    <section class="profile">
+      <!-- Ảnh đại diện lớn -->
+      <div class="profile-header">
+        <div class="avatar-large">H</div>
+        <button class="change-avatar">Thay ảnh</button>
+      </div>
+
+      <!-- Bảng thông tin tài khoản -->
+      <div class="info-grid">
+        <div class="info-row"><span>Tên đăng nhập:</span> 858a7db3c1474186a3e738c432a08b0d</div>
+        <div class="info-row"><span>Họ tên:</span> Hung Truong Tien<a href="#">Sửa</a></div>
+        <div class="info-row"><span>Điện thoại:</span> 0375690xxx ✅ <a href="#">Thay đổi</a></div>
+        <div class="info-row"><span>Email:</span> 23130130@st.hcmuaf.edu.vn ✅ <a href="#">Sửa</a></div>
+        <div class="info-row"><span>Ngày sinh:</span> 21/02/2005 <a href="#">Sửa</a></div>
+        <div class="info-row"><span>Giới tính:</span> Không tiết lộ <a href="#">Sửa</a></div>
+        <div class="info-row"><span>Mật khẩu:</span> ***** <a href="#">Đổi mật khẩu</a></div>
+        <div class="info-row">
+          <span>Vô hiệu hóa và xóa:</span> Vô hiệu hóa tạm thời hoặc xóa vĩnh viễn tài khoản của bạn.
+          <a href="#">Xem</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
