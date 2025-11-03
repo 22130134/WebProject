@@ -33,3 +33,24 @@
     //   }
     // });
 })();
+
+
+// Đặt highlight menu theo URL hiện tại
+const setActiveMenu = () => {
+    // Lấy tên file hiện tại (mặc định coi trang rỗng là overview.html)
+    const current = location.pathname.split('/').pop() || 'overview.html';
+
+    document.querySelectorAll('.sidebar .menu .menu-item').forEach(a => {
+        const href = a.getAttribute('href') || '';
+        // Lấy phần tên file của href để so
+        const file = href.split('/').pop();
+
+        if (file && file === current) {
+            a.classList.add('is-active');
+        } else {
+            a.classList.remove('is-active');
+        }
+    });
+};
+
+setActiveMenu();

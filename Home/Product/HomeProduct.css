@@ -1,8 +1,9 @@
 
 .product {
     padding: 0 4px 0 4px;
-    margin:30px 240px auto;
-    max-width: 1200px;
+    margin:30px 180px auto;
+    width: 80%;
+
     height: auto;
     position: absolute;
 background-color: rgb(247 248 249);
