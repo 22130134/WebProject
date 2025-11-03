@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sổ địa chỉ</title>
+    <link rel="stylesheet" href="address.css">
+    <link rel="stylesheet" href="../../style/header/header.css" />
+    <link rel="stylesheet" href="../User_sidebar/user_sidebar.css" />
+    <link rel="stylesheet" href="../../style/footer/footer.css" />
+</head>
+<body>
+    <!-- HEADER -->
+    <div id="header"></div>
+
+    <main class="container">
+        <!-- Sidebar -->
+         <div id ="sidebar"></div>
+         
+        <!-- Nội dung chính -->
+        <section class="content">
+            <div class="content-header">
+                <h2>Sổ địa chỉ</h2>
+                <button class="add-address-btn">+ Thêm địa chỉ mới</button>
+            </div>
+
+            <div class="address-box">
+                <p>Chưa có địa chỉ nào.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    
+</body>
+<!-- Script để tải header & footer -->
+  <script>
+    // Load header
+    fetch("../../style/header/header.html")
+      .then(response => response.text())
+      .then(data => document.getElementById("header").innerHTML = data);
+
+    // Load sidebar
+    fetch("../User_sidebar/user_sidebar.html")
+      .then(response => response.text())
+      .then(data => document.getElementById("sidebar").innerHTML = data);
+
+    // Load footer
+    fetch("../../style/footer/footer.html")
+      .then(response => response.text())
+      .then(data => document.getElementById("footer").innerHTML = data);
+  </script>
+</html>

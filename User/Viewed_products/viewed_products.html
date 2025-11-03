@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản phẩm đã xem</title>
+    <link rel="stylesheet" href="viewed_products.css">
+    <link rel="stylesheet" href="../../style/header/header.css" />
+    <link rel="stylesheet" href="../User_sidebar/user_sidebar.css" />
+    <link rel="stylesheet" href="../../style/footer/footer.css" />
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- User container -->
+    <div class="user-container">
+        <!-- Sidebar -->
+        <div id="sidebar"></div>
+
+        <!-- Main content -->
+        <main class="view-products-container">
+            <h2 class="title">Sản phẩm đã xem gần đây</h2>
+            <div class="view-products-content">
+                <p class="empty-message">Quý khách chưa xem sản phẩm nào.</p>
+            </div>
+        </main>
+    </div>
+    <!-- Footer -->
+    <div id="footer"></div>
+</body>
+<!-- Script để tải header & sidebar & footer -->
+<script>
+    // Load header
+    fetch("../../style/header/header_logged_registed.html")
+        .then(response => response.text())
+        .then(data => document.getElementById("header").innerHTML = data);
+
+    // Load sidebar
+    fetch("../User_sidebar/user_sidebar.html")
+        .then(response => response.text())
+        .then(data => document.getElementById("sidebar").innerHTML = data);
+
+    // Load footer
+    fetch("../../style/footer/footer.html")
+        .then(response => response.text())
+        .then(data => document.getElementById("footer").innerHTML = data);
+</script>
+
+</html>
