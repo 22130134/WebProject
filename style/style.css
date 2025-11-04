@@ -15,7 +15,7 @@ body {
 .container {
     margin:0px 180px auto;
     padding: 0 ;
-    height: 1200px;
+    height: auto;
     background-color: rgb(247 248 249);
 
 }
