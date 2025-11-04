@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="utf-8" />
-    <title>MedHome Admin — Tài khoản</title>
+    <title>MedHome Admin — Sản phẩm</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="admin.css" />
 </head>
@@ -13,7 +13,7 @@
     <a href="overview.html" class="logo">META</a>
 
     <form class="searchbar" action="#" role="search">
-        <input type="text" placeholder="Tìm người dùng..." />
+        <input type="text" placeholder="Tìm sản phẩm..." />
         <button type="submit">Tìm</button>
     </form>
 
@@ -41,45 +41,50 @@
 
     <!-- Content -->
     <main class="content">
-        <h2>Quản lý tài khoản</h2>
+        <h2>Quản lý sản phẩm</h2>
 
-        <!-- Bộ lọc nhanh -->
-        <section class="card" style="padding:12px; margin: 10px 0 14px;">
-            <form class="form" action="#" method="get" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:10px; align-items:end;">
-                <label> Tên / Email
-                    <input class="input" type="text" name="q" placeholder="Nhập từ khóa...">
+        <!-- Bộ lọc -->
+        <section class="card" style="padding:12px; margin:10px 0 14px;">
+            <form class="form" action="#" method="get"
+                  style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:10px; align-items:end;">
+                <label>Tên / Mã
+                    <input class="input" type="text" name="q" placeholder="Ví dụ: HEM-7120, nhiệt kế...">
                 </label>
-                <label> Vai trò
-                    <select class="input" name="role">
+                <label>Danh mục
+                    <select class="input" name="cat">
                         <option value="">Tất cả</option>
-                        <option>Admin</option>
-                        <option>Nhân viên</option>
-                        <option>Khách</option>
+                        <option>Thiết bị đo</option>
+                        <option>Hỗ trợ vận động</option>
+                        <option>Chăm sóc tại nhà</option>
                     </select>
                 </label>
-                <label> Trạng thái
+                <label>Trạng thái
                     <select class="input" name="status">
                         <option value="">Tất cả</option>
-                        <option>Hoạt động</option>
-                        <option>Bị khóa</option>
+                        <option>Còn hàng</option>
+                        <option>Hết hàng</option>
+                        <option>Ẩn</option>
                     </select>
+                </label>
+                <label>Khoảng giá (₫)
+                    <input class="input" type="text" name="price" placeholder="vd: 100000-1000000">
                 </label>
                 <div class="actions" style="margin:0;">
                     <button class="btn btn-ghost" type="submit">Lọc</button>
-                    <a class="btn btn-ghost" href="accounts.html">Reset</a>
+                    <a class="btn btn-ghost" href="products.html">Reset</a>
                 </div>
             </form>
         </section>
 
         <!-- Actions -->
         <div class="actions">
-            <a class="btn" href="#modal-add-account">+ Thêm tài khoản</a>
-            <a class="btn btn-ghost" href="#modal-edit-account">Sửa</a>
-            <a class="btn btn-ghost" href="#modal-lock">Khóa/Mở khóa</a>
-            <a class="btn btn-danger" href="#modal-delete-account">Xóa</a>
+            <a class="btn" href="#modal-add">+ Thêm sản phẩm</a>
+            <a class="btn btn-ghost" href="#modal-edit">Sửa</a>
+            <a class="btn btn-ghost" href="#modal-hide">Ẩn/Hiện</a>
+            <a class="btn btn-danger" href="#modal-delete">Xóa</a>
         </div>
 
-        <!-- Bảng tài khoản -->
+        <!-- Bảng sản phẩm -->
         <section class="card">
             <div class="table-wrap">
                 <table class="table">
@@ -88,8 +93,9 @@
                         <th><input type="checkbox" aria-label="Chọn tất cả"></th>
                         <th>Mã</th>
                         <th>Tên</th>
-                        <th>Email</th>
-                        <th>Vai trò</th>
+                        <th>Danh mục</th>
+                        <th>Giá (₫)</th>
+                        <th>Tồn kho</th>
                         <th>Trạng thái</th>
                         <th>Ngày tạo</th>
                     </tr>
@@ -97,29 +103,32 @@
                     <tbody>
                     <tr>
                         <td><input type="checkbox" aria-label="Chọn"></td>
-                        <td>U001</td>
-                        <td>Nguyễn Văn Admin</td>
-                        <td>admin@medhome.vn</td>
-                        <td><span class="badge">Admin</span></td>
-                        <td><span class="badge ok">Hoạt động</span></td>
-                        <td>01/10/2025</td>
+                        <td>SP0001</td>
+                        <td>Máy đo huyết áp Omron HEM-7120</td>
+                        <td>Thiết bị đo</td>
+                        <td>690.000</td>
+                        <td>120</td>
+                        <td><span class="badge ok">Còn hàng</span></td>
+                        <td>03/10/2025</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" aria-label="Chọn"></td>
-                        <td>U102</td>
-                        <td>Trần Thị Nhân Viên</td>
-                        <td>nhanvien@medhome.vn</td>
-                        <td><span class="badge">Nhân viên</span></td>
-                        <td><span class="badge ok">Hoạt động</span></td>
-                        <td>15/10/2025</td>
+                        <td>SP0134</td>
+                        <td>Nhiệt kế điện tử Microlife</td>
+                        <td>Chăm sóc tại nhà</td>
+                        <td>149.000</td>
+                        <td>0</td>
+                        <td><span class="badge">Hết hàng</span></td>
+                        <td>12/10/2025</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" aria-label="Chọn"></td>
-                        <td>U245</td>
-                        <td>Lê Văn Khách</td>
-                        <td>levankhach@gmail.com</td>
-                        <td><span class="badge">Khách</span></td>
-                        <td><span class="badge">Bị khóa</span></td>
+                        <td>SP0208</td>
+                        <td>Nạng nách nhôm trợ lực</td>
+                        <td>Hỗ trợ vận động</td>
+                        <td>320.000</td>
+                        <td>45</td>
+                        <td><span class="badge ok">Còn hàng</span></td>
                         <td>20/10/2025</td>
                     </tr>
                     </tbody>
@@ -131,27 +140,29 @@
     </main>
 </div>
 
-<!-- ===== MODALS: CRUD mẫu (UI thôi) ===== -->
+<!-- ===== MODALS CRUD (UI) ===== -->
 <!-- Thêm -->
-<div id="modal-add-account" class="modal">
+<div id="modal-add" class="modal">
     <a href="#" class="modal-overlay" aria-label="Đóng"></a>
     <div class="modal-body">
-        <h3>Thêm tài khoản</h3>
+        <h3>Thêm sản phẩm</h3>
         <form class="form" action="#" method="post">
-            <label>Họ tên <input class="input" name="name" required></label>
-            <label>Email <input class="input" type="email" name="email" required></label>
-            <label>Mật khẩu <input class="input" type="password" name="password" required></label>
-            <label>Vai trò
-                <select class="input" name="role">
-                    <option>Admin</option>
-                    <option selected>Nhân viên</option>
-                    <option>Khách</option>
+            <label>Tên <input class="input" name="name" required></label>
+            <label>Mã <input class="input" name="code" required></label>
+            <label>Danh mục
+                <select class="input" name="category">
+                    <option>Thiết bị đo</option>
+                    <option>Hỗ trợ vận động</option>
+                    <option>Chăm sóc tại nhà</option>
                 </select>
             </label>
+            <label>Giá (₫) <input class="input" type="number" name="price" min="0" step="1000" required></label>
+            <label>Tồn kho <input class="input" type="number" name="stock" min="0" required></label>
             <label>Trạng thái
                 <select class="input" name="status">
-                    <option selected>Hoạt động</option>
-                    <option>Bị khóa</option>
+                    <option selected>Còn hàng</option>
+                    <option>Hết hàng</option>
+                    <option>Ẩn</option>
                 </select>
             </label>
             <div class="actions">
@@ -163,25 +174,27 @@
 </div>
 
 <!-- Sửa -->
-<div id="modal-edit-account" class="modal">
+<div id="modal-edit" class="modal">
     <a href="#" class="modal-overlay" aria-label="Đóng"></a>
     <div class="modal-body">
-        <h3>Sửa tài khoản</h3>
+        <h3>Sửa sản phẩm</h3>
         <form class="form" action="#" method="post">
-            <label>Họ tên <input class="input" name="name" value="Trần Thị Nhân Viên"></label>
-            <label>Email <input class="input" type="email" name="email" value="nhanvien@medhome.vn"></label>
-            <label>Mật khẩu (để trống nếu giữ nguyên) <input class="input" type="password" name="password"></label>
-            <label>Vai trò
-                <select class="input" name="role">
-                    <option>Admin</option>
-                    <option selected>Nhân viên</option>
-                    <option>Khách</option>
+            <label>Tên <input class="input" name="name" value="Máy đo huyết áp Omron HEM-7120"></label>
+            <label>Mã <input class="input" name="code" value="SP0001"></label>
+            <label>Danh mục
+                <select class="input" name="category">
+                    <option selected>Thiết bị đo</option>
+                    <option>Hỗ trợ vận động</option>
+                    <option>Chăm sóc tại nhà</option>
                 </select>
             </label>
+            <label>Giá (₫) <input class="input" type="number" name="price" value="690000"></label>
+            <label>Tồn kho <input class="input" type="number" name="stock" value="120"></label>
             <label>Trạng thái
                 <select class="input" name="status">
-                    <option selected>Hoạt động</option>
-                    <option>Bị khóa</option>
+                    <option selected>Còn hàng</option>
+                    <option>Hết hàng</option>
+                    <option>Ẩn</option>
                 </select>
             </label>
             <div class="actions">
@@ -192,12 +205,12 @@
     </div>
 </div>
 
-<!-- Khóa/Mở khóa -->
-<div id="modal-lock" class="modal modal-sm">
+<!-- Ẩn/Hiện -->
+<div id="modal-hide" class="modal modal-sm">
     <a href="#" class="modal-overlay" aria-label="Đóng"></a>
     <div class="modal-body">
-        <h3>Khóa / Mở khóa tài khoản?</h3>
-        <p>Bạn muốn thay đổi trạng thái của <strong>U245 — Lê Văn Khách</strong>?</p>
+        <h3>Ẩn/Hiện sản phẩm?</h3>
+        <p>Bạn muốn thay đổi hiển thị của <strong>SP0134 — Nhiệt kế điện tử Microlife</strong>?</p>
         <div class="actions">
             <a class="btn btn-ghost" href="#">Hủy</a>
             <button class="btn" type="button">Xác nhận</button>
@@ -206,11 +219,11 @@
 </div>
 
 <!-- Xóa -->
-<div id="modal-delete-account" class="modal modal-sm">
+<div id="modal-delete" class="modal modal-sm">
     <a href="#" class="modal-overlay" aria-label="Đóng"></a>
     <div class="modal-body">
-        <h3>Xóa tài khoản?</h3>
-        <p>Bạn chắc chắn muốn xóa <strong>U102 — Trần Thị Nhân Viên</strong>?</p>
+        <h3>Xóa sản phẩm?</h3>
+        <p>Bạn chắc chắn muốn xóa <strong>SP0208 — Nạng nách nhôm trợ lực</strong>?</p>
         <div class="actions">
             <a class="btn btn-ghost" href="#">Hủy</a>
             <button class="btn btn-danger" type="button">Xóa</button>
