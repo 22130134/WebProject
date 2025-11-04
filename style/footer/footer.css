@@ -1,7 +1,7 @@
 .content{
-        margin: 0 auto;
+        margin: 5px auto;
         height: auto;
-        background-color: white;
+    background-color: rgb(247 248 249);
 
 }
 .feature-strip {
@@ -13,7 +13,7 @@
     background: #fff;
     border-top: 1px solid #eef0f2;
     border-bottom: 1px solid #eef0f2;
-    margin-top: 10px;
+    margin: 0 0 5px 0;
 }
 
 .feature {
@@ -51,12 +51,12 @@
 
 /* ====== Footer – Thiết bị y tế ====== */
 .ft-health{
-    margin-top: 20px;
     display:grid;
     grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr;
     gap:28px;
     padding:12px 0 6px;
     font:14px/1.5 Arial, Helvetica, sans-serif;
+    background-color: white;
 }
 
 .ft-col h4{

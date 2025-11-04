@@ -1,10 +1,10 @@
 
 .product {
-    padding: 0 4px 0 4px;
-    margin:30px 180px auto;
-    width: 80%;
-
-    height: auto;
-    position: absolute;
-background-color: rgb(247 248 249);
+    border: 2px solid rgb(247 248 249);
+    margin: 20px 0 0 0;
+    width: 100%;
+    overflow: visible;
+    min-height:auto; /* tạm thử để test */
+background-color: white;
+    position: relative;         /* bổ sung: cho phép canh phải theo block cha */
 }
