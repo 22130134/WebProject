@@ -4,7 +4,10 @@
     margin: 20px 0 0 0;
     width: 100%;
     overflow: visible;
-    min-height:auto; /* tạm thử để test */
+    height: auto;
 background-color: white;
-    position: relative;         /* bổ sung: cho phép canh phải theo block cha */
+    position: relative;
+    content:"";
+    display: table;  /* hoặc block */
+    clear: both;
 }

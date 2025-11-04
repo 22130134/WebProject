@@ -12,21 +12,23 @@ html, body, .container, .product {
 
 :root { --header-h: 70px; }   /* nếu header fixed ~70px, bạn có thể chỉnh */
 
+.product-info{
+    padding: 40px 20px 0 20px;
+    float: left;
+    padding-right: 30px;
+    width: 75%;
+    height: auto;
+}
 #viewed-root{
+    align-self: flex-start;
     position: sticky !important;
     top: calc(var(--header-h) + 10px) !important;
     bottom: auto !important;          /* quan trọng: không để bottom điều khiển */
     margin-top: 0 !important;
-
-    width: 279px;
-    margin-left: auto;
-    z-index: 10;
+    width: 25%;
 
     /* CHÍNH #viewed-root cuộn */
-    max-height: calc(100vh - (var(--header-h) + 10px)) !important;
-    overflow-y: auto !important;
     overflow-x: hidden;
-    display: block;
 }
 
 
@@ -95,7 +97,7 @@ html, body, .container, .product {
     border-top: 1px solid #efefef;
 }
 
-.
+
 
 .viewed-item:hover {
     background: #fafafa;
