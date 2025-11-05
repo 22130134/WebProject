@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lịch sử mua hàng</title>
+  <link rel="stylesheet" href="purchase_history.css" />
+  <link rel="stylesheet" href="../../style/header/header_logged_registed.css" />
+  <link rel="stylesheet" href="../User_sidebar/user_sidebar.css" />
+  <link rel="stylesheet" href="../../style/footer/footer.css" />
+</head>
+
+<body>
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- User container -->
+  <div class="user-container">
+    <!-- Sidebar -->
+    <div id="sidebar"></div>
+
+    <!-- Main content -->
+    <main class="content">
+      <section class="order-history">
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab active">Chờ xác nhận</button>
+          <button class="tab">Đã xác nhận</button>
+          <button class="tab">Đang giao</button>
+          <button class="tab">Đã giao</button>
+          <button class="tab">Đã hủy</button>
+        </div>
+
+        <!-- Search box -->
+        <div class="search-box">
+          <input type="text" placeholder="Tìm theo mã đơn hàng, tên sản phẩm..." />
+          <button>🔍</button>
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty-state">
+          <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="No Orders" />
+          <p>Chưa có đơn hàng</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <!-- Load shared layout -->
+  <script>
+    // Load header
+    fetch("../../style/header/header_logged_registed.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("header").innerHTML = data);
+
+    // Load sidebar
+    fetch("../User_sidebar/user_sidebar.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("sidebar").innerHTML = data);
+
+    // Load footer
+    fetch("../../style/footer/footer.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("footer").innerHTML = data);
+  </script>
+</body>
+
+</html>

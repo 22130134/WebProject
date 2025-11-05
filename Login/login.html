@@ -1,14 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Đăng nhập META.vn</title>
   <link rel="stylesheet" href="login.css">
-  <link rel="stylesheet" href="../style/header/header.css" />
+  <link rel="stylesheet" href="../style/header/header_not_log_reg.css" />
   <link rel="stylesheet" href="../style/footer/footer.css" />
 </head>
+
 <body>
   <!-- HEADER -->
   <div id="header"></div>
@@ -37,20 +38,21 @@
       <button class="btn-social zalo">💬 Đăng nhập bằng Zalo</button>
       <button class="btn-social google">🌐 Đăng nhập bằng Google</button>
     </div>
-  </main> 
+  </main>
   <!-- FOOTER -->
   <div id="footer"></div>
 </body>
- <!-- Script để tải header & footer -->
-  <script>
-    // Load header
-    fetch("../style/header/header_not_log_reg.html")
-      .then(response => response.text())
-      .then(data => document.getElementById("header").innerHTML = data);
+<!-- Script để tải header & footer -->
+<script>
+  // Load header
+  fetch("../style/header/header_not_log_reg.html")
+    .then(response => response.text())
+    .then(data => document.getElementById("header").innerHTML = data);
 
-    // Load footer
-    fetch("../style/footer/footer.html")
-      .then(response => response.text())
-      .then(data => document.getElementById("footer").innerHTML = data);
-  </script>
+  // Load footer
+  fetch("../style/footer/footer.html")
+    .then(response => response.text())
+    .then(data => document.getElementById("footer").innerHTML = data);
+</script>
+
 </html>
