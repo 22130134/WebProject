@@ -1,8 +1,8 @@
 const IMAGES = [
     // ví dụ ảnh mẫu: thay bằng ảnh của bạn
-    'https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m58b9cf4fad241',
-    'https://down-vn.img.susercontent.com/file/7107990071f7904a342c14b39d070ba0',
-    'https://down-vn.img.susercontent.com/file/c28c65c2fcd9f6e3e6baa7b4cd621d51',
+    'https://sieuthiyte.com.vn/data/images/San-Pham/que-thu-may-do-duong-huyet-sapphire-plus-10-que-av1-1.jpg',
+    'https://sieuthiyte.com.vn/data/images/San-Pham/que-thu-may-do-duong-huyet-sapphire-plus-10-que-av3.jpg',
+    'https://sieuthiyte.com.vn/data/images/San-Pham/que-thu-may-do-duong-huyet-sapphire-plus-10-que-av2.jpg',
 
 ];
 
@@ -59,7 +59,7 @@ btnNext.addEventListener('click', ()=>scrollThumbs(1));
 
 // Khởi tạo
 const PRODUCT = {
-    name: "Nồi cơm điện tử Toshiba 1 lít RC-10NMFVN(WT)",
+    name: "Que thử đường huyết máy đo Sapphire Plus (10 que)",
     brand: { name: "Toshiba", url: "#" },
     brandLineUrl: "#",
     rating: 4.6,
