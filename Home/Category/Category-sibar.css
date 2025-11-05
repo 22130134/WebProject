@@ -8,6 +8,7 @@
 
 }
 .category-sidebar {
+    margin-top: 30px;
     display: flow-root;
     width: var(--sidebar-w);
     border: 1px solid var(--divider);

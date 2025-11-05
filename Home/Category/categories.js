@@ -119,7 +119,7 @@ function renderDmProduct(p) {
     const badgeHTML = p.badge ? `<span class="badge ${p.badge.includes('%') ? 'badge--sale' : 'badge--gift'}">${p.badge}</span>` : '';
     const url = `/product-detail.html?slug=${encodeURIComponent(slugify(p.name))}`;
     return `
-<a class="dm-card" href="/WebProject/Home/Product_Detail/ProductDetail.html">
+<a class="dm-card" href="/WebProject/Product_Detail/ProductDetail.html">
         ${badgeHTML}
         <div class="thumb"><img src="${p.img}" alt="${p.name}"></div>
         <div class="brand">${p.brand}</div>
