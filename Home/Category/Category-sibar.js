@@ -1,58 +1,55 @@
-const categories = [
-    { name: "Combo khuyến mãi",      icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Qua-tang-suc-khoe.png" },
-    { name: "Y tế gia đình",         icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Y-te-gia-dinh.png" },
-    { name: "Y tế chuyên dụng",      icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Y-te-chuyen-dung.png"},
-    { name: "Chăm sóc sắc đẹp",      icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Cham-soc-sac-dep.png" },
-    { name: "Chăm sóc sức khỏe",     icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Cham-soc-suc-khoe.png" },
-    { name: "Thiết bị gia đình",     icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Thiet-bi-gia-dinh.png" },
-    { name: "Đồ dùng mẹ và bé",      icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Do-dung-me-be.png" },
-    { name: "Đồ thể thao",           icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Do-the-thao.png" },
-    { name: "Quà tặng",              icon: "https://sieuthiyte.com.vn/data/images/San-Pham/icon-qua-tang-phong-thuy-70x70.png" },
-    { name: "Flash Sale",            icon: "https://sieuthiyte.com.vn/themes/images/flash-sale-styt.png?t=1", promo: true }
-];
+// Home/Category/categories.js
+(() => {
+    // DATA
+    const categories = [
+        { name: "Combo khuyến mãi",  icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Qua-tang-suc-khoe.png" },
+        { name: "Y tế gia đình",     icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Y-te-gia-dinh.png" },
+        { name: "Y tế chuyên dụng",  icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Y-te-chuyen-dung.png"},
+        { name: "Chăm sóc sắc đẹp",  icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Cham-soc-sac-dep.png" },
+        { name: "Chăm sóc sức khỏe", icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Cham-soc-suc-khoe.png" },
+        { name: "Thiết bị gia đình", icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Thiet-bi-gia-dinh.png" },
+        { name: "Đồ dùng mẹ và bé",  icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Do-dung-me-be.png" },
+        { name: "Đồ thể thao",       icon: "https://sieuthiyte.com.vn/data/images/icon-menu-mobile/icon-new-2-1/Do-the-thao.png" },
+        { name: "Quà tặng",          icon: "https://sieuthiyte.com.vn/data/images/San-Pham/icon-qua-tang-phong-thuy-70x70.png" },
+        { name: "Flash Sale",        icon: "https://sieuthiyte.com.vn/themes/images/flash-sale-styt.png?t=1", promo: true }
+    ];
 
+    // Util: bỏ dấu + tạo slug
+    const slugify = s => s.toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
-const container = document.getElementById("category-list");
+    function renderCategories() {
+        const container = document.getElementById("category-list");
+        if (!container) return;
 
-function renderCategories() {
-    categories.forEach(cat => {
-        const div = document.createElement("div");
-        div.className = "category-item" + (cat.all ? " all" : "");
+        container.innerHTML = "";
+        categories.forEach(cat => {
+            const a = document.createElement("a");
+            a.className = "category-link";
 
-        const img = document.createElement("img");
-        img.src = cat.icon;
-        img.alt = cat.name;
+            // ====== QUAN TRỌNG: đường dẫn tới Catalog ======
+            // Nếu catalog.html nằm trong thư mục Catalog (WebProject/Catalog/catalog.html)
+            a.href = `Catalog/catalog.html#${slugify(cat.name)}`;
 
-        const text = document.createElement("span");
-        text.textContent = cat.name;
+            // Nếu catalog.html nằm ở gốc WebProject thì dùng:
+            // a.href = `catalog.html#${slugify(cat.name)}`;
 
-        // Thêm dấu ">" bên phải
-        const chev = document.createElement("span");
-        chev.className = "chevron";
-        chev.textContent = ">";
+            const div = document.createElement("div");
+            div.className = "category-item";
+            div.innerHTML = `
+        <img src="${cat.icon}" alt="${cat.name}">
+        <span>${cat.name}</span>
+      `;
 
-        // Tạo bảng trắng (submenu panel)
-        const panel = document.createElement("div");
-        panel.className = "submenu-panel";
-        panel.innerHTML = `
-      <div style="padding:16px; color:#999; font-size:14px;">
-        (Chưa có dữ liệu)
-      </div>
-    `;
-
-        // Gắn các phần tử vào .category-item
-        div.appendChild(img);
-        div.appendChild(text);
-        div.appendChild(chev);
-        div.appendChild(panel);
-
-        // Tạm thời giữ sự kiện click nếu cần
-        div.addEventListener("click", () => {
-            console.log("Clicked:", cat.name);
+            a.appendChild(div);
+            container.appendChild(a);
         });
+    }
 
-        container.appendChild(div);
-    });
-}
-
-renderCategories();
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", renderCategories, { once: true });
+    } else {
+        renderCategories();
+    }
+})();
