@@ -2,29 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Catalog</title>
     <link rel="stylesheet" href="catalog.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../style/style.css">
-
 </head>
 <body>
-<!-- catalog.html -->
 <div id="header"></div>
 
 <div class="container">
     <div class="page-header">
         <div class="breadcrumb">
-            <i class="fa-solid fa-house"></i>
+            <a href="../index.html" class="home-link"><i class="fa-solid fa-house"></i></a>
             <span class="chevron">›</span>
-            <a href="#">Y Tế Gia Đình</a>
+            <span id="crumbCurrent">Danh mục</span>
         </div>
-
-
     </div>
+
     <div class="catalog-page">
         <aside class="filter-sidebar" id="filterSidebar">
-
             <section class="filter-block brand">
                 <h3 class="filter-title">Mặt Hàng</h3>
                 <div class="filter-search">
@@ -56,12 +52,12 @@
             <div class="product-grid" id="productGrid"></div>
         </main>
     </div>
-    <div class="footer"></div>
 
+    <div class="footer"></div>
 </div>
+
 <script src="catalog.js"></script>
 <script src="../style/footer/footer.js"></script>
 <script src="../style/header/Module_header.js"></script>
-
 </body>
 </html>

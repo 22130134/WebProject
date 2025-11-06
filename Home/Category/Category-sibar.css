@@ -3,9 +3,9 @@
     position: relative;
     z-index: 10;
     margin-top: 5px;
-    background-color: #fafafa;
+    background-color: #ffffff;
     padding: 10px;
-
+    height: 610px;
 }
 .category-sidebar {
     margin-top: 30px;
@@ -51,10 +51,9 @@
     padding: 10px 14px;
     gap: 10px;
     width: 230px;
-    border-radius: 5px;
-    border-bottom: 1px solid var(--divider);
     cursor: pointer;
     transition: background 0.15s;
+    margin-bottom:5px ;
 }
 
 .category-item img {
@@ -67,7 +66,7 @@
 }
 
 .category-item:hover {
-    background: #f8a7ea;
+    background: #f49f9f;
     transform: translateX(4px);
 }
 .category-item .chevron {
@@ -83,26 +82,61 @@
     pointer-events: auto; /* cho phép hover vào chính nó */
     color: #9aa5b1;
 }
-.category-item:hover .chevron {
-    opacity: 1;
-    transform: translateX(4px);
-    color: #ffffff;
+/* ====== RESET LINK ====== */
+.category-link{
+    display:block;
+    text-decoration:none;
+    color:inherit;
+    /* để toàn bộ hàng là vùng bấm */
+}
+.category-link:visited{ color:inherit; }
+
+/* ====== HÀNG DANH MỤC (a > .category-item) ====== */
+.category-link .category-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 14px;
+    background:#fff;
+    transition:background .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+
+/* hover/active đẹp mắt */
+.category-link:hover .category-item{
+    background:linear-gradient(90deg, #e53935, #ff7043);                 /* màu bạn đang dùng */
+    transform:translateX(4px);
+    box-shadow:0 4px 12px rgba(0,0,0,.06);
+    color: white;
+}
+.category-link:active .category-item{
+    transform:translateX(2px);
+    filter:brightness(.98);
+
 }
 
 
-.category-item .submenu-panel {
-    position: absolute;
-    z-index: 99999;
-    top: 0;
-    left: 100%;
-    width: min(760px, 70vw);
-    height: 420px;                /* tạm thời */
-    background: #ffffff;
-    border: 1px solid #e6eaf0;
-    display: none;
+/* icon + text */
+.category-item img{
+    width:30px;height:30px;flex:0 0 30px;
+    object-fit:contain;
 }
-.category-item .chevron:hover + .submenu-panel,
-.category-item .submenu-panel:hover {
-    display: block;
+.category-item span{
+    font-size:14px;
+    color:#222;
+    line-height:1.35;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
 
+/* bo góc item đầu/cuối, bỏ đường kẻ cuối cùng */
+.category-list .category-link:last-child .category-item{
+    border-bottom:none;
+    color: white;
 }
+.category-list .category-link:first-child .category-item{
+    color: white;
+}
+
+
+
