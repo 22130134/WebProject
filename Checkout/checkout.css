@@ -31,6 +31,8 @@ body {
     width: 100%;
 }
 
+/* .address-section h3#checkout {} */
+
 .address-section label {
     display: block;
     margin: 10px 0 6px 10px;
@@ -178,13 +180,24 @@ textarea {
 }
 
 .summary {
-    margin-top: 15px;
+    text-align: right;
 }
 
 .summary p {
     display: flex;
     justify-content: space-between;
 }
+ /* Tạo chiều rộng cố định cho cột bên trái */
+/* .summary p span:first-child {
+    display: inline-block;
+    width: 100px;
+    text-align: left;
+}
+
+.summary p span:last-child {
+    text-align: right;
+    flex: 1;
+} */
 
 .summary .total {
     color: red;
@@ -192,9 +205,15 @@ textarea {
 }
 
 .discount-code {
-    display: inline-block;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     margin-top: 10px;
-    color: #0077cc;
+    gap: 8px;
+}
+
+.discount-code:hover {
+    color: red;
 }
 
 /* Footer */
