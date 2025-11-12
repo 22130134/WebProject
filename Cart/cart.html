@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Giỏ hàng - META</title>
+    <link rel="stylesheet" href="/style/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <link rel="stylesheet" href="/WebProject/Cart/cart.css">
+</head>
+<body>
+<div id="header"></div>
+
+<main class="cart-container">
+    <h1>Giỏ hàng</h1>
+
+    <div class="cart-grid">
+        <section class="cart-list">
+            <table class="cart-table">
+                <thead>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="cart-rows"></tbody>
+            </table>
+        </section>
+
+        <aside class="cart-summary">
+            <h2>Thông tin đơn hàng</h2>
+            <div class="sum-row"><span>Tổng sản phẩm</span><strong id="sum-qty">0</strong></div>
+            <div class="sum-row"><span>Tạm tính</span><strong id="sum-price">0đ</strong></div>
+            <a href="#" class="btn-checkout" id="btn-checkout">Tiến hành đặt hàng</a>
+        </aside>
+    </div>
+</main>
+
+<div class="footer"></div>
+
+<script src="/style/header/Module_header.js"></script>
+<script src="/style/footer/footer.js"></script>
+<script src="/WebProject/Cart/cart.js"></script>
+</body>
+</html>
