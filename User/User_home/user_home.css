@@ -10,15 +10,15 @@
 .main-container {
     display: flex;
     min-height: calc(100vh - 70px);
+    background: #f8f8f8;;
     gap: 15px;
     padding: 0 140px;
     padding-top: 35px;
     padding-bottom: 8px;
-    background-color: #f7f8f9;
 }
 
 /* Nội dung chính */
-.content {
+.main-container .content {
     flex: 1;
     background-color: white;
     padding: 25px 40px;
