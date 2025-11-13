@@ -115,3 +115,9 @@
     .ft-health{ grid-template-columns: 1fr; }
     .ft-col:not(:last-child){ padding-right:0; }
 }
+
+.footer {
+    max-width: 1160px;
+    margin: 0 auto;
+}
+
