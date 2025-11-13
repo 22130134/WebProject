@@ -10,8 +10,6 @@
     right: 1px;
     border-radius: 5px;
 }
-
-
 #slider .slides{ display:flex;
     transition:transform .5s ease; }
 #slider .slides img{
@@ -43,6 +41,6 @@
     border-radius:50%; border:0;
     cursor:pointer; }
 #slider .dots button.active{
-
-    background:#fff; }
+    background:#fff;
+}
 
