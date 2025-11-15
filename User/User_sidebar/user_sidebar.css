@@ -38,6 +38,7 @@
 
 .menu {
     list-style: none;
+     height: 100vh;
 }
 
 .menu li {
