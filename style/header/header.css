@@ -134,7 +134,7 @@ body { padding-top: 72px; margin: 0; font-family: Arial, sans-serif; }
 .mini-cart{
     position: absolute;
     right: 0;
-    top: calc(100% + 10px);
+    top: calc(100% + 2px);
     width: 380px;
     background: #fff;
     color: var(--text);
