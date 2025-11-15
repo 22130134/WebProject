@@ -41,7 +41,6 @@
         <img src="${cat.icon}" alt="${cat.name}">
         <span>${cat.name}</span>
       `;
-
             a.appendChild(div);
             container.appendChild(a);
         });
