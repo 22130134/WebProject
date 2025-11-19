@@ -1,15 +1,24 @@
 <!doctype html>
 <html lang="vi">
+
 <head>
     <meta charset="utf-8" />
     <title>MedHome Admin — Tổng quan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="admin.css" />
 </head>
+
 <body>
-<!-- ===== HEADER ===== -->
+
+<!-- HEADER -->
 <header class="site-header">
-    <button id="btn-toggle" class="hamburger" aria-label="Mở/đóng menu" aria-controls="sidebar" aria-expanded="true">☰</button>
+
+    <button id="btn-toggle"
+            class="hamburger"
+            aria-label="Mở/đóng menu"
+            aria-controls="sidebar"
+            aria-expanded="true">☰</button>
+
     <a href="overview.html" class="logo">META</a>
 
     <form class="searchbar" action="#" role="search">
@@ -21,13 +30,19 @@
         <a class="topbtn" href="#" title="Thông báo">🔔</a>
         <a class="topbtn" href="#" title="Tài khoản">👤</a>
     </nav>
+
 </header>
 
-<!-- ===== LAYOUT ===== -->
+<!-- LAYOUT -->
 <div class="layout">
-    <!-- Sidebar -->
-    <aside id="sidebar" class="sidebar" aria-hidden="false">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar"
+           class="sidebar"
+           aria-hidden="false">
+
         <div class="sidebar-title">Quản trị</div>
+
         <nav class="menu">
             <a class="menu-item" href="overview.html">🏠 Tổng quan</a>
             <a class="menu-item" href="accounts.html">👥 Tài khoản</a>
@@ -37,72 +52,101 @@
             <a class="menu-item" href="settings.html">⚙️ Cài đặt</a>
             <a class="menu-item danger" href="#">🚪 Đăng xuất</a>
         </nav>
+
     </aside>
 
-    <!-- Content -->
+    <!-- CONTENT -->
     <main class="content">
+
         <h2>Bảng điều khiển</h2>
 
         <!-- KPIs -->
         <section class="stats">
+
             <div class="stat-card">
                 <h3>🧰 Sản phẩm</h3>
                 <p class="value">128</p>
                 <p class="sub">+12 tuần này</p>
             </div>
+
             <div class="stat-card">
                 <h3>🧾 Đơn hàng</h3>
                 <p class="value">54</p>
                 <p class="sub">7 đang xử lý</p>
             </div>
+
             <div class="stat-card">
                 <h3>💸 Doanh thu</h3>
                 <p class="value">₫ 820M</p>
                 <p class="sub">+8.3%</p>
             </div>
+
             <div class="stat-card">
                 <h3>👥 Người dùng</h3>
                 <p class="value">342</p>
                 <p class="sub">+5 hôm nay</p>
             </div>
+
         </section>
 
-        <!-- Tác vụ nhanh -->
-        <section class="card" style="padding:12px; margin:10px 0 14px;">
-            <div class="actions" style="margin:0; flex-wrap:wrap;">
+        <!-- TÁC VỤ NHANH -->
+        <section class="card"
+                 style="padding:12px; margin:10px 0 14px;">
+
+            <div class="actions"
+                 style="margin:0; flex-wrap:wrap;">
+
                 <a class="btn" href="orders.html">+ Tạo đơn nhanh</a>
                 <a class="btn btn-ghost" href="products.html">Quản lý sản phẩm</a>
                 <a class="btn btn-ghost" href="accounts.html">Quản lý tài khoản</a>
                 <a class="btn btn-ghost" href="revenue.html">Xem báo cáo doanh thu</a>
+
             </div>
+
         </section>
 
-        <!-- 2 cột: Biểu đồ & Hoạt động -->
-        <section style="display:grid; grid-template-columns: 1.2fr .8fr; gap:12px; margin-bottom:14px;">
-            <!-- Biểu đồ placeholder -->
+        <!-- 2 CỘT: BIỂU ĐỒ & HOẠT ĐỘNG -->
+        <section style="display:grid; grid-template-columns:1.2fr .8fr; gap:12px; margin-bottom:14px;">
+
+            <!-- BIỂU ĐỒ -->
             <div class="card" style="padding:14px;">
+
                 <h3 style="margin-bottom:10px;">Doanh thu 7 ngày gần nhất</h3>
-                <div style="height:220px; border:1px dashed var(--line); border-radius:8px; display:grid; place-items:center; color:var(--muted);">
+
+                <div style="height:220px;
+                                border:1px dashed var(--line);
+                                border-radius:8px;
+                                display:grid;
+                                place-items:center;
+                                color:var(--muted);">
                     (Khu vực biểu đồ — placeholder UI)
                 </div>
+
             </div>
 
-            <!-- Hoạt động gần đây -->
+            <!-- HOẠT ĐỘNG GẦN ĐÂY -->
             <div class="card" style="padding:14px;">
+
                 <h3 style="margin-bottom:10px;">Hoạt động gần đây</h3>
+
                 <ul style="list-style:none; display:grid; gap:8px; font-size:14px;">
                     <li>🟢 <strong>ĐH10234</strong> — đánh dấu <em>Đã giao</em> (10:12)</li>
                     <li>🛠 Sản phẩm <strong>HEM-7120</strong> cập nhật giá 690.000 → 710.000 (09:40)</li>
                     <li>👤 Thêm tài khoản <strong>nhanvien@medhome.vn</strong> (Huyền) (09:15)</li>
                     <li>📦 <strong>ĐH10233</strong> — chuyển sang <em>Chờ xử lý</em> (08:58)</li>
                 </ul>
+
             </div>
+
         </section>
 
-        <!-- Bảng đơn gần đây -->
+        <!-- BẢNG ĐƠN GẦN ĐÂY -->
         <section class="card" style="margin-bottom:14px;">
+
             <div class="table-wrap">
+
                 <table class="table">
+
                     <thead>
                     <tr>
                         <th>Mã</th>
@@ -112,7 +156,9 @@
                         <th>TT</th>
                     </tr>
                     </thead>
+
                     <tbody>
+
                     <tr>
                         <td>DH10234</td>
                         <td>Nguyễn Văn A</td>
@@ -120,6 +166,7 @@
                         <td>1.280.000</td>
                         <td><span class="badge ok">Đã giao</span></td>
                     </tr>
+
                     <tr>
                         <td>DH10233</td>
                         <td>Lê Thị B</td>
@@ -127,6 +174,7 @@
                         <td>520.000</td>
                         <td><span class="badge">Chờ xử lý</span></td>
                     </tr>
+
                     <tr>
                         <td>DH10232</td>
                         <td>Phạm Văn C</td>
@@ -134,17 +182,26 @@
                         <td>2.350.000</td>
                         <td><span class="badge ok">Đang giao</span></td>
                     </tr>
+
                     </tbody>
+
                 </table>
+
             </div>
+
         </section>
 
-        <!-- Sản phẩm sắp hết & Ghi chú -->
-        <section style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+        <!-- SẢN PHẨM SẮP HẾT & GHI CHÚ -->
+        <section style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+
             <div class="card" style="padding:14px;">
+
                 <h3 style="margin-bottom:10px;">Sản phẩm sắp hết hàng</h3>
+
                 <div class="table-wrap">
+
                     <table class="table">
+
                         <thead>
                         <tr>
                             <th>Mã</th>
@@ -152,6 +209,7 @@
                             <th>Tồn</th>
                         </tr>
                         </thead>
+
                         <tbody>
                         <tr>
                             <td>SP0134</td>
@@ -164,24 +222,35 @@
                             <td>5</td>
                         </tr>
                         </tbody>
+
                     </table>
+
                 </div>
+
             </div>
 
             <div class="card" style="padding:14px;">
+
                 <h3 style="margin-bottom:10px;">Ghi chú / Thông báo nội bộ</h3>
+
                 <ul style="list-style:disc; padding-left:18px; color:var(--muted);">
                     <li>Ưu tiên xử lý đơn <strong>đang giao > 3 ngày</strong>.</li>
                     <li>Chuẩn bị <strong>khuyến mãi 11.11</strong> – cập nhật banner trước 08/11.</li>
                     <li>Kiểm tra tồn kho nhóm “Thiết bị đo”.</li>
                 </ul>
+
             </div>
+
         </section>
 
         <footer class="foot">© 2025 MedHome Admin</footer>
+
     </main>
+
 </div>
 
 <script src="app.js"></script>
+
 </body>
+
 </html>
