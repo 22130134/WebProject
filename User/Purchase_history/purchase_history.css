@@ -1,21 +1,26 @@
 /* ======= Tổng thể ======= */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f7f8f9;
+  background-color: #f8f8f8;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', Arial, sans-serif;
 }
 
 .user-container {
   display: flex;
   width: 100%;
-  min-height: 80vh;
+  min-height: calc(100vh - 70px);
+  gap: 15px;
+  padding: 0 140px;
+  padding-top: 35px;
+  padding-bottom: 8px;
 }
 
 /* ======= Nội dung chính ======= */
-.content {
+.user-container .content {
   flex: 1;
-  background-color: #fff;
+  background-color: white;
   padding: 20px 30px;
   border-left: 1px solid #eee;
 }
@@ -52,9 +57,8 @@ body {
 /* ======= Thanh tìm kiếm ======= */
 .search-box {
   display: flex;
-  align-items: center;
-  border: 1px solid #d32f2f;
-  border-radius: 6px;
+  align-items: center;  
+  border: 3px solid #f8f8f8;
   overflow: hidden;
   max-width: 450px;
   margin-bottom: 30px;
@@ -84,7 +88,7 @@ body {
 }
 
 .empty-state img {
-  width: 120px;
+  width: 80px;
   opacity: 0.8;
 }
 
@@ -92,24 +96,3 @@ body {
   font-size: 16px;
   margin-top: 12px;
 }
-
-/* ======= Responsive ======= */
-/* @media (max-width: 768px) {
-  .user-container {
-    flex-direction: column;
-  }
-
-  .content {
-    padding: 15px;
-  }
-
-  .tabs {
-    flex-wrap: wrap;
-  }
-
-  .tab {
-    flex: 1 1 45%;
-    text-align: center;
-    padding: 10px;
-  }
-} */
