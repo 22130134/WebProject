@@ -209,4 +209,66 @@ html, body, .container, .product {
 :root{
     --header-h: 70px; /* Chiều cao header (tùy trang bạn) */
 }
+/* =============================
+   REVIEW STYLE – SIMPLE & CLEAN
+   ============================= */
+
+.reviews {
+    margin-top: 24px;
+    font-family: inherit;
+}
+
+.review-item {
+    padding: 16px 0;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.review-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: #222;
+}
+
+.review-stars i {
+    color: #ffb400;   /* vàng đẹp */
+    font-size: 15px;
+}
+
+.review-time {
+    font-size: 13px;
+    color: #777;
+    margin: 4px 0 6px;
+}
+
+.review-content {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.review-images {
+    margin-top: 8px;
+    display: flex;
+    gap: 8px;
+}
+
+.review-images img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    transition: 0.2s;
+}
+
+.review-images img:hover {
+    transform: scale(1.05);
+    border-color: #aaa;
+}
 
