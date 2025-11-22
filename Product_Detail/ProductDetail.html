@@ -9,10 +9,47 @@
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="CSS/view.css">
     <link rel="stylesheet" href="CSS/inforProduct.css">
+    <link rel="stylesheet" href="../style/footer/footer.css">
+    <link rel="stylesheet" href="../style/header/header.css">
 
 </head>
 <body>
-<div id="header"></div>
+<header class="site-header">
+    <div class="header-left">
+        <input type="checkbox" id="nav-toggle" hidden>
+        <a href="/WebProject/index.html" class="logo">META</a>
+    </div>
+
+    <form class="searchbar" action="#" method="get">
+        <input type="text" name="q" placeholder="Tìm kiếm?" />
+        <button type="submit">Tìm kiếm</button>
+    </form>
+
+    <div class="header-right">
+        <!-- CART WRAP để hover -->
+        <div class="cart-wrap">
+            <a class="topbtn cart-btn" href="/WebProject/Cart/cart.html">
+                <i class="fa-solid fa-cart-shopping"></i>
+                Giỏ Hàng <span class="cart-badge" aria-label="Số lượng">0</span>
+            </a>
+            <!-- MINI-CART DROPDOWN -->
+            <div class="mini-cart" role="dialog" aria-label="Sản phẩm mới thêm">
+                <ul class="mini-cart-list" id="mini-cart-list"></ul>
+                <div class="mini-cart-footer">
+                    <div class="mini-cart-total">
+                        <span>Tổng:</span>
+                        <strong id="mini-cart-total">0đ</strong>
+                    </div>
+                    <a class="mini-cart-view" href="/WebProject/Cart/cart.html">Xem Giỏ Hàng</a>
+                </div>
+            </div>
+        </div>
+
+        <a class="topbtn" href="#"><i class="fa-solid fa-phone"> </i>Hotline</a>
+        <a class="topbtn" href="/WebProject/Login/login.html"><i class="fa-solid fa-user"> </i>Đăng Nhập </a>
+    </div>
+</header>
+
 <div class="container">
     <div class="product">
         <div class="product-gallery" id="gallery">
