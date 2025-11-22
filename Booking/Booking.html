@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Đặt lịch chăm sóc sức khỏe - META</title>
+  <link rel="stylesheet" href="../style/header/header_logged_registed.css">
+  <link rel="stylesheet" href="booking.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../style/footer/footer.css">
+  <link rel="stylesheet" href="../style/header/header.css">
+  <script src="../style/header/header.js"></script>
+</head>
+
+<body>
+<header class="site-header">
+  <div class="header-left">
+    <input type="checkbox" id="nav-toggle" hidden>
+    <a href="/WebProject/index.html" class="logo">META</a>
+  </div>
+
+  <form class="searchbar" action="#" method="get">
+    <input type="text" name="q" placeholder="Tìm kiếm?" />
+    <button type="submit">Tìm kiếm</button>
+  </form>
+
+  <div class="header-right">
+    <!-- CART WRAP để hover -->
+    <div class="cart-wrap">
+      <a class="topbtn cart-btn" href="/WebProject/Cart/cart.html">
+        <i class="fa-solid fa-cart-shopping"></i>
+        Giỏ Hàng <span class="cart-badge" aria-label="Số lượng">0</span>
+      </a>
+      <!-- MINI-CART DROPDOWN -->
+      <div class="mini-cart" role="dialog" aria-label="Sản phẩm mới thêm">
+        <ul class="mini-cart-list" id="mini-cart-list"></ul>
+        <div class="mini-cart-footer">
+          <div class="mini-cart-total">
+            <span>Tổng:</span>
+            <strong id="mini-cart-total">0đ</strong>
+          </div>
+          <a class="mini-cart-view" href="/WebProject/Cart/cart.html">Xem Giỏ Hàng</a>
+        </div>
+      </div>
+    </div>
+
+    <a class="topbtn" href="#"><i class="fa-solid fa-phone"> </i>Hotline</a>
+    <a class="topbtn" href="/WebProject/Login/login.html"><i class="fa-solid fa-user"> </i>Đăng Nhập </a>
+  </div>
+</header>
+
+<main class="container">
+  <!-- Bên trái: Form đặt lịch -->
+  <section class="booking-section">
+    <h3 class="section-title">
+      🩺 Đặt lịch chăm sóc sức khỏe
+    </h3>
+
+    <div class="form-group">
+      <label>Họ và Tên *</label>
+      <input type="text" placeholder="Họ và tên khách hàng">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Số điện thoại *</label>
+        <input type="text" placeholder="Nhập số điện thoại">
+      </div>
+      <div class="form-group">
+        <label>Email (nếu có)</label>
+        <input type="email" placeholder="Nhập email để nhận thông tin lịch hẹn">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Loại dịch vụ chăm sóc *</label>
+      <select>
+        <option>-- Chọn dịch vụ --</option>
+        <option>Khám sức khỏe tổng quát</option>
+        <option>Chăm sóc sức khỏe tại nhà</option>
+        <option>Vật lý trị liệu / Phục hồi chức năng</option>
+        <option>Chăm sóc sức khỏe người cao tuổi</option>
+        <option>Tư vấn sức khỏe online</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Ngày hẹn *</label>
+        <input type="date">
+      </div>
+      <div class="form-group">
+        <label>Giờ hẹn *</label>
+        <input type="time">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Hình thức chăm sóc *</label>
+      <div class="radio-group">
+        <label><input type="radio" name="care_type" checked> Tại nhà</label>
+        <label><input type="radio" name="care_type"> Tại cơ sở META</label>
+        <label><input type="radio" name="care_type"> Tư vấn online</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Địa chỉ chăm sóc (nếu chọn tại nhà)</label>
+      <input type="text" placeholder="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành">
+    </div>
+
+    <label class="inline-checkbox">
+      <input type="checkbox">
+      Đặt lịch cho người thân (vợ/chồng, bố mẹ, con cái...)
+    </label>
+
+    <div class="form-group">
+      <label>Thông tin người được chăm sóc</label>
+      <input type="text" placeholder="Họ tên, độ tuổi, tình trạng sức khỏe (nếu có)">
+    </div>
+
+    <div class="form-group">
+      <label>Ghi chú thêm cho META</label>
+      <textarea placeholder="Ví dụ: có bệnh nền, dị ứng thuốc, yêu cầu đặc biệt..."></textarea>
+    </div>
+
+    <button class="btn-submit">
+      <i class="fa fa-calendar-check"></i>
+      Xác nhận đặt lịch
+    </button>
+  </section>
+
+  <!-- Bên phải: Tóm tắt & thông tin hỗ trợ -->
+  <aside class="schedule-section">
+    <h3 class="section-title">📋 Thông tin lịch hẹn</h3>
+
+    <div class="summary-card">
+      <p><strong>Khách hàng:</strong> ..............................................</p>
+      <p><strong>Dịch vụ:</strong> ..............................................</p>
+      <p><strong>Thời gian:</strong> .................. / ............</p>
+      <p><strong>Hình thức:</strong> Tại nhà / Tại cơ sở / Online</p>
+      <p><strong>Địa chỉ:</strong> ..............................................</p>
+    </div>
+
+    <div class="info-box">
+      <h4>🏥 Lưu ý & Hỗ trợ</h4>
+      <ul>
+        <li>Đội ngũ chăm sóc sức khỏe được đào tạo bài bản.</li>
+        <li>META sẽ liên hệ để xác nhận lịch hẹn sau khi tiếp nhận thông tin.</li>
+        <li>Thời gian phục vụ: 8h00 - 21h00 (tất cả các ngày trong tuần).</li>
+      </ul>
+    </div>
+
+    <div class="contact-box">
+      <p>📞 Hotline hỗ trợ: <strong>1900 1234</strong></p>
+      <p>✉ Email: <a href="mailto:csyt@meta.vn">csyt@meta.vn</a></p>
+    </div>
+  </aside>
+</main>
+
+<div class="content">
+  <section class="feature-strip">
+    <div class="feature">
+      <img class="feature-icon" src="https://meta.vn/images/icons/dich-vu-uy-tin-icon.svg" alt="Uy tín">
+      <span class="feature-text">Dịch vụ uy tín</span>
+    </div>
+
+    <div class="feature">
+      <img class="feature-icon" src="https://meta.vn/images/icons/doi-tra-hang-icon.svg" alt="Đổi trả 7 ngày">
+      <span class="feature-text">Đổi trả trong 7 ngày</span>
+    </div>
+
+    <div class="feature">
+      <img class="feature-icon" src="https://meta.vn/images/icons/giao-hang-toan-quoc-icon.svg" alt="Giao toàn quốc">
+      <span class="feature-text">Giao hàng toàn quốc</span>
+    </div>
+  </section>
+  <div class="ft-row ft-health">
+    <!-- Cột 1 -->
+    <div class="ft-col">
+      <h4>Liên hệ & hỗ trợ</h4>
+      <ul class="ft-list">
+        <li class="ft-flag"><strong>Miền Bắc & Trung</strong></li>
+        <li>Mua hàng: <a class="tel" href="tel:02435686969">(024) 3568 6969</a></li>
+        <li>Bảo hành: <a class="tel" href="tel:02435681234">(024) 3568 1234</a></li>
+        <li class="ft-flag"><strong>Miền Nam</strong></li>
+        <li>Mua hàng: <a class="tel" href="tel:02838336666">(028) 3833 6666</a></li>
+        <li>Bảo hành: <a class="tel" href="tel:02838331234">(028) 3833 1234</a></li>
+        <li class="ft-time">
+          <span>Thứ 2–Thứ 6: 8:00–17:30</span>
+          <span>Thứ 7: 8:00–12:00</span>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- Cột 2 -->
+    <div class="ft-col">
+      <h4>Hỗ trợ khách hàng</h4>
+      <ul class="ft-links">
+        <li><a href="#">Chính sách đổi trả & bảo hành</a></li>
+        <li><a href="#">Hướng dẫn thanh toán</a></li>
+        <li><a href="#">Chính sách giao hàng lạnh/nhanh</a></li>
+        <li><a href="#">Hướng dẫn đặt hàng online</a></li>
+        <li><a href="#">Bảo mật thông tin y tế</a></li>
+      </ul>
+    </div>
+
+    <!-- Cột 3 -->
+    <div class="ft-col">
+      <h4>Dịch vụ chuyên môn</h4>
+      <ul class="ft-links">
+        <li><a href="#">Hiệu chuẩn & kiểm định thiết bị</a></li>
+        <li><a href="#">Tư vấn set-up phòng khám</a></li>
+        <li><a href="#">Bảo trì – thay thế vật tư</a></li>
+        <li><a href="#">Thuê thiết bị y tế</a></li>
+      </ul>
+    </div>
+
+    <!-- Cột 4 -->
+    <div class="ft-col">
+      <h4>Về MEDITECH</h4>
+      <ul class="ft-links">
+        <li><a href="#">Giới thiệu</a></li>
+        <li><a href="#">Chứng nhận chất lượng</a></li>
+        <li><a href="#">Tin tức – tuyển dụng</a></li>
+        <li><a href="#">Liên hệ hợp tác</a></li>
+      </ul>
+    </div>
+
+    <!-- Cột 5 -->
+    <div class="ft-col">
+      <h4>Kết nối với chúng tôi</h4>
+      <ul class="ft-social">
+        <li><a href="#"><img src="https://meta.vn/images/icons/zalo.svg" alt="">Zalo</a></li>
+        <li><a href="#"><img src="https://meta.vn/images/icons/facebook-icon.svg" alt="">Facebook</a></li>
+        <li><a href="#"><img src="https://meta.vn/images/icons/youtube-icon.svg" alt="">Youtube</a></li>
+        <li><a href="#"><img src="https://meta.vn/Data/2025/Thang06/tiktok-meta.svg" alt="">Tiktok</a></li>
+      </ul>
+      <div class="ft-lang">
+        <a href="#">VN</a> / <a href="#">EN</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script src="../style/header/header.js"></script>
+
+</body>
+
+
+</html>

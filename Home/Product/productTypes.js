@@ -26,17 +26,14 @@ function render() {
     productTypes.forEach(p => {
         const card = document.createElement("div");
         card.className = "product-type-card";
-
         const badge = document.createElement("div");
         badge.className = "product-type-badge";
         badge.textContent = p.discount;
-
         const thumb = document.createElement("div");
         thumb.className = "product-type-thumb";
         const img = document.createElement("img");
         img.src = p.image; img.alt = p.name;
         thumb.appendChild(img);
-
         const name = document.createElement("div");
         name.className = "product-type-name";
         name.textContent = p.name;
