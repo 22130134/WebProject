@@ -36,29 +36,31 @@
     const CartStore = {
         get: read,
         set: write,
-        clear(){ write([]); },
-        add(item){
+        clear() { write([]); },
+        add(item) {
             const list = read();
             const idx = list.findIndex(p => p.id === item.id);
             if (idx >= 0) list[idx].qty += item.qty || 1;
-            else list.push({qty:1, ...item});
+            else list.push({ qty: 1, ...item });
             write(list);
         },
-        remove(id){
+        remove(id) {
             write(read().filter(p => p.id !== id));
         },
-        updateQty(id, qty){
-            const list = read().map(p => p.id===id ? {...p, qty: Math.max(1, qty)} : p);
+        updateQty(id, qty) {
+            const list = read().map(p =>
+                p.id === id ? { ...p, qty: Math.max(1, qty) } : p
+            );
             write(list);
         },
-        totalQty(){ return read().reduce((s,p)=>s+p.qty,0); },
-        totalPrice(){ return read().reduce((s,p)=>s+p.qty*p.price,0); },
+        totalQty() { return read().reduce((s, p) => s + p.qty, 0); },
+        totalPrice() { return read().reduce((s, p) => s + p.qty * p.price, 0); },
         format
     };
     window.CartStore = CartStore;
 
     // ---- 1) Sticky header ----
-    function setupStickyHeader(){
+    function setupStickyHeader() {
         const header = document.querySelector('.site-header');
         if (!header) return;
         const updateHeader = () => {
@@ -70,7 +72,7 @@
     }
 
     // ---- 2) Mini-cart render + badge ----
-    function renderMiniCart(){
+    function renderMiniCart() {
         seedIfEmpty(); // chỉ seed lần đầu
         const listEl = document.getElementById('mini-cart-list');
         const totalEl = document.getElementById('mini-cart-total');
@@ -80,30 +82,39 @@
         const items = CartStore.get();
         badge.textContent = CartStore.totalQty();
 
-        if (!items.length){
+        if (!items.length) {
             listEl.innerHTML = `<li class="mini-cart-item" style="justify-content:center">Giỏ hàng trống</li>`;
             totalEl.textContent = '0đ';
             return;
         }
 
         listEl.innerHTML = items.map(p => `
-      <li class="mini-cart-item">
-        <img class="mini-cart-thumb" src="${p.img}" alt="${p.name}">
-        <div>
-          <div class="mini-cart-title">${p.name}</div>
-          <div class="mini-cart-meta">Số lượng: ${p.qty}</div>
-        </div>
-        <div class="mini-cart-price">${CartStore.format(p.price * p.qty)}</div>
-      </li>
-    `).join('');
+            <li class="mini-cart-item">
+                <img class="mini-cart-thumb" src="${p.img}" alt="${p.name}">
+                <div>
+                    <div class="mini-cart-title">${p.name}</div>
+                    <div class="mini-cart-meta">Số lượng: ${p.qty}</div>
+                </div>
+                <div class="mini-cart-price">${CartStore.format(p.price * p.qty)}</div>
+            </li>
+        `).join('');
 
         totalEl.textContent = CartStore.format(CartStore.totalPrice());
     }
 
-    // ---- 3) Expose để Module_header.js gọi sau khi chèn HTML ----
-    window.setupStickyHeader = function(){
+    // ---- 3) Hàm init dùng chung + export cho module khác nếu cần ----
+    function initHeader() {
         setupStickyHeader();
         renderMiniCart();
-    };
+    }
 
+    // Cho header.js (hoặc file khác) gọi sau khi chèn HTML header xong
+    window.setupStickyHeader = initHeader;
+
+    // Nếu header HTML đã có sẵn trong trang, tự init luôn sau khi DOM ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHeader);
+    } else {
+        initHeader();
+    }
 })();
