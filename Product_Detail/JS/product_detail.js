@@ -180,7 +180,9 @@ function bindEvents(){
     });
 
     // 3 nút lớn (demo)
-    document.querySelector(".btn-buy")?.addEventListener("click", ()=> alert("Đặt mua (demo)"));
+    document.querySelector(".btn-buy")?.addEventListener("click", () => {
+        window.location.href = "../Checkout/checkout.html";
+    });
     document.querySelector(".btn-call")?.addEventListener("click", ()=> alert("Tư vấn (demo)"));
     document.querySelector(".btn-credit")?.addEventListener("click", ()=> alert("Trả góp (demo)"));
 }
