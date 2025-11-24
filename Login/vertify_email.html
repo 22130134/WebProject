@@ -4,15 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sản phẩm đã xem</title>
-    <link rel="stylesheet" href="viewed_products.css">
-    <link rel="stylesheet" href="../../style/header/header.css" />
-    <link rel="stylesheet" href="../User_sidebar/user_sidebar.css" />
-    <link rel="stylesheet" href="../../style/footer/footer.css" />
+    <title>Đăng nhập META.vn</title>
+    <link rel="stylesheet" href="vertify_email.css  ">
+    <link rel="stylesheet" href="../style/header/header.css" />
+    <link rel="stylesheet" href="../style/footer/footer.css" />
 </head>
 
 <body>
-    <!-- Header -->
+    <!-- HEADER -->
     <header class="site-header">
         <div class="header-left">
             <input type="checkbox" id="nav-toggle" hidden>
@@ -46,72 +45,37 @@
             </div>
 
             <a class="topbtn" href="#"><i class="fa-solid fa-phone"> </i>Hotline</a>
-            <a class="topbtn" href="../User_home/user_home.html"><i class="fa-solid fa-user"> </i>Chào User Name </a>
+            <a class="topbtn" href="/Login/login.html"><i class="fa-solid fa-user"> </i>Đăng Nhập </a>
         </div>
     </header>
 
+    <!-- MAIN -->
+    <main class="container">
+        <!-- Banner -->
+        <div class="banner">
+            <img src="https://i.imgur.com/fNNz2Kt.png" alt="META banner">
+        </div>
 
-    <!-- User container -->
-    <div class="user-container">
+        <!-- Login Form -->
+        <div class="register-box">
+            <h2>Đăng ký</h2>
+            <p class="note">
+                Mật khẩu đăng nhập đã được gửi đến
+                <span class="email">hung123@gmail.com</span>, vui lòng kiểm tra email.
+            </p>
 
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="profile">
-                <div class="avatar">U</div>
-                <p class="username">User Name</p>
+            <div class="input-group">
+                <input type="password" placeholder="Mật khẩu mặc định" id="defaultPassword">
+                <span class="toggle-password" onclick="togglePassword()">
+                    <i class="fa fa-eye"></i>
+                </span>
             </div>
 
-            <ul class="menu">
+            <button class="btn-submit" disabled>HOÀN TẤT</button>
 
-                <li>
-                    <a href="../Profile/profile.html">
-                        <i class="fa-regular fa-user"></i> Thông tin tài khoản
-                    </a>
-                </li>
-
-                <li>
-                    <a href="../Address/address.html">
-                        <i class="fa-solid fa-location-dot"></i> Địa chỉ
-                    </a>
-                </li>
-
-                <li>
-                    <a href="../Purchase_history/purchase_history.html">
-                        <i class="fa-regular fa-clock"></i> Lịch sử mua hàng
-                    </a>
-                </li>
-
-                <li class="active">
-                    <a href="../Viewed_products/viewed_products.html">
-                        <i class="fa-regular fa-eye"></i> Sản phẩm đã xem
-                    </a>
-                </li>
-
-                <li>
-                    <a href="../Rating/my_rating.html">
-                        <i class="fa-regular fa-star"></i> Đánh giá của tôi
-                    </a>
-                </li>
-
-                <li>
-                    <a href="../../Login/login.html">
-                        <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
-                    </a>
-                </li>
-
-            </ul>
-        </aside>
-
-        <!-- Main content -->
-        <main class="view-products-container">
-            <h2 class="title">Sản phẩm đã xem gần đây</h2>
-            <div class="view-products-content">
-                <p class="empty-message">Quý khách chưa xem sản phẩm nào.</p>
-            </div>
-        </main>
-    </div>
-
-    <!-- Footer -->
+            <a href="#" class="help-link">Không đăng ký được?</a>
+    </main>
+    <!-- FOOTER -->
     <div class="content">
         <section class="feature-strip">
             <div class="feature">
