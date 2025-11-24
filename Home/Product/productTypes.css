@@ -16,14 +16,11 @@
 
 }
 .product-type-card{
-
     margin:3px;
     position:relative;
     background:#fff;
     border:1px solid #9aa5b1;
     border-radius: 5px;
-
-
     padding:10px;
    height:145px;
     display:flex;

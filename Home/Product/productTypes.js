@@ -20,7 +20,6 @@ const productTypes = [
 
 const grid = document.getElementById("product-type-grid");
 const btnToggle = document.getElementById("toggle-more");
-
 // Render cards
 function render() {
     grid.innerHTML = "";
@@ -52,7 +51,6 @@ function getColumnCount() {
     const style = getComputedStyle(grid);
     return style.gridTemplateColumns.split(" ").length || 6;
 }
-
 // Hiển thị đúng 2 dòng, ẩn phần còn lại
 const VISIBLE_ROWS = 2;
 function applyClamp(collapsed) {
