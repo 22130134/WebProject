@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý lịch khám</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="calendar.css">
+    <link rel="stylesheet" href="admin.css">
+
+</head>
+<body>
+<header class="site-header">
+
+    <button id="btn-toggle"
+            class="hamburger"
+            aria-label="Mở/đóng menu"
+            aria-controls="sidebar"
+            aria-expanded="true">☰</button>
+
+    <a href="overview.html" class="logo">META</a>
+    <form class="searchbar" action="#" role="search">
+        <input type="text" placeholder="Tìm người dùng..." />
+        <button type="submit">Tìm</button>
+    </form>
+    <nav class="header-right">
+        <a class="topbtn" href="#" title="Thông báo">🔔</a>
+        <a class="topbtn" href="#" title="Tài khoản">👤</a>
+    </nav>
+
+</header>
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar"
+           class="sidebar"
+           aria-hidden="false">
+
+        <div class="sidebar-title">Quản trị</div>
+        <nav class="menu">
+            <a class="menu-item" href="overview.html">🏠 Tổng quan</a>
+            <a class="menu-item" href="accounts.html">👥 Tài khoản</a>
+            <a class="menu-item" href="products.html">🧰 Sản phẩm</a>
+            <a class="menu-item" href="orders.html">🧾 Đơn hàng</a>
+            <a class="menu-item" href="calendar.html">💹 Lịch Khám</a>
+            <a class="menu-item" href="revenue.html">💹 Doanh thu</a>
+            <a class="menu-item" href="settings.html">⚙️ Cài đặt</a>
+            <a class="menu-item danger" href="#">🚪 Đăng xuất</a>
+        </nav>
+
+
+    </aside>
+
+<div class="page-wrapper">
+    <div class="page-header">
+        <div>
+            <div class="page-title">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Quản lý lịch khám</span>
+            </div>
+            <div class="page-subtitle">
+                Theo dõi, lọc và quản lý các lịch hẹn khám bệnh của khách hàng.
+            </div>
+        </div>
+        <div class="page-actions">
+            <button class="btn btn-outline">
+                <i class="fa-solid fa-arrow-rotate-right"></i>
+                Làm mới
+            </button>
+            <button class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i>
+                Thêm lịch khám
+            </button>
+        </div>
+    </div>
+
+    <!-- Thống kê nhanh -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-label">Tổng lịch hôm nay</div>
+            <div class="stat-value">18</div>
+            <div class="stat-extra"><i class="fa-solid fa-circle"></i> 5 chưa xác nhận</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Đã xác nhận</div>
+            <div class="stat-value">10</div>
+            <div class="stat-extra">Đang trong trạng thái chờ khám</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Đã khám xong</div>
+            <div class="stat-value">6</div>
+            <div class="stat-extra">Bao gồm khám online & tại phòng khám</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Hủy / Không đến</div>
+            <div class="stat-value">2</div>
+            <div class="stat-extra">Cần gọi lại xác minh</div>
+        </div>
+    </div>
+
+    <!-- Bộ lọc -->
+    <div class="filter-card">
+        <div class="filter-row">
+            <div class="filter-group">
+                <label>Ngày khám</label>
+                <input type="date" class="filter-input">
+            </div>
+
+            <div class="filter-group">
+                <label>Trạng thái</label>
+                <select class="filter-select">
+                    <option value="">Tất cả</option>
+                    <option value="pending">Chờ xác nhận</option>
+                    <option value="confirmed">Đã xác nhận</option>
+                    <option value="done">Đã khám</option>
+                    <option value="cancel">Đã hủy</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Hình thức khám</label>
+                <select class="filter-select">
+                    <option value="">Tất cả</option>
+                    <option value="offline">Khám tại phòng khám</option>
+                    <option value="online">Khám online</option>
+                </select>
+            </div>
+
+            <div class="filter-search">
+                <div class="search-box">
+                    <input type="text" placeholder="Tìm theo mã lịch, tên bệnh nhân, số điện thoại...">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bảng lịch khám -->
+    <div class="table-card">
+        <div class="table-header">
+            <div class="table-header-title">Danh sách lịch khám</div>
+            <div class="table-header-info">Hiển thị 1–10 / 58 lịch</div>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>Mã lịch</th>
+                    <th>Bệnh nhân</th>
+                    <th>Dịch vụ</th>
+                    <th>Ngày khám</th>
+                    <th>Giờ</th>
+                    <th>Bác sĩ</th>
+                    <th>Hình thức</th>
+                    <th>Trạng thái</th>
+                    <th class="text-right">Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>#LK24001</td>
+                    <td>
+                        <div class="patient-name">Nguyễn Văn A</div>
+                        <div class="patient-phone"><i class="fa-solid fa-phone"></i> 09xx xxx 123</div>
+                    </td>
+                    <td>
+                        <div class="service-name">Khám tổng quát</div>
+                        <div class="service-extra">Gói khám sức khỏe định kỳ</div>
+                    </td>
+                    <td>22/11/2025</td>
+                    <td>08:30</td>
+                    <td>
+                        <div class="doctor-name">BS. Trần Thị B</div>
+                        <div class="doctor-dept">Khoa Nội tổng quát</div>
+                    </td>
+                    <td>
+                        <span class="badge badge-info">
+                            <i class="fa-solid fa-house-medical"></i> Tại phòng khám
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge badge-warning">
+                            <i class="fa-solid fa-clock"></i> Chờ xác nhận
+                        </span>
+                    </td>
+                    <td class="text-right">
+                        <div class="cell-actions">
+                            <button class="btn-xs">
+                                <i class="fa-solid fa-eye"></i> Xem
+                            </button>
+                            <button class="btn-xs">
+                                <i class="fa-solid fa-pen"></i> Sửa
+                            </button>
+                            <button class="btn-xs btn-xs-danger">
+                                <i class="fa-solid fa-xmark"></i> Hủy
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>#LK24002</td>
+                    <td>
+                        <div class="patient-name">Lê Thị C</div>
+                        <div class="patient-phone"><i class="fa-solid fa-phone"></i> 09xx xxx 456</div>
+                    </td>
+                    <td>
+                        <div class="service-name">Khám da liễu</div>
+                        <div class="service-extra">Tư vấn & điều trị mụn</div>
+                    </td>
+                    <td>22/11/2025</td>
+                    <td>09:15</td>
+                    <td>
+                        <div class="doctor-name">BS. Phạm Văn D</div>
+                        <div class="doctor-dept">Khoa Da liễu</div>
+                    </td>
+                    <td>
+                        <span class="badge badge-info">
+                            <i class="fa-solid fa-house-medical"></i> Tại phòng khám
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge badge-success">
+                            <i class="fa-solid fa-circle-check"></i> Đã xác nhận
+                        </span>
+                    </td>
+                    <td class="text-right">
+                        <div class="cell-actions">
+                            <button class="btn-xs">
+                                <i class="fa-solid fa-eye"></i> Xem
+                            </button>
+                            <button class="btn-xs">
+                                <i class="fa-solid fa-pen"></i> Sửa
+                            </button>
+                            <button class="btn-xs btn-xs-danger">
+                                <i class="fa-solid fa-xmark"></i> Hủy
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>#LK24003</td>
+                    <td>
+                        <div class="patient-name">Trần Quốc E</div>
+                        <div class="patient-phone"><i class="fa-solid fa-phone"></i> 09xx xxx 789</div>
+                    </td>
+                    <td>
+                        <div class="service-name">Tái khám tim mạch</div>
+                        <div class="service-extra">Theo dõi huyết áp & ECG</div>
+                    </td>
+                    <td>21/11/2025</td>
+                    <td>15:00</td>
+                    <td>
+                        <div class="doctor-name">BS. Nguyễn Thị F</div>
+                        <div class="doctor-dept">Khoa Tim mạch</div>
+                    </td>
+                    <td>
+                        <span class="badge badge-info">
+                            <i class="fa-solid fa-video"></i> Khám online
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge badge-success">
+                            <i class="fa-solid fa-stethoscope"></i> Đã khám xong
+                        </span>
+                    </td>
+                    <td class="text-right">
+                        <div class="cell-actions">
+                            <button class="btn-xs">
+                                <i class="fa-solid fa-eye"></i> Xem
+                            </button>
+                            <button class="btn-xs btn-xs-danger">
+                                <i class="fa-solid fa-xmark"></i> Hủy
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>#LK24004</td>
+                    <td>
+                        <div class="patient-name">Phạm Thị G</div>
+                        <div class="patient-phone"><i class="fa-solid fa-phone"></i> 09xx xxx 999</div>
+                    </td>
+                    <td>
+                        <div class="service-name">Khám tai mũi họng</div>
+                        <div class="service-extra">Ho, viêm họng, nghẹt mũi</div>
+                    </td>
+                    <td>20/11/2025</td>
+                    <td>10:45</td>
+                    <td>
+                        <div class="doctor-name">BS. Hồ Văn H</div>
+                        <div class="doctor-dept">Khoa Tai mũi họng</div>
+                    </td>
+                    <td>
+                        <span class="badge badge-info">
+                            <i class="fa-solid fa-house-medical"></i> Tại phòng khám
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge badge-danger">
+                            <i class="fa-solid fa-circle-xmark"></i> Đã hủy
+                        </span>
+                    </td>
+                    <td class="text-right">
+                        <div class="cell-actions">
+                            <button class="btn-xs">
+                                <i class="fa-solid fa-eye"></i> Xem
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+<script src="app.js"></script>
+
+</body>
+</html>
