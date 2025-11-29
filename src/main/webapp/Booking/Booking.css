@@ -1,0 +1,188 @@
+/* Tổng thể */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Chừa không gian nếu header của bạn là fixed */
+.site-header-placeholder {
+    height: 70px; /* chỉnh theo chiều cao header thật của bạn */
+}
+
+/* Layout chính giống checkout: 2 cột */
+.container {
+    max-width: 1200px;
+    margin: 40px auto 40px;
+    display: grid;
+    grid-template-columns: 2fr 1.3fr;
+    gap: 20px;
+    padding: 0 16px;
+}
+
+/* SECTION CHUNG */
+.section-title {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Bên trái: Đặt lịch */
+.booking-section {
+    background: #fff;
+    padding: 20px 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.form-group {
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #ff6600;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.radio-group label {
+    margin-right: 16px;
+    font-size: 0.93rem;
+}
+
+.inline-checkbox {
+    display: block;
+    margin: 8px 0 4px;
+    font-size: 0.93rem;
+}
+
+.form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Nút xác nhận */
+.btn-submit {
+    margin-top: 12px;
+    padding: 10px 18px;
+    background-color: #ff6600;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.98rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-submit i {
+    font-size: 1rem;
+}
+
+.btn-submit:hover {
+    background-color: #e45800;
+}
+
+/* Bên phải: Tóm tắt & hỗ trợ */
+.schedule-section {
+    background: #fff;
+    padding: 20px 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    align-self: flex-start;
+}
+
+.summary-card {
+    background: #fafafa;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 0.95rem;
+    border: 1px solid #eee;
+    margin-bottom: 16px;
+}
+
+.summary-card p {
+    margin: 4px 0;
+}
+
+.info-box {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: 4px;
+    font-size: 0.93rem;
+}
+
+.info-box h4 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+}
+
+.info-box ul {
+    padding-left: 18px;
+    margin: 0;
+}
+
+.info-box li {
+    margin-bottom: 4px;
+}
+
+.contact-box {
+    margin-top: 16px;
+    font-size: 0.95rem;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #555;
+    padding: 16px 8px 24px;
+    background: #f0f0f0;
+}
+
+.footer a {
+    color: #ff6600;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+        margin-top: 20px;
+    }
+
+    .schedule-section {
+        order: -1;
+    }
+}

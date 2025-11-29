@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <title>MedHome Admin — Doanh thu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+
+    <button id="btn-toggle"
+            class="hamburger"
+            aria-label="Mở/đóng menu"
+            aria-controls="sidebar"
+            aria-expanded="true">☰</button>
+
+    <a href="overview.html" class="logo">HKH</a>
+
+    <form class="searchbar" action="#" role="search">
+        <input type="text" placeholder="Tìm báo cáo / mã đơn..." />
+        <button type="submit">Tìm</button>
+    </form>
+
+    <nav class="header-right">
+        <a class="topbtn" href="#" title="Thông báo">🔔</a>
+        <a class="topbtn" href="#" title="Tài khoản">👤</a>
+    </nav>
+
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar"
+           class="sidebar"
+           aria-hidden="false">
+
+        <div class="sidebar-title">Quản trị</div>
+
+        <nav class="menu">
+            <a class="menu-item" href="overview.html">🏠 Tổng quan</a>
+            <a class="menu-item" href="accounts.html">👥 Tài khoản</a>
+            <a class="menu-item" href="products.html">🧰 Sản phẩm</a>
+            <a class="menu-item" href="orders.html">🧾 Đơn hàng</a>
+            <a class="menu-item" href="calendar.html">💹 Lịch Khám</a>
+            <a class="menu-item" href="revenue.html">💹 Doanh thu</a>
+            <a class="menu-item" href="settings.html">⚙️ Cài đặt</a>
+            <a class="menu-item danger" href="#">🚪 Đăng xuất</a>
+        </nav>
+
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+        <h2>Doanh thu</h2>
+
+        <!-- BỘ LỌC -->
+        <section class="card"
+                 style="padding:12px; margin:10px 0 14px;">
+
+            <form class="form"
+                  action="#"
+                  method="get"
+                  style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; align-items:end;">
+
+                <label>
+                    Từ ngày (dd/mm/yyyy)
+                    <input class="input"
+                           type="text"
+                           name="from"
+                           placeholder="01/10/2025" />
+                </label>
+
+                <label>
+                    Đến ngày (dd/mm/yyyy)
+                    <input class="input"
+                           type="text"
+                           name="to"
+                           placeholder="31/10/2025" />
+                </label>
+
+                <label>
+                    Kênh thanh toán
+                    <select class="input" name="payment">
+                        <option value="">Tất cả</option>
+                        <option>COD</option>
+                        <option>Chuyển khoản</option>
+                        <option>Ví điện tử</option>
+                    </select>
+                </label>
+
+                <label>
+                    Trạng thái đơn
+                    <select class="input" name="status">
+                        <option value="">Đã hoàn tất + Đang giao</option>
+                        <option>Chỉ hoàn tất</option>
+                        <option>Chỉ đã hủy</option>
+                    </select>
+                </label>
+
+                <div class="actions" style="margin:0;">
+                    <button class="btn btn-ghost" type="submit">Lọc</button>
+                    <a class="btn btn-ghost" href="revenue.html">Reset</a>
+                </div>
+
+            </form>
+
+        </section>
+
+        <!-- STATS -->
+        <section class="stats">
+
+            <div class="stat-card">
+                <h3>Hôm nay</h3>
+                <p class="value">₫ 12,5M</p>
+                <p class="sub">+6 đơn</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Tuần này</h3>
+                <p class="value">₫ 86,2M</p>
+                <p class="sub">+14.2%</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Tháng này</h3>
+                <p class="value">₫ 820M</p>
+                <p class="sub">54 đơn</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Tỉ lệ hoàn/huỷ</h3>
+                <p class="value">2.3%</p>
+                <p class="sub">tháng hiện tại</p>
+            </div>
+
+        </section>
+
+        <!-- BIỂU ĐỒ (PLACEHOLDER) -->
+        <section class="card"
+                 style="padding:14px; margin-bottom:14px;">
+
+            <h3 style="margin-bottom:10px;">Doanh thu theo ngày</h3>
+
+            <div style="height:220px;
+                            border:1px dashed var(--line);
+                            border-radius:8px;
+                            display:grid;
+                            place-items:center;
+                            color:var(--muted);">
+                (Khu vực biểu đồ — placeholder UI)
+            </div>
+
+        </section>
+
+        <!-- BẢNG DOANH THU NGÀY -->
+        <section class="card">
+
+            <div class="table-wrap">
+
+                <table class="table">
+
+                    <thead>
+                    <tr>
+                        <th>Ngày</th>
+                        <th>Đơn hoàn tất</th>
+                        <th>Doanh thu (₫)</th>
+                        <th>Trung bình/đơn (₫)</th>
+                        <th>Hoàn/Hủy</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <tr>
+                        <td>25/10/2025</td>
+                        <td>18</td>
+                        <td>32.500.000</td>
+                        <td>1.805.000</td>
+                        <td><span class="badge">1</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>24/10/2025</td>
+                        <td>22</td>
+                        <td>41.200.000</td>
+                        <td>1.873.000</td>
+                        <td><span class="badge">0</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>23/10/2025</td>
+                        <td>14</td>
+                        <td>21.500.000</td>
+                        <td>1.535.000</td>
+                        <td><span class="badge">2</span></td>
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- ACTIONS XUẤT BÁO CÁO -->
+        <div class="actions" style="margin-top:12px;">
+            <a class="btn btn-ghost" href="#modal-export">Xuất Excel/PDF</a>
+            <a class="btn" href="#modal-snapshot">Tạo báo cáo nhanh</a>
+        </div>
+
+        <footer class="foot">© 2025 MedHome Admin</footer>
+
+    </main>
+
+</div>
+
+<!-- MODALS -->
+
+<div id="modal-export" class="modal">
+    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+
+    <div class="modal-body">
+
+        <h3>Xuất báo cáo</h3>
+
+        <form class="form" action="#" method="post">
+
+            <label>Định dạng
+                <select class="input" name="format">
+                    <option>Excel (.xlsx)</option>
+                    <option>PDF (.pdf)</option>
+                    <option>CSV (.csv)</option>
+                </select>
+            </label>
+
+            <label>Phạm vi
+                <select class="input" name="range">
+                    <option>Khoảng ngày đang lọc</option>
+                    <option>Hôm nay</option>
+                    <option>Tuần này</option>
+                    <option>Tháng này</option>
+                </select>
+            </label>
+
+            <div class="actions">
+                <a class="btn btn-ghost" href="#">Hủy</a>
+                <button class="btn" type="submit">Xuất</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div id="modal-snapshot" class="modal">
+    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+
+    <div class="modal-body">
+
+        <h3>Tạo báo cáo nhanh</h3>
+
+        <form class="form" action="#" method="post">
+
+            <label>Tiêu đề
+                <input class="input"
+                       name="title"
+                       placeholder="Báo cáo doanh thu tuần 43" />
+            </label>
+
+            <label>Ghi chú
+                <input class="input"
+                       name="note"
+                       placeholder="Thêm ghi chú ngắn..." />
+            </label>
+
+            <div class="actions">
+                <a class="btn btn-ghost" href="#">Hủy</a>
+                <button class="btn" type="submit">Tạo</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+
+</html>
