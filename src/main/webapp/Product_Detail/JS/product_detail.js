@@ -16,14 +16,14 @@ const btnPrev = document.getElementById('btnPrev');
 const btnNext = document.getElementById('btnNext');
 
 // Render thumbnail từ mảng IMAGES
-function renderThumbs(list){
+function renderThumbs(list) {
     thumbsEl.innerHTML = '';
     list.forEach((src, idx) => {
         const item = document.createElement('div');
         item.className = 'thumb';
-        item.setAttribute('role','listitem');
+        item.setAttribute('role', 'listitem');
         item.dataset.index = idx;
-        item.innerHTML = `<img src="${src}" alt="Ảnh ${idx+1}">`;
+        item.innerHTML = `<img src="${src}" alt="Ảnh ${idx + 1}">`;
 
         // Hover (desktop): show ảnh chính
         item.addEventListener('mouseenter', () => setMain(idx));
@@ -35,27 +35,27 @@ function renderThumbs(list){
     });
 }
 
-function setMain(index){
+function setMain(index) {
     const src = IMAGES[index];
     if (!src) return;
     mainImg.src = src;
 
     // set active border cho thumb đang chọn
-    thumbsEl.querySelectorAll('.thumb').forEach((t,i)=>{
-        t.classList.toggle('is-active', i===index);
+    thumbsEl.querySelectorAll('.thumb').forEach((t, i) => {
+        t.classList.toggle('is-active', i === index);
     });
 }
 
 // Nút cuộn danh sách (kéo dải ảnh)
 const SCROLL_STEP = 3; // số thumb mỗi lần cuộn
-function scrollThumbs(dir){ // dir = -1 trái, 1 phải
+function scrollThumbs(dir) { // dir = -1 trái, 1 phải
     const thumbSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--thumb-size'));
     const gap = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gap'));
     const delta = dir * (thumbSize + gap) * SCROLL_STEP;
-    thumbsEl.scrollBy({left: delta, behavior: 'smooth'});
+    thumbsEl.scrollBy({ left: delta, behavior: 'smooth' });
 }
-btnPrev.addEventListener('click', ()=>scrollThumbs(-1));
-btnNext.addEventListener('click', ()=>scrollThumbs(1));
+btnPrev.addEventListener('click', () => scrollThumbs(-1));
+btnNext.addEventListener('click', () => scrollThumbs(1));
 
 // Khởi tạo
 const PRODUCT = {
@@ -80,16 +80,16 @@ const state = {
 const fmtVND = n => (n || 0).toLocaleString("vi-VN") + "đ";
 const calcPrice = () =>
     state.region === "south" ? PRODUCT.priceNorth + PRODUCT.priceSouthDelta : PRODUCT.priceNorth;
-const discountPercent = () => PRODUCT.oldPrice ? Math.round((1 - calcPrice()/PRODUCT.oldPrice) * 100) : 0;
-const stars = (value=0) => {
+const discountPercent = () => PRODUCT.oldPrice ? Math.round((1 - calcPrice() / PRODUCT.oldPrice) * 100) : 0;
+const stars = (value = 0) => {
     const full = Math.floor(value);
-    let s = "★".repeat(Math.min(full,5));
+    let s = "★".repeat(Math.min(full, 5));
     while (s.length < 5) s += "☆";
     return s;
 };
 
 // ===== RENDER =====
-function renderPanel(){
+function renderPanel() {
     const el = document.getElementById("product-panel");
     const price = calcPrice();
 
@@ -108,8 +108,8 @@ function renderPanel(){
         <div class="grid">
           <div class="label">Chọn kho hàng:</div>
           <div class="seg" role="tablist" aria-label="Kho hàng">
-            <button class="seg-btn ${state.region==='north' ? 'active':''}" data-region="north" role="tab" aria-selected="${state.region==='north'}">Miền Bắc</button>
-            <button class="seg-btn ${state.region==='south' ? 'active':''}" data-region="south" role="tab" aria-selected="${state.region==='south'}">Miền Nam: +${fmtVND(PRODUCT.priceSouthDelta)}</button>
+            <button class="seg-btn ${state.region === 'north' ? 'active' : ''}" data-region="north" role="tab" aria-selected="${state.region === 'north'}">Miền Bắc</button>
+            <button class="seg-btn ${state.region === 'south' ? 'active' : ''}" data-region="south" role="tab" aria-selected="${state.region === 'south'}">Miền Nam: +${fmtVND(PRODUCT.priceSouthDelta)}</button>
           </div>
 
           <div class="label">Trạng thái:</div>
@@ -148,10 +148,10 @@ function renderPanel(){
 }
 
 // ===== EVENTS =====
-function bindEvents(){
+function bindEvents() {
     // chọn kho hàng
-    document.querySelectorAll(".seg-btn").forEach(btn=>{
-        btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".seg-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
             state.region = btn.dataset.region;
             renderPanel(); // re-render để cập nhật active + giá
         });
@@ -159,23 +159,23 @@ function bindEvents(){
 
     // qty
     const minus = document.querySelector(".qty-minus");
-    const plus  = document.querySelector(".qty-plus");
+    const plus = document.querySelector(".qty-plus");
     const input = document.querySelector(".qty-input");
 
-    minus.addEventListener("click", ()=>{
+    minus.addEventListener("click", () => {
         state.qty = Math.max(1, state.qty - 1);
         input.value = state.qty;
     });
-    plus.addEventListener("click", ()=>{
+    plus.addEventListener("click", () => {
         state.qty = Math.max(1, state.qty + 1);
         input.value = state.qty;
     });
 
     // add to cart (demo)
-    document.querySelector(".add-cart").addEventListener("click", ()=>{
+    document.querySelector(".add-cart").addEventListener("click", () => {
         const price = calcPrice();
         console.log("ADD_TO_CART", { product: PRODUCT.name, region: state.region, qty: state.qty, price });
-        alert(`Đã thêm ${state.qty} x "${PRODUCT.name}" (${state.region==='north'?'Miền Bắc':'Miền Nam'}) – ${fmtVND(price)} vào giỏ (demo).`);
+        alert(`Đã thêm ${state.qty} x "${PRODUCT.name}" (${state.region === 'north' ? 'Miền Bắc' : 'Miền Nam'}) – ${fmtVND(price)} vào giỏ (demo).`);
         // TODO: gọi addToCart(PRODUCT_ID, state.qty, state.region)
     });
 
@@ -183,8 +183,8 @@ function bindEvents(){
     document.querySelector(".btn-buy")?.addEventListener("click", () => {
         window.location.href = "../Checkout/checkout.html";
     });
-    document.querySelector(".btn-call")?.addEventListener("click", ()=> alert("Tư vấn (demo)"));
-    document.querySelector(".btn-credit")?.addEventListener("click", ()=> alert("Trả góp (demo)"));
+    document.querySelector(".btn-call")?.addEventListener("click", () => alert("Tư vấn (demo)"));
+    document.querySelector(".btn-credit")?.addEventListener("click", () => alert("Trả góp (demo)"));
 }
 
 // ===== INIT =====
