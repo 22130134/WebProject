@@ -16,49 +16,7 @@
             </head>
 
             <body>
-                <header class="site-header">
-                    <div class="header-left">
-                        <input type="checkbox" id="nav-toggle" hidden>
-                        <a href="${pageContext.request.contextPath}/index.jsp" class="logo">HKH</a>
-                    </div>
-
-                    <form class="searchbar" action="#" method="get">
-                        <input type="text" name="q" placeholder="Tìm kiếm?" />
-                        <button type="submit">Tìm kiếm</button>
-                    </form>
-
-                    <div class="header-right">
-                        <!-- CART WRAP để hover -->
-                        <div class="cart-wrap">
-                            <a class="topbtn cart-btn" href="${pageContext.request.contextPath}/cart">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                                Giỏ Hàng <span class="cart-badge"
-                                    aria-label="Số lượng">${sessionScope.cart.totalQuantity}</span>
-                            </a>
-                            <!-- MINI-CART DROPDOWN -->
-                            <div class="mini-cart" role="dialog" aria-label="Sản phẩm mới thêm">
-                                <ul class="mini-cart-list" id="mini-cart-list"></ul>
-                                <div class="mini-cart-footer">
-                                    <div class="mini-cart-total">
-                                        <span>Tổng:</span>
-                                        <strong id="mini-cart-total">
-                                            <fmt:formatNumber value="${sessionScope.cart.totalPrice}" type="currency"
-                                                currencySymbol="đ" />
-                                        </strong>
-                                    </div>
-                                    <a class="mini-cart-view" href="${pageContext.request.contextPath}/cart">Xem Giỏ
-                                        Hàng</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <a class="topbtn" href="#"><i class="fa-solid fa-phone"> </i>Hotline</a>
-                        <a class="topbtn" href="${pageContext.request.contextPath}/Login/login.html"><i
-                                class="fa-solid fa-user"> </i>Đăng
-                            Nhập </a>
-                    </div>
-                </header>
-
+                <jsp:include page="/style/header/header.jsp" />
 
                 <main class="cart-container">
                     <h1>Giỏ hàng</h1>

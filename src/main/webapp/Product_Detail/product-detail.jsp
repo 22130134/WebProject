@@ -19,41 +19,7 @@
             </head>
 
             <body>
-                <header class="site-header">
-                    <div class="header-left">
-                        <input type="checkbox" id="nav-toggle" hidden>
-                        <a href="${pageContext.request.contextPath}/index.html" class="logo">HKH</a>
-                    </div>
-
-                    <form class="searchbar" action="#" method="get">
-                        <input type="text" name="q" placeholder="Tìm kiếm?" />
-                        <button type="submit">Tìm kiếm</button>
-                    </form>
-
-                    <div class="header-right">
-                        <div class="cart-wrap">
-                            <a class="topbtn cart-btn" href="${pageContext.request.contextPath}/Cart/cart.html">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                                Giỏ Hàng <span class="cart-badge" aria-label="Số lượng">0</span>
-                            </a>
-                            <div class="mini-cart" role="dialog" aria-label="Sản phẩm mới thêm">
-                                <ul class="mini-cart-list" id="mini-cart-list"></ul>
-                                <div class="mini-cart-footer">
-                                    <div class="mini-cart-total">
-                                        <span>Tổng:</span>
-                                        <strong id="mini-cart-total">0đ</strong>
-                                    </div>
-                                    <a class="mini-cart-view"
-                                        href="${pageContext.request.contextPath}/Cart/cart.html">Xem Giỏ Hàng</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <a class="topbtn" href="#"><i class="fa-solid fa-phone"> </i>Hotline</a>
-                        <a class="topbtn" href="${pageContext.request.contextPath}/Login/login.html"><i
-                                class="fa-solid fa-user"> </i>Đăng Nhập </a>
-                    </div>
-                </header>
+                <jsp:include page="/style/header/header.jsp" />
 
                 <div class="container">
                     <div class="product">
@@ -65,7 +31,6 @@
                                 <button class="btn-nav" id="btnPrev" aria-label="Ảnh trước">&larr;</button>
                                 <div class="thumb-viewport">
                                     <div class="thumbs" id="thumbs" role="list">
-                                        <!-- Placeholder thumbs, ideally populated from DB -->
                                         <div class="thumb is-active" role="listitem" data-index="0">
                                             <img src="${product.img}" alt="${product.name}">
                                         </div>
@@ -273,6 +238,78 @@
                                             const badges = document.querySelectorAll(".cart-badge");
                                             badges.forEach(b => b.textContent = data.totalQuantity);
 
+                                            // Update mini-cart total price
+                                            const miniCartTotal = document.getElementById("mini-cart-total");
+                                            if (miniCartTotal && data.totalPrice !== undefined) {
+                                                miniCartTotal.textContent = new Intl.NumberFormat('vi-VN', {
+                                                    style: 'currency',
+                                                    currency: 'VND'
+                                                }).format(data.totalPrice);
+                                            }
+
+                                            // Update mini-cart list using DOM manipulation
+                                            const miniCartList = document.getElementById("mini-cart-list");
+                                            if (miniCartList && data.cartItems) {
+                                                miniCartList.innerHTML = '';
+
+                                                if (data.cartItems.length === 0) {
+                                                    const emptyLi = document.createElement('li');
+                                                    emptyLi.className = 'mini-cart-item';
+                                                    emptyLi.style.justifyContent = 'center';
+                                                    emptyLi.innerHTML = '<span>Giỏ hàng trống</span>';
+                                                    miniCartList.appendChild(emptyLi);
+                                                } else {
+                                                    data.cartItems.forEach(item => {
+                                                        const li = document.createElement('li');
+                                                        li.className = 'mini-cart-item';
+
+                                                        const img = document.createElement('img');
+                                                        img.src = item.product.img;
+                                                        img.alt = item.product.name;
+                                                        img.className = 'mini-cart-thumb';
+
+                                                        const infoDiv = document.createElement('div');
+                                                        infoDiv.className = 'mini-cart-info';
+
+                                                        const titleDiv = document.createElement('div');
+                                                        titleDiv.className = 'mini-cart-title';
+                                                        titleDiv.textContent = item.product.name;
+
+                                                        const metaDiv = document.createElement('div');
+                                                        metaDiv.className = 'mini-cart-meta';
+
+                                                        const qtySpan = document.createElement('span');
+                                                        qtySpan.className = 'qty';
+                                                        qtySpan.textContent = item.quantity + ' x';
+
+                                                        const priceSpan = document.createElement('span');
+                                                        priceSpan.className = 'mini-cart-price';
+                                                        priceSpan.textContent = new Intl.NumberFormat('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        }).format(item.product.price);
+
+                                                        metaDiv.appendChild(qtySpan);
+                                                        metaDiv.appendChild(priceSpan);
+
+                                                        infoDiv.appendChild(titleDiv);
+                                                        infoDiv.appendChild(metaDiv);
+
+                                                        const totalPriceDiv = document.createElement('div');
+                                                        totalPriceDiv.className = 'mini-cart-price';
+                                                        totalPriceDiv.textContent = new Intl.NumberFormat('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        }).format(item.totalPrice);
+
+                                                        li.appendChild(img);
+                                                        li.appendChild(infoDiv);
+                                                        li.appendChild(totalPriceDiv);
+                                                        miniCartList.appendChild(li);
+                                                    });
+                                                }
+                                            }
+
                                             if (callback) {
                                                 callback();
                                             } else {
@@ -334,6 +371,7 @@
                                 }
                             });
                         </script>
+                        <script src="${pageContext.request.contextPath}/style/header/header.js"></script>
                         <script src="${pageContext.request.contextPath}/Product_Detail/JS/product_detail.js"></script>
 
             </body>

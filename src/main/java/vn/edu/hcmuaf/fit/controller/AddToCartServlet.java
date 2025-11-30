@@ -52,6 +52,8 @@ public class AddToCartServlet extends HttpServlet {
 
             jsonResponse.put("status", "success");
             jsonResponse.put("totalQuantity", cart.getTotalQuantity());
+            jsonResponse.put("totalPrice", cart.getTotalPrice());
+            jsonResponse.put("cartItems", cart.getData().values());
             jsonResponse.put("message", "Added to cart successfully");
 
         } catch (NumberFormatException e) {
