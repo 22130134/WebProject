@@ -123,11 +123,11 @@
                                             <div class="p-badge">-${p.badge}</div>
                                         </c:if>
                                         <a class="p-thumb"
-                                            href="${pageContext.request.contextPath}/Product_Detail/ProductDetail.html?id=${p.id}">
+                                            href="${pageContext.request.contextPath}/product-detail?id=${p.id}">
                                             <img class="p-img" src="${p.img}" alt="${p.name}">
                                         </a>
                                         <h3 class="p-title"><a
-                                                href="${pageContext.request.contextPath}/Product_Detail/ProductDetail.html?id=${p.id}"
+                                                href="${pageContext.request.contextPath}/product-detail?id=${p.id}"
                                                 class="p-link">${p.name}</a></h3>
                                         <div class="p-rating">
                                             <span class="stars">
@@ -148,7 +148,7 @@
                                                 </s>
                                             </c:if>
                                         </div>
-                                        <a href="${pageContext.request.contextPath}/Product_Detail/ProductDetail.html?id=${p.id}"
+                                        <a href="${pageContext.request.contextPath}/product-detail?id=${p.id}"
                                             class="p-buy">MUA NGAY</a>
                                     </article>
                                 </c:forEach>
