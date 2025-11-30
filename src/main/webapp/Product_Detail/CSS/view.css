@@ -18,14 +18,17 @@ html, body, .container, .product {
     width: 75%;
     height: auto;
     background-color: rgba(179, 179, 182, 0.09);
+    box-sizing: border-box; /* Ensure padding doesn't increase width */
 }
 #viewed-root{
+    float: right; /* Float right to sit next to product-info */
     align-self: flex-start;
     position: sticky !important;
     top: calc(var(--header-h) + 10px) !important;
     bottom: auto !important;          /* quan trọng: không để bottom điều khiển */
     margin-top: 0 !important;
     width: 25%;
+    box-sizing: border-box;
 
     /* CHÍNH #viewed-root cuộn */
     overflow-x: hidden;
