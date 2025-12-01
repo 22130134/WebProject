@@ -8,6 +8,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.model.Product;
 import vn.edu.hcmuaf.fit.service.ProductService;
 
+import vn.edu.hcmuaf.fit.model.Category;
+import vn.edu.hcmuaf.fit.service.CategoryService;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -19,13 +22,26 @@ public class ProductServlet extends HttpServlet {
         String[] brands = request.getParameterValues("brand");
         String priceRange = request.getParameter("price");
         String sort = request.getParameter("sort");
+        String cidStr = request.getParameter("cid");
 
-        List<Product> products = ProductService.getInstance().getProducts(brands, priceRange, sort);
+        Integer categoryId = null;
+        Category currentCategory = null;
+        if (cidStr != null && !cidStr.isEmpty()) {
+            try {
+                categoryId = Integer.parseInt(cidStr);
+                currentCategory = CategoryService.getInstance().getById(categoryId);
+            } catch (NumberFormatException e) {
+                // ignore
+            }
+        }
+
+        List<Product> products = ProductService.getInstance().getProducts(categoryId, brands, priceRange, sort);
 
         request.setAttribute("products", products);
         request.setAttribute("selectedBrands", brands != null ? List.of(brands) : List.of());
         request.setAttribute("selectedPrice", priceRange);
         request.setAttribute("selectedSort", sort);
+        request.setAttribute("currentCategory", currentCategory);
 
         request.getRequestDispatcher("/Catalog/catalog.jsp").forward(request, response);
     }

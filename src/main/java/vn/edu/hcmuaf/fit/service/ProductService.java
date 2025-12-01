@@ -24,10 +24,10 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        return getProducts(null, null, null);
+        return getProducts(null, null, null, null);
     }
 
-    public List<Product> getProducts(String[] brands, String priceRange, String sort) {
+    public List<Product> getProducts(Integer categoryId, String[] brands, String priceRange, String sort) {
         List<Product> list = new ArrayList<>();
         Connection conn = DBConnect.get();
         if (conn == null)
@@ -37,8 +37,17 @@ public class ProductService {
                 "p.Rating, p.ReviewCount, p.Badge, p.IsInstallment, p.SoldQuantity, " +
                 "d.Price, d.OldPrice " +
                 "FROM products p " +
-                "JOIN productdetails d ON p.ProductID = d.ProductID " +
-                "WHERE 1=1 ");
+                "JOIN productdetails d ON p.ProductID = d.ProductID ");
+
+        if (categoryId != null) {
+            sql.append("JOIN product_categories pc ON p.ProductID = pc.ProductID ");
+        }
+
+        sql.append("WHERE 1=1 ");
+
+        if (categoryId != null) {
+            sql.append("AND pc.CategoryID = ? ");
+        }
 
         // Filter by Brand
         if (brands != null && brands.length > 0) {
@@ -92,6 +101,11 @@ public class ProductService {
         try {
             PreparedStatement ps = conn.prepareStatement(sql.toString());
             int index = 1;
+
+            if (categoryId != null) {
+                ps.setInt(index++, categoryId);
+            }
+
             if (brands != null && brands.length > 0) {
                 for (String brand : brands) {
                     ps.setString(index++, brand);

@@ -24,7 +24,16 @@
                             <a href="${pageContext.request.contextPath}/index.html" class="home-link"><i
                                     class="fa-solid fa-house"></i></a>
                             <span class="chevron">›</span>
-                            <span id="crumbCurrent">Danh mục</span>
+                            <span id="crumbCurrent">
+                                <c:choose>
+                                    <c:when test="${not empty currentCategory}">
+                                        ${currentCategory.categoryName}
+                                    </c:when>
+                                    <c:otherwise>
+                                        Tất cả sản phẩm
+                                    </c:otherwise>
+                                </c:choose>
+                            </span>
                         </div>
                     </div>
                     <div class="catalog-page">
@@ -219,7 +228,12 @@
                 <script>
                     document.addEventListener("DOMContentLoaded", () => {
                         const updateURL = () => {
+                            const currentParams = new URLSearchParams(window.location.search);
                             const params = new URLSearchParams();
+
+                            if (currentParams.has('cid')) {
+                                params.append('cid', currentParams.get('cid'));
+                            }
 
                             // Brands
                             document.querySelectorAll("input[name='brand']:checked").forEach(cb => {
