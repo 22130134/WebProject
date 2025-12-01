@@ -6,10 +6,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.model.Category;
+import vn.edu.hcmuaf.fit.model.Product;
 import vn.edu.hcmuaf.fit.service.CategoryService;
+import vn.edu.hcmuaf.fit.service.ProductService;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "HomeServlet", value = "/home")
 public class HomeServlet extends HttpServlet {
@@ -17,7 +21,20 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Category> categories = CategoryService.getInstance().getAll();
+        List<Product> featuredProducts = ProductService.getInstance().getFeaturedProducts(10);
+
+        Map<Integer, List<Product>> categoryProducts = new HashMap<>();
+        for (Category c : categories) {
+            List<Product> products = ProductService.getInstance().getProductsByCategory(c.getCategoryID(), 12);
+            if (!products.isEmpty()) {
+                categoryProducts.put(c.getCategoryID(), products);
+            }
+        }
+
         request.setAttribute("categories", categories);
+        request.setAttribute("featuredProducts", featuredProducts);
+        request.setAttribute("categoryProducts", categoryProducts);
+
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
