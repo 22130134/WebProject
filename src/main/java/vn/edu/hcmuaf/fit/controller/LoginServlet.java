@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet(name = "LoginController", value = "/login")
 public class LoginServlet extends HttpServlet {
-    
+
     // Phương thức GET để hiện trang login.jsp
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,9 +33,17 @@ public class LoginServlet extends HttpServlet {
             // Đăng nhập thành công
             HttpSession session = request.getSession();
             session.setAttribute("acc", account); // Lưu thông tin user vào session
-            
-            // Chuyển hướng về trang chủ (ví dụ index.jsp)
-            response.sendRedirect("index.jsp");
+
+            // --- Bổ sung Logic Kiểm tra Role ---
+
+            if (account.getRole() == 1) { // Giả sử 1 là Admin (Admin Role ID)
+                // Đây là tài khoản Admin
+                response.sendRedirect("admin/dashboard.jsp"); // Chuyển hướng đến trang Admin
+            } else { // Role = 0 (hoặc bất kỳ role nào khác)
+                // Đây là tài khoản User bình thường
+                response.sendRedirect("index.jsp"); // Chuyển hướng về trang chủ User
+            }
+
         } else {
             // Đăng nhập thất bại
             request.setAttribute("mess", "Sai tài khoản hoặc mật khẩu!");
