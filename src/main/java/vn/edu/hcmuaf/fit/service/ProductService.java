@@ -24,10 +24,10 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        return getProducts(null, null, null);
+        return getProducts(null, null, null, null);
     }
 
-    public List<Product> getProducts(String[] brands, String priceRange, String sort) {
+    public List<Product> getProducts(Integer categoryId, String[] brands, String priceRange, String sort) {
         List<Product> list = new ArrayList<>();
         Connection conn = DBConnect.get();
         if (conn == null)
@@ -37,8 +37,17 @@ public class ProductService {
                 "p.Rating, p.ReviewCount, p.Badge, p.IsInstallment, p.SoldQuantity, " +
                 "d.Price, d.OldPrice " +
                 "FROM products p " +
-                "JOIN productdetails d ON p.ProductID = d.ProductID " +
-                "WHERE 1=1 ");
+                "JOIN productdetails d ON p.ProductID = d.ProductID ");
+
+        if (categoryId != null) {
+            sql.append("JOIN product_categories pc ON p.ProductID = pc.ProductID ");
+        }
+
+        sql.append("WHERE 1=1 ");
+
+        if (categoryId != null) {
+            sql.append("AND pc.CategoryID = ? ");
+        }
 
         // Filter by Brand
         if (brands != null && brands.length > 0) {
@@ -92,6 +101,11 @@ public class ProductService {
         try {
             PreparedStatement ps = conn.prepareStatement(sql.toString());
             int index = 1;
+
+            if (categoryId != null) {
+                ps.setInt(index++, categoryId);
+            }
+
             if (brands != null && brands.length > 0) {
                 for (String brand : brands) {
                     ps.setString(index++, brand);
@@ -177,6 +191,85 @@ public class ProductService {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("ProductID"));
+                p.setName(rs.getString("ProductName"));
+                p.setBrand(rs.getString("Brand"));
+                p.setImg(rs.getString("ImageURL"));
+                p.setRating(rs.getDouble("Rating"));
+                p.setReviews(rs.getInt("ReviewCount"));
+                p.setBadge(rs.getString("Badge"));
+                p.setInstallment(rs.getBoolean("IsInstallment"));
+                p.setSold(rs.getInt("SoldQuantity"));
+                p.setPrice(rs.getDouble("Price"));
+                p.setOldPrice(rs.getDouble("OldPrice"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getFeaturedProducts(int limit) {
+        List<Product> list = new ArrayList<>();
+        Connection conn = DBConnect.get();
+        if (conn == null)
+            return list;
+
+        String sql = "SELECT p.ProductID, p.ProductName, p.Brand, p.ImageURL, " +
+                "p.Rating, p.ReviewCount, p.Badge, p.IsInstallment, p.SoldQuantity, " +
+                "d.Price, d.OldPrice " +
+                "FROM products p " +
+                "JOIN productdetails d ON p.ProductID = d.ProductID " +
+                "ORDER BY p.SoldQuantity DESC LIMIT ?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("ProductID"));
+                p.setName(rs.getString("ProductName"));
+                p.setBrand(rs.getString("Brand"));
+                p.setImg(rs.getString("ImageURL"));
+                p.setRating(rs.getDouble("Rating"));
+                p.setReviews(rs.getInt("ReviewCount"));
+                p.setBadge(rs.getString("Badge"));
+                p.setInstallment(rs.getBoolean("IsInstallment"));
+                p.setSold(rs.getInt("SoldQuantity"));
+                p.setPrice(rs.getDouble("Price"));
+                p.setOldPrice(rs.getDouble("OldPrice"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> getProductsByCategory(int categoryId, int limit) {
+        List<Product> list = new ArrayList<>();
+        Connection conn = DBConnect.get();
+        if (conn == null)
+            return list;
+
+        String sql = "SELECT p.ProductID, p.ProductName, p.Brand, p.ImageURL, " +
+                "p.Rating, p.ReviewCount, p.Badge, p.IsInstallment, p.SoldQuantity, " +
+                "d.Price, d.OldPrice " +
+                "FROM products p " +
+                "JOIN productdetails d ON p.ProductID = d.ProductID " +
+                "JOIN product_categories pc ON p.ProductID = pc.ProductID " +
+                "WHERE pc.CategoryID = ? " +
+                "LIMIT ?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+            ps.setInt(2, limit);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product p = new Product();
