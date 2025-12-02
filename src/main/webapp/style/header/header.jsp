@@ -16,7 +16,7 @@
                 <div class="header-right">
                     <!-- CART WRAP để hover -->
                     <div class="cart-wrap">
-                        <a class="topbtn cart-btn" href="${pageContext.request.contextPath}/Cart/cart.jsp">
+                        <a class="topbtn cart-btn" href="${pageContext.request.contextPath}/cart">
                             <i class="fa-solid fa-cart-shopping"></i>
                             Giỏ Hàng <span class="cart-badge" aria-label="Số lượng">${sessionScope.cart.totalQuantity !=
                                 null ? sessionScope.cart.totalQuantity : 0}</span>
@@ -63,7 +63,7 @@
                                             type="currency" currencySymbol="đ" />
                                     </strong>
                                 </div>
-                                <a class="mini-cart-view" href="${pageContext.request.contextPath}/Cart/cart.jsp">Xem
+                                <a class="mini-cart-view" href="${pageContext.request.contextPath}/cart">Xem
                                     Giỏ
                                     Hàng</a>
                             </div>

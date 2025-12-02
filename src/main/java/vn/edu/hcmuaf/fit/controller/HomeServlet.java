@@ -5,8 +5,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import vn.edu.hcmuaf.fit.model.Cart;
 import vn.edu.hcmuaf.fit.model.Category;
 import vn.edu.hcmuaf.fit.model.Product;
+import vn.edu.hcmuaf.fit.service.CartService;
 import vn.edu.hcmuaf.fit.service.CategoryService;
 import vn.edu.hcmuaf.fit.service.ProductService;
 
@@ -20,6 +23,12 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Load cart from database for the user
+        HttpSession session = request.getSession();
+        int dummyCustomerId = 1; // Same dummy ID used in cart operations
+        Cart cart = CartService.getInstance().getCart(dummyCustomerId);
+        session.setAttribute("cart", cart);
+
         List<Category> categories = CategoryService.getInstance().getAll();
         List<Product> featuredProducts = ProductService.getInstance().getFeaturedProducts(10);
 
