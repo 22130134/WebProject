@@ -14,6 +14,8 @@ public class Product implements Serializable {
     private String badge;
     private boolean installment;
     private int sold;
+    private String description;
+    private int stock;
 
     public Product() {
     }
@@ -119,5 +121,21 @@ public class Product implements Serializable {
 
     public void setSold(int sold) {
         this.sold = sold;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }

@@ -15,43 +15,8 @@
             </head>
 
             <body>
-                <header class="site-header">
-                    <div class="header-left">
-                        <input type="checkbox" id="nav-toggle" hidden>
-                        <a href="${pageContext.request.contextPath}/index.html" class="logo">HKH</a>
-                    </div>
+                <jsp:include page="/style/header/header.jsp" />
 
-                    <form class="searchbar" action="#" method="get">
-                        <input type="text" name="q" placeholder="Tìm kiếm?" />
-                        <button type="submit">Tìm kiếm</button>
-                    </form>
-
-                    <div class="header-right">
-                        <!-- CART WRAP để hover -->
-                        <div class="cart-wrap">
-                            <a class="topbtn cart-btn" href="${pageContext.request.contextPath}/Cart/cart.html">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                                Giỏ Hàng <span class="cart-badge" aria-label="Số lượng">0</span>
-                            </a>
-                            <!-- MINI-CART DROPDOWN -->
-                            <div class="mini-cart" role="dialog" aria-label="Sản phẩm mới thêm">
-                                <ul class="mini-cart-list" id="mini-cart-list"></ul>
-                                <div class="mini-cart-footer">
-                                    <div class="mini-cart-total">
-                                        <span>Tổng:</span>
-                                        <strong id="mini-cart-total">0đ</strong>
-                                    </div>
-                                    <a class="mini-cart-view"
-                                        href="${pageContext.request.contextPath}/Cart/cart.html">Xem Giỏ Hàng</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <a class="topbtn" href="#"><i class="fa-solid fa-phone"> </i>Hotline</a>
-                        <a class="topbtn" href="${pageContext.request.contextPath}/Login/login.html"><i
-                                class="fa-solid fa-user"> </i>Đăng Nhập </a>
-                    </div>
-                </header>
 
                 <div class="container">
                     <div class="page-header">
@@ -123,11 +88,11 @@
                                             <div class="p-badge">-${p.badge}</div>
                                         </c:if>
                                         <a class="p-thumb"
-                                            href="${pageContext.request.contextPath}/Product_Detail/ProductDetail.html?id=${p.id}">
+                                            href="${pageContext.request.contextPath}/product-detail?id=${p.id}">
                                             <img class="p-img" src="${p.img}" alt="${p.name}">
                                         </a>
                                         <h3 class="p-title"><a
-                                                href="${pageContext.request.contextPath}/Product_Detail/ProductDetail.html?id=${p.id}"
+                                                href="${pageContext.request.contextPath}/product-detail?id=${p.id}"
                                                 class="p-link">${p.name}</a></h3>
                                         <div class="p-rating">
                                             <span class="stars">
@@ -148,7 +113,7 @@
                                                 </s>
                                             </c:if>
                                         </div>
-                                        <a href="${pageContext.request.contextPath}/Product_Detail/ProductDetail.html?id=${p.id}"
+                                        <a href="${pageContext.request.contextPath}/product-detail?id=${p.id}"
                                             class="p-buy">MUA NGAY</a>
                                     </article>
                                 </c:forEach>
@@ -287,6 +252,7 @@
                         });
                     });
                 </script>
+                <script src="${pageContext.request.contextPath}/style/header/header.js"></script>
             </body>
 
             </html>
