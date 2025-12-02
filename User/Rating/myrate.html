@@ -3,12 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang cá nhân - META.vn</title>
-    <link rel="stylesheet" href="user_home.css">
+    <title>Đánh giá của tôi</title>
+    <link rel="stylesheet" href="myrate.css">
     <link rel="stylesheet" href="../../style/header/header.css" />
     <link rel="stylesheet" href="../../style/footer/footer.css" />
     <link rel="stylesheet" href="../User_sidebar/user_sidebar.css">
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
@@ -17,7 +18,7 @@
     <header class="site-header">
         <div class="header-left">
             <input type="checkbox" id="nav-toggle" hidden>
-            <a href="/WebProject/index.html" class="logo">HKH</a>
+            <a href="/WebProject/index.html" class="logo">META</a>
         </div>
 
         <form class="searchbar" action="#" method="get">
@@ -51,7 +52,8 @@
         </div>
     </header>
 
-    <main class="main-container">
+
+    <div class="container">
 
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -86,7 +88,7 @@
                     </a>
                 </li>
 
-                <li>
+                <li class="active">
                     <a href="../Rating/myrate.html">
                         <i class="fa-regular fa-star"></i> Đánh giá của tôi
                     </a>
@@ -102,23 +104,17 @@
         </aside>
 
         <!-- Nội dung chính -->
-        <section class="content">
-            <div class="order-header">
-                <h2>Đơn mua</h2>
-                <a href="#">Xem lịch sử mua hàng <i class="fa-solid fa-angle-right"></i></a>
+        <main class="content">
+            <h2>Đánh giá của tôi</h2>
+
+            <div class="rating-box">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828970.png" class="star-img" alt="">
+                <p class="msg">Quý khách chưa có đánh giá nào</p>
+                <a href="#" class="btn-shopping">Tiếp tục mua sắm</a>
             </div>
-            <div class="order-tabs">
-                <div class="tab active"><i class="fa-regular fa-circle-check"></i> Chờ xác nhận</div>
-                <div class="tab"><i class="fa-solid fa-box-open"></i> Đã xác nhận</div>
-                <div class="tab"><i class="fa-solid fa-truck"></i> Đang giao</div>
-                <div class="tab"><i class="fa-solid fa-bag-shopping"></i> Đơn đã mua</div>
-                <div class="tab"><i class="fa-regular fa-star"></i> Đánh giá</div>
-            </div>
-            <div class="order-empty">
-                <p>Chưa có đơn hàng</p>
-            </div>
-        </section>
-    </main>
+        </main>
+
+    </div>
 
     <!-- Footer -->
     <div class="content">
@@ -208,6 +204,7 @@
         </div>
 
     </div>
+
 </body>
 
 </html>
