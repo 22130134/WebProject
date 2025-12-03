@@ -49,7 +49,8 @@
                                         <c:forEach var="category" items="${categories}">
                                             <c:choose>
                                                 <c:when test="${category.slug == 'cham-soc-suc-khoe'}">
-                                                    <a class="category-link" href="Booking/Booking.html">
+                                                    <a class="category-link"
+                                                        href="${pageContext.request.contextPath}/booking">
                                                 </c:when>
                                                 <c:otherwise>
                                                     <a class="category-link" href="catalog?cid=${category.categoryID}">

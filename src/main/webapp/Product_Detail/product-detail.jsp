@@ -331,7 +331,7 @@
 
                             document.getElementById("btnBuyNow").addEventListener("click", () => {
                                 addToCart(() => {
-                                    window.location.href = "${pageContext.request.contextPath}/Cart/cart.jsp";
+                                    window.location.href = "${pageContext.request.contextPath}/cart";
                                 });
                             });
 

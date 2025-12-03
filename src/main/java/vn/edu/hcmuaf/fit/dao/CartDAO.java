@@ -172,4 +172,18 @@ public class CartDAO {
             e.printStackTrace();
         }
     }
+
+    public void clearCart(int cartId) {
+        Connection conn = DBConnect.get();
+        if (conn == null)
+            return;
+        String sql = "UPDATE cartitems SET IsActive = 0 WHERE CartID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, cartId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

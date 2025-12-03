@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.edu.hcmuaf.fit.model.Cart;
+import vn.edu.hcmuaf.fit.service.CartService;
 
 import java.io.IOException;
 
@@ -16,11 +17,13 @@ public class ShowCartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new Cart();
-            session.setAttribute("cart", cart);
-        }
+
+        // DUMMY USER ID for testing (same as AddToCartServlet)
+        int dummyCustomerId = 1;
+
+        // Always load cart from database to ensure data is current
+        Cart cart = CartService.getInstance().getCart(dummyCustomerId);
+        session.setAttribute("cart", cart);
 
         request.getRequestDispatcher("/Cart/cart.jsp").forward(request, response);
     }

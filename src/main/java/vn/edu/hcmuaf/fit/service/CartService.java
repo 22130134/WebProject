@@ -53,4 +53,12 @@ public class CartService {
             dao.removeItem(cartId, productId);
         }
     }
+
+    public void clearCart(int customerId) {
+        CartDAO dao = CartDAO.getInstance();
+        int cartId = dao.getCartId(customerId);
+        if (cartId != -1) {
+            dao.clearCart(cartId);
+        }
+    }
 }
