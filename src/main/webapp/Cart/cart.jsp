@@ -83,7 +83,8 @@
                                     <fmt:formatNumber value="${sessionScope.cart.totalPrice}" type="currency"
                                         currencySymbol="đ" />
                                 </strong></div>
-                            <a href="#" class="btn-checkout" id="btn-checkout">Tiến hành đặt
+                            <a href="${pageContext.request.contextPath}/checkout" class="btn-checkout"
+                                id="btn-checkout">Tiến hành đặt
                                 hàng</a>
                         </aside>
                     </div>
