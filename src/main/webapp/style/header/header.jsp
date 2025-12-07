@@ -8,7 +8,7 @@
                     <a href="${pageContext.request.contextPath}/index.jsp" class="logo">HKH</a>
                 </div>
 
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="${pageContext.request.contextPath}/catalog" method="get">
                     <input type="text" name="q" placeholder="Tìm kiếm?" />
                     <button type="submit">Tìm kiếm</button>
                 </form>
