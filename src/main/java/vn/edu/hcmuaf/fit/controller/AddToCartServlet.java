@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import vn.edu.hcmuaf.fit.model.User;
 import vn.edu.hcmuaf.fit.model.Cart;
 import vn.edu.hcmuaf.fit.service.CartService;
 
@@ -31,35 +32,56 @@ public class AddToCartServlet extends HttpServlet {
             int id = Integer.parseInt(idParam);
             int quantity = Integer.parseInt(quantityParam);
 
-            // DUMMY USER ID for testing
-            int dummyCustomerId = 1;
-
             HttpSession session = request.getSession();
-            // We will now rely on DB as the source of truth, but keep session for display
+            User user = (User) session.getAttribute("auth");
+
+            Cart cart = (Cart) session.getAttribute("cart");
+            if (cart == null) {
+                cart = new Cart();
+                session.setAttribute("cart", cart);
+            }
+
+            // DUMMY USER ID for testing (removed)
+            // int dummyCustomerId = 1;
 
             String action = request.getParameter("action");
             if (action == null) {
                 action = "add";
             }
 
-            // 1. Update DB
-            if (action.equals("add")) {
-                CartService.getInstance().addToCart(dummyCustomerId, id, quantity);
-            } else if (action.equals("update")) {
-                CartService.getInstance().updateCart(dummyCustomerId, id, quantity);
-            } else if (action.equals("delete")) {
-                CartService.getInstance().removeProduct(dummyCustomerId, id);
-            }
+            if (user != null) {
+                // LOGGED IN USER: Sync with DB
+                int customerId = new vn.edu.hcmuaf.fit.dao.UserDAO().getCustomerIdByAccountId(user.getAccountID());
 
-            // 2. Refresh Session Cart from DB to ensure sync
-            Cart cart = CartService.getInstance().getCart(dummyCustomerId);
-            session.setAttribute("cart", cart);
+                // 1. Update DB
+                if (action.equals("add")) {
+                    CartService.getInstance().addToCart(customerId, id, quantity);
+                } else if (action.equals("update")) {
+                    CartService.getInstance().updateCart(customerId, id, quantity);
+                } else if (action.equals("delete")) {
+                    CartService.getInstance().removeProduct(customerId, id);
+                }
+
+                // 2. Refresh Session Cart from DB to ensure sync
+                cart = CartService.getInstance().getCart(customerId);
+                session.setAttribute("cart", cart);
+            } else {
+                // GUEST USER: Update Session Cart directly
+                if (action.equals("add")) {
+                    cart.add(id, quantity);
+                } else if (action.equals("update")) {
+                    cart.update(id, quantity);
+                } else if (action.equals("delete")) {
+                    cart.remove(id);
+                }
+                session.setAttribute("cart", cart);
+            }
 
             jsonResponse.put("status", "success");
             jsonResponse.put("totalQuantity", cart.getTotalQuantity());
             jsonResponse.put("totalPrice", cart.getTotalPrice());
             jsonResponse.put("cartItems", cart.getData().values());
-            jsonResponse.put("message", "Cart updated successfully (DB persisted)");
+            jsonResponse.put("message", "Cart updated successfully");
 
         } catch (NumberFormatException e) {
             jsonResponse.put("status", "error");

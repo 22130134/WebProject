@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import vn.edu.hcmuaf.fit.model.User;
 import vn.edu.hcmuaf.fit.model.Cart;
 import vn.edu.hcmuaf.fit.model.Category;
 import vn.edu.hcmuaf.fit.model.Product;
@@ -23,11 +24,19 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Load cart from database for the user
+        // Load cart from database for the user if logged in (fixed duplicate session
+        // variable)
         HttpSession session = request.getSession();
-        int dummyCustomerId = 1; // Same dummy ID used in cart operations
-        Cart cart = CartService.getInstance().getCart(dummyCustomerId);
-        session.setAttribute("cart", cart);
+        vn.edu.hcmuaf.fit.model.User user = (vn.edu.hcmuaf.fit.model.User) session.getAttribute("auth");
+        if (user != null) {
+            int customerId = new vn.edu.hcmuaf.fit.dao.UserDAO().getCustomerIdByAccountId(user.getAccountID());
+            if (customerId != -1) {
+                Cart cart = CartService.getInstance().getCart(customerId);
+                session.setAttribute("cart", cart);
+            }
+        } else {
+            session.removeAttribute("cart"); // Ensure no cart for guest
+        }
 
         List<Category> categories = CategoryService.getInstance().getAll();
         List<Product> featuredProducts = ProductService.getInstance().getFeaturedProducts(10);

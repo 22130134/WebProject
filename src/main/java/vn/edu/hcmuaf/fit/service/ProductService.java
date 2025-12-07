@@ -24,10 +24,11 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        return getProducts(null, null, null, null);
+        return getProducts(null, null, null, null, null);
     }
 
-    public List<Product> getProducts(Integer categoryId, String[] brands, String priceRange, String sort) {
+    public List<Product> getProducts(Integer categoryId, String[] brands, String priceRange, String sort,
+            String search) {
         List<Product> list = new ArrayList<>();
         Connection conn = DBConnect.get();
         if (conn == null)
@@ -47,6 +48,10 @@ public class ProductService {
 
         if (categoryId != null) {
             sql.append("AND pc.CategoryID = ? ");
+        }
+
+        if (search != null && !search.trim().isEmpty()) {
+            sql.append("AND p.ProductName LIKE ? ");
         }
 
         // Filter by Brand
@@ -104,6 +109,10 @@ public class ProductService {
 
             if (categoryId != null) {
                 ps.setInt(index++, categoryId);
+            }
+
+            if (search != null && !search.trim().isEmpty()) {
+                ps.setString(index++, "%" + search + "%");
             }
 
             if (brands != null && brands.length > 0) {
