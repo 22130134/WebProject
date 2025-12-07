@@ -71,8 +71,15 @@
                     </div>
 
                     <a class="topbtn" href="#"><i class="fa-solid fa-phone"> </i>Hotline</a>
-                    <a class="topbtn" href="${pageContext.request.contextPath}/Login/login.html"><i
-                            class="fa-solid fa-user"> </i>Đăng
-                        Nhập </a>
+                    <c:choose>
+                        <c:when test="${sessionScope.auth != null}">
+                            <a class="topbtn" href="${pageContext.request.contextPath}/logout"><i
+                                    class="fa-solid fa-user"> </i>${sessionScope.auth.username}</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="topbtn" href="${pageContext.request.contextPath}/login"><i
+                                    class="fa-solid fa-user"> </i>Đăng Nhập </a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </header>
