@@ -70,9 +70,6 @@
             </div>
         </div>
 
-        <a class="topbtn" href="#"><i class="fa-solid fa-phone"> </i>Hotline</a>
-        <a class="topbtn" href="${pageContext.request.contextPath}/Login/login.jsp"><i
-                class="fa-solid fa-user"> </i>Đăng
-            Nhập </a>
+
     </div>
 </header>
