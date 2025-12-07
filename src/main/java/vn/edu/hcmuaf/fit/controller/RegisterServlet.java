@@ -5,53 +5,61 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import vn.edu.hcmuaf.fit.dao.AccountDAO;
+import vn.edu.hcmuaf.fit.service.AccountService;
 
 import java.io.IOException;
 
 @WebServlet(name = "RegisterServlet", value = "/register")
 public class RegisterServlet extends HttpServlet {
 
-    // Hiển thị trang đăng ký (register.jsp)
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("register.jsp").forward(request, response);
     }
 
-    // Xử lý logic đăng ký khi người dùng bấm nút Submit
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. Lấy dữ liệu từ form
+        // Xử lý tiếng Việt
+        request.setCharacterEncoding("UTF-8");
+
+        // Lấy dữ liệu
         String user = request.getParameter("username");
         String pass = request.getParameter("password");
-        String rePass = request.getParameter("repassword"); // Mật khẩu nhập lại
+        String rePass = request.getParameter("repassword");
         String email = request.getParameter("email");
 
-        // 2. Kiểm tra mật khẩu nhập lại (Validation cơ bản)
-        if (!pass.equals(rePass)) {
-            request.setAttribute("mess", "Mật khẩu nhập lại không khớp!");
+        // Validation (Kiểm tra dữ liệu đầu vào)
+        String error = null;
+        if (user == null || user.trim().isEmpty() || pass == null || pass.trim().isEmpty() || email == null || email.trim().isEmpty()) {
+            error = "Vui lòng điền đầy đủ các trường.";
+        } else if (pass.length() < 6) {
+            error = "Mật khẩu phải có ít nhất 6 ký tự.";
+        } else if (!pass.equals(rePass)) {
+            error = "Mật khẩu nhập lại không khớp!";
+        } else if (!email.matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            error = "Địa chỉ email không hợp lệ.";
+        }
+
+        if (error != null) {
+            request.setAttribute("mess", error);
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
 
-        // 3. Kiểm tra xem username đã tồn tại chưa
-        AccountDAO dao = new AccountDAO();
-        boolean exist = dao.checkUsernameExist(user);
+        // GỌI SERVICE (Thay vì gọi DAO và BCrypt thủ công)
+        AccountService service = new AccountService();
 
-        if (exist) {
-            request.setAttribute("mess", "Tài khoản đã tồn tại!");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+        // Service sẽ tự lo việc: Kiểm tra user tồn tại -> Mã hóa SHA-256 -> Gọi DAO lưu
+        boolean isSuccess = service.register(user, pass, email);
+
+        if (isSuccess) {
+            // Thành công
+            response.sendRedirect("login?status=success");
         } else {
-            // 4. Nếu chưa tồn tại -> Gọi hàm register trong DAO
-            boolean isSuccess = dao.register(user, pass, email);
-            if(isSuccess) {
-                // Đăng ký thành công -> Chuyển hướng về trang đăng nhập
-                response.sendRedirect("login"); // Có thể thêm tham số ?success=true để hiện thông báo bên login
-            } else {
-                // Lỗi hệ thống hoặc database
-                request.setAttribute("mess", "Lỗi hệ thống, vui lòng thử lại!");
-                request.getRequestDispatcher("register.jsp").forward(request, response);
-            }
+            // Thất bại (Có thể do User đã tồn tại hoặc lỗi DB)
+            // Vì Service trả về boolean nên ta thông báo chung
+            request.setAttribute("mess", "Đăng ký thất bại! Tên đăng nhập đã tồn tại hoặc lỗi hệ thống.");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
         }
     }
 }
