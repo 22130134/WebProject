@@ -32,7 +32,7 @@ public class AdminFilter implements Filter {
 
         // Kiểm tra Trạng thái (Status)
         // Giả sử quy ước trong DB: 1 = Active, 0 = Inactive/Locked
-        if (account.getStatus() != 1) {
+        if (!"Active".equals(account.getStatus())) {
             // Nếu tài khoản không Active -> Hủy session ngay lập tức
             session.invalidate();
             // Chuyển hướng về login với thông báo lỗi

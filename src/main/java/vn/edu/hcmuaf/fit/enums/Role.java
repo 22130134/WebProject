@@ -1,31 +1,27 @@
 package vn.edu.hcmuaf.fit.enums;
 
 public enum Role {
-    // Định nghĩa các hằng số và giá trị tương ứng trong Database
-    CUSTOMER(0),    // 0 tương ứng với User thường
-    ADMIN(1);  // 1 tương ứng với Admin
-//    MANAGER(2); // 2 thêm vai trò quản lý (nếu cần)
 
-    private final int value;
+    CUSTOMER("Customer"),
+    ADMIN("Admin");
 
-    // Constructor của Enum (phải là private)
-    Role(int value) {
+    private final String value;
+
+    Role(String value) {
         this.value = value;
     }
 
-    // Getter để lấy giá trị số (dùng khi lưu vào DB)
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 
-    // Phương thức Static để chuyển từ số (DB) sang Enum (Java)
-    public static Role fromValue(int value) {
+    // Hàm chuyển từ String (DB) sang Enum (Java)
+    public static Role fromValue(String value) {
         for (Role role : Role.values()) {
-            if (role.value == value) {
+            if (role.value.equalsIgnoreCase(value)) {
                 return role;
             }
         }
-        // Nếu giá trị trong DB không khớp cái nào, trả về null hoặc mặc định là USER
-        return CUSTOMER;
+        return CUSTOMER; // Mặc định nếu không tìm thấy
     }
 }

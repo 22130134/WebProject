@@ -1,30 +1,38 @@
 package vn.edu.hcmuaf.fit.model;
 
+import vn.edu.hcmuaf.fit.enums.Role;
 import java.sql.Timestamp;
 
 public class Account {
-    private int id;
-    private String username;
-    private String password;
-    private String email;
-    private int role;   // 0 is user, 1 is admin
-    private int status; // 0 is blocked, 1 is active
-    private Timestamp createdAt;
+    private int id; // Map với AccountID
+    private String username; // Map với Username
+    private String password; // Map với PasswordHash
+    private String email; // Map với Email
+    private Role role; // Map với Role
+    private String status; // Map với Status
+    private Timestamp createdAt; // Map với CreatedAt
 
-    public Account() {
-    }
+    public Account() {}
 
-    public Account(int id, String username, String password, String email, int role, int status, Timestamp createdAt) {
+    // Constructor cập nhật
+    public Account(int id, String username, String password, String email, String roleStr, String status, Timestamp createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = role;
+
+        // Chuyển chuỗi "Customer"/"Admin" từ DB thành Enum Java
+        this.role = Role.fromValue(roleStr);
+
         this.status = status;
         this.createdAt = createdAt;
     }
 
-    // --- Getter và Setter (Bạn có thể tự generate trong IntelliJ: Alt + Insert) ---
+    // Các Getter/Setter giữ nguyên, chỉ lưu ý Getter Role
+    public Role getRole() { return role; }
+    public void setRole(Role role) { this.role = role; }
+
+    // Getter/Setter cho các trường khác (id, username, password...)
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getUsername() { return username; }
@@ -33,10 +41,8 @@ public class Account {
     public void setPassword(String password) { this.password = password; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
-    public int getRole() { return role; }
-    public void setRole(int role) { this.role = role; }
-    public int getStatus() { return status; }
-    public void setStatus(int status) { this.status = status; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
 }
