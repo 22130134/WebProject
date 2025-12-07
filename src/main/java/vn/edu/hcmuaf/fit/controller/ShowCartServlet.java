@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import vn.edu.hcmuaf.fit.model.User;
 import vn.edu.hcmuaf.fit.model.Cart;
 import vn.edu.hcmuaf.fit.service.CartService;
 
@@ -18,11 +19,22 @@ public class ShowCartServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        // DUMMY USER ID for testing (same as AddToCartServlet)
-        int dummyCustomerId = 1;
+        User user = (User) session.getAttribute("auth");
+        if (user == null) {
+            response.sendRedirect("login");
+            return;
+        }
+
+        int customerId = new vn.edu.hcmuaf.fit.dao.UserDAO().getCustomerIdByAccountId(user.getAccountID());
+        if (customerId == -1) {
+            // Handle case where account exists but customer record missing (shouldn't
+            // happen with new register logic)
+            response.sendRedirect("login");
+            return;
+        }
 
         // Always load cart from database to ensure data is current
-        Cart cart = CartService.getInstance().getCart(dummyCustomerId);
+        Cart cart = CartService.getInstance().getCart(customerId);
         session.setAttribute("cart", cart);
 
         request.getRequestDispatcher("/Cart/cart.jsp").forward(request, response);
