@@ -8,7 +8,7 @@
                 <meta charset="utf-8" />
                 <title>MedHome Admin — Sản phẩm</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin/admin.css" />
+                <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin/admin.css?v=2" />
             </head>
 
             <body>
@@ -187,7 +187,8 @@
 
                         <h3>Thêm sản phẩm</h3>
 
-                        <form class="form" action="#" method="post">
+                        <form class="form" action="products" method="post">
+                            <input type="hidden" name="action" value="add">
 
                             <label>Tên
                                 <input class="input" name="name" required />

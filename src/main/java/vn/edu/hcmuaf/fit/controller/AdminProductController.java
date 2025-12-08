@@ -45,6 +45,36 @@ public class AdminProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        String action = request.getParameter("action");
+
+        if ("add".equals(action)) {
+            String name = request.getParameter("name");
+            String brand = request.getParameter("brand");
+            String img = request.getParameter("img");
+            String desc = request.getParameter("description");
+            double price = 0;
+            int stock = 0;
+
+            try {
+                price = Double.parseDouble(request.getParameter("price"));
+                stock = Integer.parseInt(request.getParameter("stock"));
+            } catch (NumberFormatException e) {
+                // handle error
+            }
+
+            Product p = new Product();
+            p.setName(name);
+            p.setBrand(brand);
+            p.setImg(img);
+            p.setDescription(desc);
+            p.setPrice(price);
+            p.setStock(stock);
+
+            ProductService.getInstance().addProduct(p);
+
+            response.sendRedirect("products");
+        } else {
+            doGet(request, response);
+        }
     }
 }

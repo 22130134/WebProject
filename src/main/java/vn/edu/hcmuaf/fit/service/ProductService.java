@@ -396,4 +396,58 @@ public class ProductService {
         }
         return list;
     }
+
+    public boolean addProduct(Product p) {
+        Connection conn = DBConnect.get();
+        if (conn == null)
+            return false;
+
+        String sql1 = "INSERT INTO products (ProductName, Brand, ImageURL, CreatedAt) VALUES (?, ?, ?, NOW())";
+        String sql2 = "INSERT INTO productdetails (ProductID, Price, StockQuantity, DetailDescription) VALUES (?, ?, ?, ?)";
+
+        try {
+            conn.setAutoCommit(false); // Start Transaction
+
+            // Insert into products
+            PreparedStatement ps1 = conn.prepareStatement(sql1, PreparedStatement.RETURN_GENERATED_KEYS);
+            ps1.setString(1, p.getName());
+            ps1.setString(2, p.getBrand());
+            ps1.setString(3, p.getImg());
+
+            int affected = ps1.executeUpdate();
+            if (affected > 0) {
+                ResultSet rsKey = ps1.getGeneratedKeys();
+                if (rsKey.next()) {
+                    int productId = rsKey.getInt(1);
+
+                    // Insert into productdetails
+                    PreparedStatement ps2 = conn.prepareStatement(sql2);
+                    ps2.setInt(1, productId);
+                    ps2.setDouble(2, p.getPrice());
+                    ps2.setInt(3, p.getStock());
+                    ps2.setString(4, p.getDescription());
+
+                    ps2.executeUpdate();
+
+                    conn.commit(); // Commit
+                    return true;
+                }
+            }
+            conn.rollback(); // Rollback if something wrong
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }
