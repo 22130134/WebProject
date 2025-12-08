@@ -51,7 +51,7 @@ public class AdminProductController extends HttpServlet {
             String name = request.getParameter("name");
             String brand = request.getParameter("brand");
             String img = request.getParameter("img");
-            String desc = request.getParameter("description");
+            String description = request.getParameter("description");
             double price = 0;
             int stock = 0;
 
@@ -66,7 +66,7 @@ public class AdminProductController extends HttpServlet {
             p.setName(name);
             p.setBrand(brand);
             p.setImg(img);
-            p.setDescription(desc);
+            p.setDescription(description);
             p.setPrice(price);
             p.setStock(stock);
 
@@ -78,7 +78,7 @@ public class AdminProductController extends HttpServlet {
             String name = request.getParameter("name");
             String brand = request.getParameter("brand");
             String img = request.getParameter("img");
-            String desc = request.getParameter("description");
+            String description = request.getParameter("description");
             double price = 0;
             int stock = 0;
 
@@ -94,12 +94,20 @@ public class AdminProductController extends HttpServlet {
             p.setName(name);
             p.setBrand(brand);
             p.setImg(img);
-            p.setDescription(desc);
+            p.setDescription(description);
             p.setPrice(price);
             p.setStock(stock);
 
             ProductService.getInstance().updateProduct(p);
 
+            response.sendRedirect("products");
+        } else if ("delete".equals(action)) {
+            try {
+                int id = Integer.parseInt(request.getParameter("id"));
+                ProductService.getInstance().deleteProduct(id);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
             response.sendRedirect("products");
         } else {
             doGet(request, response);

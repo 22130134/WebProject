@@ -93,8 +93,7 @@
                         <div class="actions">
                             <a class="btn" href="#modal-add">+ Thêm sản phẩm</a>
                             <a class="btn btn-ghost" href="#modal-edit" id="btn-edit">Sửa</a>
-                            <a class="btn btn-ghost" href="#modal-hide">Ẩn/Hiện</a>
-                            <a class="btn btn-danger" href="#modal-delete">Xóa</a>
+                            <a class="btn btn-danger" href="#modal-delete" id="btn-delete">Xóa</a>
                         </div>
 
                         <!-- BẢNG SẢN PHẨM -->
@@ -224,27 +223,20 @@
                     </div>
                 </div>
 
-                <!-- ẨN / HIỆN -->
-                <div id="modal-hide" class="modal modal-sm">
-                    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
-                    <div class="modal-body">
-                        <h3>Ẩn/Hiện sản phẩm?</h3>
-                        <p>Chức năng đang được cập nhật...</p>
-                        <div class="actions">
-                            <a class="btn btn-ghost" href="#">Hủy</a>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- XÓA -->
                 <div id="modal-delete" class="modal modal-sm">
                     <a href="#" class="modal-overlay" aria-label="Đóng"></a>
                     <div class="modal-body">
                         <h3>Xóa sản phẩm?</h3>
-                        <p>Chức năng đang được cập nhật...</p>
-                        <div class="actions">
-                            <a class="btn btn-ghost" href="#">Hủy</a>
-                        </div>
+                        <p>Bạn có chắc chắn muốn xóa sản phẩm này không? Hành động này không thể hoàn tác.</p>
+                        <form action="products" method="post">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="id" id="delete-id">
+                            <div class="actions">
+                                <a class="btn btn-ghost" href="#">Hủy</a>
+                                <button class="btn btn-danger" type="submit">Xóa vĩnh viễn</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
@@ -271,7 +263,6 @@
                         const data = tr.dataset;
 
                         // Fill form
-                        const form = document.getElementById('form-edit');
                         if (data.id) document.getElementById('edit-id').value = data.id;
                         if (data.name) document.getElementById('edit-name').value = data.name;
                         if (data.img) document.getElementById('edit-img').value = data.img;
@@ -279,6 +270,26 @@
                         if (data.price) document.getElementById('edit-price').value = data.price;
                         if (data.stock) document.getElementById('edit-stock').value = data.stock;
                         if (data.description) document.getElementById('edit-desc').value = data.description;
+                    });
+
+                    document.getElementById('btn-delete').addEventListener('click', function (e) {
+                        const checks = document.querySelectorAll('tbody input[type="checkbox"]:checked');
+
+                        if (checks.length === 0) {
+                            e.preventDefault();
+                            alert('Vui lòng chọn một sản phẩm để xóa!');
+                            return;
+                        }
+
+                        if (checks.length > 1) {
+                            e.preventDefault();
+                            alert('Vui lòng chỉ chọn 1 sản phẩm để xóa!');
+                            return;
+                        }
+
+                        const tr = checks[0].closest('tr');
+                        const id = tr.dataset.id;
+                        document.getElementById('delete-id').value = id;
                     });
                 </script>
             </body>

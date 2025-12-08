@@ -498,4 +498,44 @@ public class ProductService {
         }
         return false;
     }
+
+    public boolean deleteProduct(int id) {
+        Connection conn = DBConnect.get();
+        if (conn == null)
+            return false;
+
+        String sql1 = "DELETE FROM productdetails WHERE ProductID=?";
+        String sql2 = "DELETE FROM products WHERE ProductID=?";
+
+        try {
+            conn.setAutoCommit(false); // Start Transaction
+
+            // Delete details first (FK constraint)
+            PreparedStatement ps1 = conn.prepareStatement(sql1);
+            ps1.setInt(1, id);
+            ps1.executeUpdate();
+
+            // Delete product
+            PreparedStatement ps2 = conn.prepareStatement(sql2);
+            ps2.setInt(1, id);
+            int affected = ps2.executeUpdate();
+
+            conn.commit();
+            return affected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }
