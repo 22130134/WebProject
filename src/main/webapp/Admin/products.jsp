@@ -15,22 +15,17 @@
 
                 <!-- HEADER -->
                 <header class="site-header">
-
                     <button id="btn-toggle" class="hamburger" aria-label="Mở/đóng menu" aria-controls="sidebar"
                         aria-expanded="true">☰</button>
-
                     <a href="overview.html" class="logo">HKH</a>
-
                     <form class="searchbar" action="#" role="search">
                         <input type="text" placeholder="Tìm sản phẩm..." />
                         <button type="submit">Tìm</button>
                     </form>
-
                     <nav class="header-right">
                         <a class="topbtn" href="#" title="Thông báo">🔔</a>
                         <a class="topbtn" href="#" title="Tài khoản">👤</a>
                     </nav>
-
                 </header>
 
                 <!-- LAYOUT -->
@@ -38,12 +33,9 @@
 
                     <!-- SIDEBAR -->
                     <aside id="sidebar" class="sidebar" aria-hidden="false">
-
                         <div class="sidebar-title">Quản trị</div>
-
                         <nav class="menu">
                             <a class="menu-item" href="overview.html">🏠 Tổng quan</a>
-
                             <a class="menu-item active" href="products">🧰 Sản phẩm</a>
                             <a class="menu-item" href="accounts">👥 Tài khoản</a>
                             <a class="menu-item" href="orders.html">🧾 Đơn hàng</a>
@@ -51,9 +43,7 @@
                             <a class="menu-item" href="revenue.html">💹 Doanh thu</a>
                             <a class="menu-item" href="settings.html">⚙️ Cài đặt</a>
                             <a class="menu-item danger" href="#">🚪 Đăng xuất</a>
-
                         </nav>
-
                     </aside>
 
                     <!-- CONTENT -->
@@ -63,16 +53,13 @@
 
                         <!-- BỘ LỌC -->
                         <section class="card" style="padding:12px; margin:10px 0 14px;">
-
                             <form class="form" action="products" method="get"
                                 style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; align-items:end;">
-
                                 <label>
                                     Tên / Mã
                                     <input class="input" type="text" name="q" value="${msgName}"
                                         placeholder="Ví dụ: HEM-7120, nhiệt kế..." />
                                 </label>
-
                                 <label>
                                     Thương hiệu
                                     <select class="input" name="brand">
@@ -82,7 +69,6 @@
                                         <option ${msgBrand=='Khác' ? 'selected' : '' }>Khác</option>
                                     </select>
                                 </label>
-
                                 <label>
                                     Trạng thái
                                     <select class="input" name="status">
@@ -91,37 +77,30 @@
                                         <option ${msgStatus=='Hết hàng' ? 'selected' : '' }>Hết hàng</option>
                                     </select>
                                 </label>
-
                                 <label>
                                     Khoảng giá (₫)
                                     <input class="input" type="text" name="price" value="${msgPrice}"
                                         placeholder="vd: 100000-1000000" />
                                 </label>
-
                                 <div class="actions" style="margin:0;">
                                     <button class="btn btn-ghost" type="submit">Lọc</button>
                                     <a class="btn btn-ghost" href="products">Reset</a>
                                 </div>
-
                             </form>
-
                         </section>
 
                         <!-- ACTIONS -->
                         <div class="actions">
                             <a class="btn" href="#modal-add">+ Thêm sản phẩm</a>
-                            <a class="btn btn-ghost" href="#modal-edit">Sửa</a>
+                            <a class="btn btn-ghost" href="#modal-edit" id="btn-edit">Sửa</a>
                             <a class="btn btn-ghost" href="#modal-hide">Ẩn/Hiện</a>
                             <a class="btn btn-danger" href="#modal-delete">Xóa</a>
                         </div>
 
                         <!-- BẢNG SẢN PHẨM -->
                         <section class="card">
-
                             <div class="table-wrap">
-
                                 <table class="table">
-
                                     <thead>
                                         <tr>
                                             <th><input type="checkbox" aria-label="Chọn tất cả" /></th>
@@ -134,10 +113,11 @@
                                             <th>Trạng thái</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
                                         <c:forEach items="${listP}" var="p">
-                                            <tr>
+                                            <tr data-id="${p.id}" data-name="${p.name}" data-img="${p.img}"
+                                                data-brand="${p.brand}" data-price="${p.price}" data-stock="${p.stock}"
+                                                data-description="${p.description}">
                                                 <td><input type="checkbox" aria-label="Chọn" /></td>
                                                 <td>SP${p.id}</td>
                                                 <td>
@@ -164,11 +144,8 @@
                                             </tr>
                                         </c:forEach>
                                     </tbody>
-
                                 </table>
-
                             </div>
-
                         </section>
 
                         <footer class="foot">© 2025 MedHome Admin</footer>
@@ -182,59 +159,68 @@
                 <!-- THÊM -->
                 <div id="modal-add" class="modal">
                     <a href="#" class="modal-overlay" aria-label="Đóng"></a>
-
                     <div class="modal-body">
-
                         <h3>Thêm sản phẩm</h3>
-
                         <form class="form" action="products" method="post">
                             <input type="hidden" name="action" value="add">
-
                             <label>Tên
                                 <input class="input" name="name" required />
                             </label>
-
                             <label>Hình ảnh (URL)
                                 <input class="input" name="img" placeholder="http://..." />
                             </label>
-
                             <label>Thương hiệu
                                 <input class="input" name="brand" />
                             </label>
-
                             <label>Giá (₫)
                                 <input class="input" type="number" name="price" min="0" step="1000" required />
                             </label>
-
                             <label>Tồn kho
                                 <input class="input" type="number" name="stock" min="0" required />
                             </label>
-
                             <label>Mô tả chi tiết
                                 <textarea class="input" name="description" rows="3"></textarea>
                             </label>
-
                             <div class="actions">
                                 <a class="btn btn-ghost" href="#">Hủy</a>
                                 <button class="btn" type="submit">Lưu</button>
                             </div>
-
                         </form>
-
                     </div>
-
                 </div>
 
-                <!-- SỬA (Example structure, logic needs JS) -->
+                <!-- SỬA -->
                 <div id="modal-edit" class="modal">
                     <a href="#" class="modal-overlay" aria-label="Đóng"></a>
                     <div class="modal-body">
                         <h3>Sửa sản phẩm</h3>
-                        <!-- Placeholder form -->
-                        <p>Chức năng đang được cập nhật...</p>
-                        <div class="actions">
-                            <a class="btn btn-ghost" href="#">Đóng</a>
-                        </div>
+                        <form class="form" id="form-edit" action="products" method="post">
+                            <input type="hidden" name="action" value="update">
+                            <input type="hidden" name="id" id="edit-id">
+                            <label>Tên
+                                <input class="input" name="name" id="edit-name" required />
+                            </label>
+                            <label>Hình ảnh (URL)
+                                <input class="input" name="img" id="edit-img" placeholder="http://..." />
+                            </label>
+                            <label>Thương hiệu
+                                <input class="input" name="brand" id="edit-brand" />
+                            </label>
+                            <label>Giá (₫)
+                                <input class="input" type="number" name="price" id="edit-price" min="0" step="1000"
+                                    required />
+                            </label>
+                            <label>Tồn kho
+                                <input class="input" type="number" name="stock" id="edit-stock" min="0" required />
+                            </label>
+                            <label>Mô tả chi tiết
+                                <textarea class="input" name="description" id="edit-desc" rows="3"></textarea>
+                            </label>
+                            <div class="actions">
+                                <a class="btn btn-ghost" href="#">Hủy</a>
+                                <button class="btn" type="submit">Lưu thay đổi</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
@@ -263,7 +249,38 @@
                 </div>
 
                 <script src="${pageContext.request.contextPath}/Admin/app.js"></script>
+                <script>
+                    document.getElementById('btn-edit').addEventListener('click', function (e) {
+                        // Find checked checkboxes in table body
+                        const checks = document.querySelectorAll('tbody input[type="checkbox"]:checked');
 
+                        if (checks.length === 0) {
+                            e.preventDefault();
+                            alert('Vui lòng chọn một sản phẩm để sửa!');
+                            return;
+                        }
+
+                        if (checks.length > 1) {
+                            e.preventDefault();
+                            alert('Chỉ được chọn 1 sản phẩm để sửa!');
+                            return;
+                        }
+
+                        // Get data
+                        const tr = checks[0].closest('tr');
+                        const data = tr.dataset;
+
+                        // Fill form
+                        const form = document.getElementById('form-edit');
+                        if (data.id) document.getElementById('edit-id').value = data.id;
+                        if (data.name) document.getElementById('edit-name').value = data.name;
+                        if (data.img) document.getElementById('edit-img').value = data.img;
+                        if (data.brand) document.getElementById('edit-brand').value = data.brand;
+                        if (data.price) document.getElementById('edit-price').value = data.price;
+                        if (data.stock) document.getElementById('edit-stock').value = data.stock;
+                        if (data.description) document.getElementById('edit-desc').value = data.description;
+                    });
+                </script>
             </body>
 
             </html>

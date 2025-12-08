@@ -73,6 +73,34 @@ public class AdminProductController extends HttpServlet {
             ProductService.getInstance().addProduct(p);
 
             response.sendRedirect("products");
+        } else if ("update".equals(action)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String name = request.getParameter("name");
+            String brand = request.getParameter("brand");
+            String img = request.getParameter("img");
+            String desc = request.getParameter("description");
+            double price = 0;
+            int stock = 0;
+
+            try {
+                price = Double.parseDouble(request.getParameter("price"));
+                stock = Integer.parseInt(request.getParameter("stock"));
+            } catch (NumberFormatException e) {
+                // handle error
+            }
+
+            Product p = new Product();
+            p.setId(id);
+            p.setName(name);
+            p.setBrand(brand);
+            p.setImg(img);
+            p.setDescription(desc);
+            p.setPrice(price);
+            p.setStock(stock);
+
+            ProductService.getInstance().updateProduct(p);
+
+            response.sendRedirect("products");
         } else {
             doGet(request, response);
         }

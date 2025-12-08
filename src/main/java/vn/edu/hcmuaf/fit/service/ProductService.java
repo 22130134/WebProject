@@ -450,4 +450,52 @@ public class ProductService {
         }
         return false;
     }
+
+    public boolean updateProduct(Product p) {
+        Connection conn = DBConnect.get();
+        if (conn == null)
+            return false;
+
+        String sql1 = "UPDATE products SET ProductName=?, Brand=?, ImageURL=? WHERE ProductID=?";
+        String sql2 = "UPDATE productdetails SET Price=?, StockQuantity=?, DetailDescription=? WHERE ProductID=?";
+
+        try {
+            conn.setAutoCommit(false); // Start Transaction
+
+            // Update products
+            PreparedStatement ps1 = conn.prepareStatement(sql1);
+            ps1.setString(1, p.getName());
+            ps1.setString(2, p.getBrand());
+            ps1.setString(3, p.getImg());
+            ps1.setInt(4, p.getId());
+
+            ps1.executeUpdate();
+
+            // Update productdetails
+            PreparedStatement ps2 = conn.prepareStatement(sql2);
+            ps2.setDouble(1, p.getPrice());
+            ps2.setInt(2, p.getStock());
+            ps2.setString(3, p.getDescription());
+            ps2.setInt(4, p.getId());
+
+            ps2.executeUpdate();
+
+            conn.commit(); // Commit
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }
