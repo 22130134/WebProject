@@ -16,10 +16,24 @@ public class AdminAccountController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String q = request.getParameter("q");
+        String role = request.getParameter("role");
+        String status = request.getParameter("status");
+
         AccountDAO dao = new AccountDAO();
-        List<Account> list = dao.getAll();
+        List<Account> list;
+
+        if ((q != null && !q.isEmpty()) || (role != null && !role.isEmpty()) || (status != null && !status.isEmpty())) {
+            list = dao.filter(q, role, status);
+        } else {
+            list = dao.getAll();
+        }
 
         request.setAttribute("listA", list);
+        request.setAttribute("msgName", q);
+        request.setAttribute("msgRole", role);
+        request.setAttribute("msgStatus", status);
+
         request.getRequestDispatcher("/Admin/accounts.jsp").forward(request, response);
     }
 

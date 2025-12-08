@@ -67,15 +67,16 @@
 
                                 <label>
                                     Tên / Email
-                                    <input class="input" type="text" name="q" placeholder="Nhập từ khóa..." />
+                                    <input class="input" type="text" name="q" value="${msgName}"
+                                        placeholder="Nhập từ khóa..." />
                                 </label>
 
                                 <label>
                                     Vai trò
                                     <select class="input" name="role">
                                         <option value="">Tất cả</option>
-                                        <option>Admin</option>
-                                        <option>Customer</option>
+                                        <option ${msgRole=='Admin' ? 'selected' : '' }>Admin</option>
+                                        <option ${msgRole=='Customer' ? 'selected' : '' }>Customer</option>
                                     </select>
                                 </label>
 
@@ -83,9 +84,9 @@
                                     Trạng thái
                                     <select class="input" name="status">
                                         <option value="">Tất cả</option>
-                                        <option>Active</option>
-                                        <option>Locked</option>
-                                        <option>Inactive</option>
+                                        <option ${msgStatus=='Active' ? 'selected' : '' }>Active</option>
+                                        <option ${msgStatus=='Locked' ? 'selected' : '' }>Locked</option>
+                                        <option ${msgStatus=='Inactive' ? 'selected' : '' }>Inactive</option>
                                     </select>
                                 </label>
 
