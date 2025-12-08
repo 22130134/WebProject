@@ -10,311 +10,264 @@
 
 <body>
 
-<!-- HEADER -->
-<header class="site-header">
+    <!-- HEADER -->
+    <header class="site-header">
 
-    <button id="btn-toggle"
-            class="hamburger"
-            aria-label="Mở/đóng menu"
-            aria-controls="sidebar"
+        <button id="btn-toggle" class="hamburger" aria-label="Mở/đóng menu" aria-controls="sidebar"
             aria-expanded="true">☰</button>
 
-    <a href="overview.html" class="logo">HKH</a>
+        <a href="overview.html" class="logo">HKH</a>
 
-    <form class="searchbar" action="#" role="search">
-        <input type="text" placeholder="Tìm cài đặt..." />
-        <button type="submit">Tìm</button>
-    </form>
+        <form class="searchbar" action="#" role="search">
+            <input type="text" placeholder="Tìm cài đặt..." />
+            <button type="submit">Tìm</button>
+        </form>
 
-    <nav class="header-right">
-        <a class="topbtn" href="#" title="Thông báo">🔔</a>
-        <a class="topbtn" href="#" title="Tài khoản">👤</a>
-    </nav>
-
-</header>
-
-<!-- LAYOUT -->
-<div class="layout">
-
-    <!-- SIDEBAR -->
-    <aside id="sidebar"
-           class="sidebar"
-           aria-hidden="false">
-
-        <div class="sidebar-title">Quản trị</div>
-
-        <nav class="menu">
-            <a class="menu-item" href="overview.html">🏠 Tổng quan</a>
-            <a class="menu-item" href="accounts.html">👥 Tài khoản</a>
-            <a class="menu-item" href="products.html">🧰 Sản phẩm</a>
-            <a class="menu-item" href="orders.html">🧾 Đơn hàng</a>
-            <a class="menu-item" href="calendar.html">💹 Lịch Khám</a>
-            <a class="menu-item" href="revenue.html">💹 Doanh thu</a>
-            <a class="menu-item" href="settings.html">⚙️ Cài đặt</a>
-            <a class="menu-item danger" href="#">🚪 Đăng xuất</a>
+        <nav class="header-right">
+            <a class="topbtn" href="#" title="Thông báo">🔔</a>
+            <a class="topbtn" href="#" title="Tài khoản">👤</a>
         </nav>
 
-    </aside>
+    </header>
 
-    <!-- CONTENT -->
-    <main class="content">
+    <!-- LAYOUT -->
+    <div class="layout">
 
-        <h2>Cài đặt hệ thống</h2>
+        <!-- SIDEBAR -->
+        <aside id="sidebar" class="sidebar" aria-hidden="false">
 
-        <!-- THÔNG TIN CỬA HÀNG -->
-        <section class="card" style="padding:14px; margin:10px 0;">
+            <div class="sidebar-title">Quản trị</div>
 
-            <h3 style="margin-bottom:10px;">Thông tin cửa hàng</h3>
+            <nav class="menu">
+                <a class="menu-item" href="overview.html">🏠 Tổng quan</a>
 
-            <form class="form"
-                  action="#"
-                  method="post"
-                  style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+                <a class="menu-item" href="products.html">🧰 Sản phẩm</a>
+                <a class="menu-item" href="orders.html">🧾 Đơn hàng</a>
+                <a class="menu-item" href="calendar.html">💹 Lịch Khám</a>
+                <a class="menu-item" href="revenue.html">💹 Doanh thu</a>
+                <a class="menu-item" href="settings.html">⚙️ Cài đặt</a>
 
-                <label>Tên hiển thị
-                    <input class="input"
-                           name="store_name"
-                           value="MedHome" />
-                </label>
+            </nav>
 
-                <label>Email liên hệ
-                    <input class="input"
-                           type="email"
-                           name="store_email"
-                           value="support@medhome.vn" />
-                </label>
+        </aside>
 
-                <label>Số điện thoại
-                    <input class="input"
-                           name="store_phone"
-                           value="0123 456 789" />
-                </label>
+        <!-- CONTENT -->
+        <main class="content">
 
-                <label>Địa chỉ
-                    <input class="input"
-                           name="store_address"
-                           value="123 Đường ABC, Quận 1, TP.HCM" />
-                </label>
+            <h2>Cài đặt hệ thống</h2>
 
-                <div class="actions" style="grid-column:1/-1;">
-                    <a class="btn btn-ghost" href="#">Hủy</a>
-                    <button class="btn" type="submit">Lưu thay đổi</button>
-                </div>
+            <!-- THÔNG TIN CỬA HÀNG -->
+            <section class="card" style="padding:14px; margin:10px 0;">
 
-            </form>
+                <h3 style="margin-bottom:10px;">Thông tin cửa hàng</h3>
 
-        </section>
+                <form class="form" action="#" method="post"
+                    style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
 
-        <!-- GIAO DIỆN & THƯƠNG HIỆU -->
-        <section class="card" style="padding:14px; margin:10px 0;">
+                    <label>Tên hiển thị
+                        <input class="input" name="store_name" value="MedHome" />
+                    </label>
 
-            <h3 style="margin-bottom:10px;">Giao diện & thương hiệu</h3>
+                    <label>Email liên hệ
+                        <input class="input" type="email" name="store_email" value="support@medhome.vn" />
+                    </label>
 
-            <form class="form"
-                  action="#"
-                  method="post"
-                  style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+                    <label>Số điện thoại
+                        <input class="input" name="store_phone" value="0123 456 789" />
+                    </label>
 
-                <label>Màu chủ đạo
-                    <select class="input" name="theme_color">
-                        <option selected>Đỏ (mặc định)</option>
-                        <option>Xanh dương</option>
-                        <option>Xanh lá</option>
-                        <option>Tối (Dark)</option>
-                    </select>
-                </label>
+                    <label>Địa chỉ
+                        <input class="input" name="store_address" value="123 Đường ABC, Quận 1, TP.HCM" />
+                    </label>
 
-                <label>Logo (URL)
-                    <input class="input"
-                           name="logo_url"
-                           placeholder="https://..." />
-                </label>
+                    <div class="actions" style="grid-column:1/-1;">
+                        <a class="btn btn-ghost" href="#">Hủy</a>
+                        <button class="btn" type="submit">Lưu thay đổi</button>
+                    </div>
 
-                <label>Favicon (URL)
-                    <input class="input"
-                           name="favicon_url"
-                           placeholder="https://..." />
-                </label>
+                </form>
 
-                <div class="actions" style="grid-column:1/-1;">
-                    <a class="btn btn-ghost" href="#">Hủy</a>
-                    <button class="btn" type="submit">Lưu</button>
-                </div>
+            </section>
 
-            </form>
+            <!-- GIAO DIỆN & THƯƠNG HIỆU -->
+            <section class="card" style="padding:14px; margin:10px 0;">
 
-        </section>
+                <h3 style="margin-bottom:10px;">Giao diện & thương hiệu</h3>
 
-        <!-- THANH TOÁN & VẬN CHUYỂN -->
-        <section class="card" style="padding:14px; margin:10px 0;">
+                <form class="form" action="#" method="post"
+                    style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
 
-            <h3 style="margin-bottom:10px;">Thanh toán & vận chuyển</h3>
+                    <label>Màu chủ đạo
+                        <select class="input" name="theme_color">
+                            <option selected>Đỏ (mặc định)</option>
+                            <option>Xanh dương</option>
+                            <option>Xanh lá</option>
+                            <option>Tối (Dark)</option>
+                        </select>
+                    </label>
 
-            <form class="form"
-                  action="#"
-                  method="post"
-                  style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+                    <label>Logo (URL)
+                        <input class="input" name="logo_url" placeholder="https://..." />
+                    </label>
 
-                <label>Phương thức thanh toán
-                    <select class="input" name="payments" multiple>
-                        <option selected>COD</option>
-                        <option selected>Chuyển khoản</option>
-                        <option>Ví điện tử</option>
-                    </select>
-                </label>
+                    <label>Favicon (URL)
+                        <input class="input" name="favicon_url" placeholder="https://..." />
+                    </label>
 
-                <label>Phí vận chuyển mặc định (₫)
-                    <input class="input"
-                           type="number"
-                           name="ship_fee"
-                           min="0"
-                           step="1000"
-                           value="25000" />
-                </label>
+                    <div class="actions" style="grid-column:1/-1;">
+                        <a class="btn btn-ghost" href="#">Hủy</a>
+                        <button class="btn" type="submit">Lưu</button>
+                    </div>
 
-                <label>Miễn phí ship từ (₫)
-                    <input class="input"
-                           type="number"
-                           name="ship_free_from"
-                           min="0"
-                           step="1000"
-                           value="500000" />
-                </label>
+                </form>
 
-                <div class="actions" style="grid-column:1/-1;">
-                    <a class="btn btn-ghost" href="#">Hủy</a>
-                    <button class="btn" type="submit">Lưu</button>
-                </div>
+            </section>
 
-            </form>
+            <!-- THANH TOÁN & VẬN CHUYỂN -->
+            <section class="card" style="padding:14px; margin:10px 0;">
 
-        </section>
+                <h3 style="margin-bottom:10px;">Thanh toán & vận chuyển</h3>
 
-        <!-- THÔNG BÁO -->
-        <section class="card" style="padding:14px; margin:10px 0;">
+                <form class="form" action="#" method="post"
+                    style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
 
-            <h3 style="margin-bottom:10px;">Thông báo</h3>
+                    <label>Phương thức thanh toán
+                        <select class="input" name="payments" multiple>
+                            <option selected>COD</option>
+                            <option selected>Chuyển khoản</option>
+                            <option>Ví điện tử</option>
+                        </select>
+                    </label>
 
-            <form class="form"
-                  action="#"
-                  method="post"
-                  style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+                    <label>Phí vận chuyển mặc định (₫)
+                        <input class="input" type="number" name="ship_fee" min="0" step="1000" value="25000" />
+                    </label>
 
-                <label>Email nhận thông báo
-                    <input class="input"
-                           type="email"
-                           name="notify_email"
-                           value="admin@medhome.vn" />
-                </label>
+                    <label>Miễn phí ship từ (₫)
+                        <input class="input" type="number" name="ship_free_from" min="0" step="1000" value="500000" />
+                    </label>
 
-                <label>Bật thông báo đơn mới
-                    <select class="input" name="notify_new_order">
-                        <option selected>Bật</option>
-                        <option>Tắt</option>
-                    </select>
-                </label>
+                    <div class="actions" style="grid-column:1/-1;">
+                        <a class="btn btn-ghost" href="#">Hủy</a>
+                        <button class="btn" type="submit">Lưu</button>
+                    </div>
 
-                <label>Bật thông báo tồn kho thấp
-                    <select class="input" name="notify_low_stock">
-                        <option selected>Bật</option>
-                        <option>Tắt</option>
-                    </select>
-                </label>
+                </form>
 
-                <div class="actions" style="grid-column:1/-1;">
-                    <a class="btn btn-ghost" href="#">Hủy</a>
-                    <button class="btn" type="submit">Lưu</button>
-                </div>
+            </section>
 
-            </form>
+            <!-- THÔNG BÁO -->
+            <section class="card" style="padding:14px; margin:10px 0;">
 
-        </section>
+                <h3 style="margin-bottom:10px;">Thông báo</h3>
 
-        <!-- BẢO MẬT TÀI KHOẢN QUẢN TRỊ -->
-        <section class="card" style="padding:14px; margin:10px 0;">
+                <form class="form" action="#" method="post"
+                    style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
 
-            <h3 style="margin-bottom:10px;">Bảo mật tài khoản quản trị</h3>
+                    <label>Email nhận thông báo
+                        <input class="input" type="email" name="notify_email" value="admin@medhome.vn" />
+                    </label>
 
-            <form class="form"
-                  action="#"
-                  method="post"
-                  style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+                    <label>Bật thông báo đơn mới
+                        <select class="input" name="notify_new_order">
+                            <option selected>Bật</option>
+                            <option>Tắt</option>
+                        </select>
+                    </label>
 
-                <label>Mật khẩu hiện tại
-                    <input class="input"
-                           type="password"
-                           name="old_password" />
-                </label>
+                    <label>Bật thông báo tồn kho thấp
+                        <select class="input" name="notify_low_stock">
+                            <option selected>Bật</option>
+                            <option>Tắt</option>
+                        </select>
+                    </label>
 
-                <label>Mật khẩu mới
-                    <input class="input"
-                           type="password"
-                           name="new_password" />
-                </label>
+                    <div class="actions" style="grid-column:1/-1;">
+                        <a class="btn btn-ghost" href="#">Hủy</a>
+                        <button class="btn" type="submit">Lưu</button>
+                    </div>
 
-                <label>Nhập lại mật khẩu mới
-                    <input class="input"
-                           type="password"
-                           name="re_password" />
-                </label>
+                </form>
 
-                <label>Bật 2FA (giả lập)
-                    <select class="input" name="twofa">
-                        <option selected>Tắt</option>
-                        <option>Bật</option>
-                    </select>
-                </label>
+            </section>
 
-                <div class="actions" style="grid-column:1/-1;">
-                    <a class="btn btn-ghost" href="#">Hủy</a>
-                    <button class="btn" type="submit">Đổi mật khẩu</button>
-                </div>
+            <!-- BẢO MẬT TÀI KHOẢN QUẢN TRỊ -->
+            <section class="card" style="padding:14px; margin:10px 0;">
 
-            </form>
+                <h3 style="margin-bottom:10px;">Bảo mật tài khoản quản trị</h3>
 
-        </section>
+                <form class="form" action="#" method="post"
+                    style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
 
-        <div class="actions" style="margin:12px 0;">
-            <a class="btn btn-ghost" href="#modal-reset">Khôi phục mặc định</a>
-            <a class="btn" href="#modal-save-all">Lưu tất cả</a>
-        </div>
+                    <label>Mật khẩu hiện tại
+                        <input class="input" type="password" name="old_password" />
+                    </label>
 
-        <footer class="foot">© 2025 MedHome Admin</footer>
+                    <label>Mật khẩu mới
+                        <input class="input" type="password" name="new_password" />
+                    </label>
 
-    </main>
+                    <label>Nhập lại mật khẩu mới
+                        <input class="input" type="password" name="re_password" />
+                    </label>
 
-</div>
+                    <label>Bật 2FA (giả lập)
+                        <select class="input" name="twofa">
+                            <option selected>Tắt</option>
+                            <option>Bật</option>
+                        </select>
+                    </label>
 
-<!-- MODALS -->
-<div id="modal-reset" class="modal modal-sm">
-    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+                    <div class="actions" style="grid-column:1/-1;">
+                        <a class="btn btn-ghost" href="#">Hủy</a>
+                        <button class="btn" type="submit">Đổi mật khẩu</button>
+                    </div>
 
-    <div class="modal-body">
-        <h3>Khôi phục mặc định?</h3>
-        <p>Toàn bộ cài đặt sẽ về giá trị ban đầu.</p>
-        <div class="actions">
-            <a class="btn btn-ghost" href="#">Hủy</a>
-            <button class="btn btn-danger" type="button">Xác nhận</button>
-        </div>
+                </form>
+
+            </section>
+
+            <div class="actions" style="margin:12px 0;">
+                <a class="btn btn-ghost" href="#modal-reset">Khôi phục mặc định</a>
+                <a class="btn" href="#modal-save-all">Lưu tất cả</a>
+            </div>
+
+            <footer class="foot">© 2025 MedHome Admin</footer>
+
+        </main>
+
     </div>
 
-</div>
+    <!-- MODALS -->
+    <div id="modal-reset" class="modal modal-sm">
+        <a href="#" class="modal-overlay" aria-label="Đóng"></a>
 
-<div id="modal-save-all" class="modal modal-sm">
-    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
-
-    <div class="modal-body">
-        <h3>Lưu tất cả cài đặt?</h3>
-        <p>Áp dụng thay đổi cho toàn hệ thống.</p>
-        <div class="actions">
-            <a class="btn btn-ghost" href="#">Đóng</a>
-            <button class="btn" type="button">Lưu</button>
+        <div class="modal-body">
+            <h3>Khôi phục mặc định?</h3>
+            <p>Toàn bộ cài đặt sẽ về giá trị ban đầu.</p>
+            <div class="actions">
+                <a class="btn btn-ghost" href="#">Hủy</a>
+                <button class="btn btn-danger" type="button">Xác nhận</button>
+            </div>
         </div>
+
     </div>
 
-</div>
+    <div id="modal-save-all" class="modal modal-sm">
+        <a href="#" class="modal-overlay" aria-label="Đóng"></a>
 
-<script src="app.js"></script>
+        <div class="modal-body">
+            <h3>Lưu tất cả cài đặt?</h3>
+            <p>Áp dụng thay đổi cho toàn hệ thống.</p>
+            <div class="actions">
+                <a class="btn btn-ghost" href="#">Đóng</a>
+                <button class="btn" type="button">Lưu</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
 
 </body>
 

@@ -10,78 +10,272 @@
 
 <body>
 
-<!-- HEADER -->
-<header class="site-header">
+    <!-- HEADER -->
+    <header class="site-header">
 
-    <button id="btn-toggle"
-            class="hamburger"
-            aria-label="Mở/đóng menu"
-            aria-controls="sidebar"
+        <button id="btn-toggle" class="hamburger" aria-label="Mở/đóng menu" aria-controls="sidebar"
             aria-expanded="true">☰</button>
 
-    <a href="overview.html" class="logo">HKH</a>
+        <a href="overview.html" class="logo">HKH</a>
 
-    <form class="searchbar" action="#" role="search">
-        <input type="text" placeholder="Tìm đơn hàng (mã/khách)..." />
-        <button type="submit">Tìm</button>
-    </form>
+        <form class="searchbar" action="#" role="search">
+            <input type="text" placeholder="Tìm đơn hàng (mã/khách)..." />
+            <button type="submit">Tìm</button>
+        </form>
 
-    <nav class="header-right">
-        <a class="topbtn" href="#" title="Thông báo">🔔</a>
-        <a class="topbtn" href="#" title="Tài khoản">👤</a>
-    </nav>
-
-</header>
-
-<!-- LAYOUT -->
-<div class="layout">
-
-    <!-- SIDEBAR -->
-    <aside id="sidebar"
-           class="sidebar"
-           aria-hidden="false">
-
-        <div class="sidebar-title">Quản trị</div>
-
-        <nav class="menu">
-            <a class="menu-item" href="overview.html">🏠 Tổng quan</a>
-            <a class="menu-item" href="accounts.html">👥 Tài khoản</a>
-            <a class="menu-item" href="products.html">🧰 Sản phẩm</a>
-            <a class="menu-item" href="orders.html">🧾 Đơn hàng</a>
-            <a class="menu-item" href="calendar.html">💹 Lịch Khám</a>
-            <a class="menu-item" href="revenue.html">💹 Doanh thu</a>
-            <a class="menu-item" href="settings.html">⚙️ Cài đặt</a>
-            <a class="menu-item danger" href="#">🚪 Đăng xuất</a>
+        <nav class="header-right">
+            <a class="topbtn" href="#" title="Thông báo">🔔</a>
+            <a class="topbtn" href="#" title="Tài khoản">👤</a>
         </nav>
 
-    </aside>
+    </header>
 
-    <!-- CONTENT -->
-    <main class="content">
+    <!-- LAYOUT -->
+    <div class="layout">
 
-        <h2>Quản lý đơn hàng</h2>
+        <!-- SIDEBAR -->
+        <aside id="sidebar" class="sidebar" aria-hidden="false">
 
-        <!-- BỘ LỌC -->
-        <section class="card"
-                 style="padding:12px; margin:10px 0 14px;">
+            <div class="sidebar-title">Quản trị</div>
 
-            <form class="form"
-                  action="#"
-                  method="get"
-                  style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; align-items:end;">
+            <nav class="menu">
+                <a class="menu-item" href="overview.html">🏠 Tổng quan</a>
 
-                <label>
-                    Mã / Khách
-                    <input class="input"
-                           type="text"
-                           name="q"
-                           placeholder="VD: DH10234, Nguyễn Văn A" />
+                <a class="menu-item" href="products.html">🧰 Sản phẩm</a>
+                <a class="menu-item" href="orders.html">🧾 Đơn hàng</a>
+                <a class="menu-item" href="calendar.html">💹 Lịch Khám</a>
+                <a class="menu-item" href="revenue.html">💹 Doanh thu</a>
+                <a class="menu-item" href="settings.html">⚙️ Cài đặt</a>
+
+            </nav>
+
+        </aside>
+
+        <!-- CONTENT -->
+        <main class="content">
+
+            <h2>Quản lý đơn hàng</h2>
+
+            <!-- BỘ LỌC -->
+            <section class="card" style="padding:12px; margin:10px 0 14px;">
+
+                <form class="form" action="#" method="get"
+                    style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; align-items:end;">
+
+                    <label>
+                        Mã / Khách
+                        <input class="input" type="text" name="q" placeholder="VD: DH10234, Nguyễn Văn A" />
+                    </label>
+
+                    <label>
+                        Trạng thái
+                        <select class="input" name="status">
+                            <option value="">Tất cả</option>
+                            <option>Chờ xử lý</option>
+                            <option>Đang giao</option>
+                            <option>Đã giao</option>
+                            <option>Đã hủy</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Thanh toán
+                        <select class="input" name="payment">
+                            <option value="">Tất cả</option>
+                            <option>COD</option>
+                            <option>Chuyển khoản</option>
+                            <option>Ví điện tử</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Ngày (dd/mm/yyyy)
+                        <input class="input" type="text" name="date" placeholder="25/10/2025 - 31/10/2025" />
+                    </label>
+
+                    <div class="actions" style="margin:0;">
+                        <button class="btn btn-ghost" type="submit">Lọc</button>
+                        <a class="btn btn-ghost" href="orders.html">Reset</a>
+                    </div>
+
+                </form>
+
+            </section>
+
+            <!-- ACTIONS -->
+            <div class="actions">
+                <a class="btn" href="#modal-add-order">+ Tạo đơn</a>
+                <a class="btn btn-ghost" href="#modal-edit-order">Sửa</a>
+                <a class="btn btn-ghost" href="#modal-status">Cập nhật trạng thái</a>
+                <a class="btn btn-ghost" href="#modal-cancel">Hủy đơn</a>
+                <a class="btn btn-danger" href="#modal-delete-order">Xóa</a>
+            </div>
+
+            <!-- BẢNG ĐƠN HÀNG -->
+            <section class="card">
+
+                <div class="table-wrap">
+
+                    <table class="table">
+
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" aria-label="Chọn tất cả" /></th>
+                                <th>Mã</th>
+                                <th>Khách</th>
+                                <th>Ngày</th>
+                                <th>Thanh toán</th>
+                                <th>Tổng (₫)</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td><input type="checkbox" aria-label="Chọn" /></td>
+                                <td>DH10234</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>25/10/2025</td>
+                                <td>COD</td>
+                                <td>1.280.000</td>
+                                <td><span class="badge ok">Đã giao</span></td>
+                            </tr>
+
+                            <tr>
+                                <td><input type="checkbox" aria-label="Chọn" /></td>
+                                <td>DH10233</td>
+                                <td>Lê Thị B</td>
+                                <td>25/10/2025</td>
+                                <td>Chuyển khoản</td>
+                                <td>520.000</td>
+                                <td><span class="badge">Chờ xử lý</span></td>
+                            </tr>
+
+                            <tr>
+                                <td><input type="checkbox" aria-label="Chọn" /></td>
+                                <td>DH10232</td>
+                                <td>Phạm Văn C</td>
+                                <td>24/10/2025</td>
+                                <td>Ví điện tử</td>
+                                <td>2.350.000</td>
+                                <td><span class="badge ok">Đang giao</span></td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            <footer class="foot">© 2025 MedHome Admin</footer>
+
+        </main>
+
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- TẠO ĐƠN -->
+    <div id="modal-add-order" class="modal">
+        <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+
+        <div class="modal-body">
+
+            <h3>Tạo đơn hàng</h3>
+
+            <form class="form" action="#" method="post">
+
+                <label>Khách hàng
+                    <input class="input" name="customer" required />
                 </label>
 
-                <label>
-                    Trạng thái
+                <label>Số điện thoại
+                    <input class="input" name="phone" required />
+                </label>
+
+                <label>Địa chỉ
+                    <input class="input" name="address" required />
+                </label>
+
+                <label>Phương thức thanh toán
+                    <select class="input" name="payment">
+                        <option>COD</option>
+                        <option>Chuyển khoản</option>
+                        <option>Ví điện tử</option>
+                    </select>
+                </label>
+
+                <label>Tổng tiền (₫)
+                    <input class="input" type="number" name="total" min="0" step="1000" required />
+                </label>
+
+                <div class="actions">
+                    <a class="btn btn-ghost" href="#">Hủy</a>
+                    <button class="btn" type="submit">Tạo đơn</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- SỬA ĐƠN -->
+    <div id="modal-edit-order" class="modal">
+        <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+
+        <div class="modal-body">
+
+            <h3>Sửa đơn hàng</h3>
+
+            <form class="form" action="#" method="post">
+
+                <label>Mã đơn
+                    <input class="input" name="code" value="DH10233" />
+                </label>
+
+                <label>Khách hàng
+                    <input class="input" name="customer" value="Lê Thị B" />
+                </label>
+
+                <label>Phương thức thanh toán
+                    <select class="input" name="payment">
+                        <option>COD</option>
+                        <option selected>Chuyển khoản</option>
+                        <option>Ví điện tử</option>
+                    </select>
+                </label>
+
+                <label>Tổng tiền (₫)
+                    <input class="input" type="number" name="total" value="520000" />
+                </label>
+
+                <div class="actions">
+                    <a class="btn btn-ghost" href="#">Hủy</a>
+                    <button class="btn" type="submit">Cập nhật</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- CẬP NHẬT TRẠNG THÁI -->
+    <div id="modal-status" class="modal modal-sm">
+        <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+
+        <div class="modal-body">
+
+            <h3>Cập nhật trạng thái</h3>
+
+            <form class="form" action="#" method="post">
+
+                <label>Trạng thái
                     <select class="input" name="status">
-                        <option value="">Tất cả</option>
                         <option>Chờ xử lý</option>
                         <option>Đang giao</option>
                         <option>Đã giao</option>
@@ -89,264 +283,48 @@
                     </select>
                 </label>
 
-                <label>
-                    Thanh toán
-                    <select class="input" name="payment">
-                        <option value="">Tất cả</option>
-                        <option>COD</option>
-                        <option>Chuyển khoản</option>
-                        <option>Ví điện tử</option>
-                    </select>
-                </label>
-
-                <label>
-                    Ngày (dd/mm/yyyy)
-                    <input class="input"
-                           type="text"
-                           name="date"
-                           placeholder="25/10/2025 - 31/10/2025" />
-                </label>
-
-                <div class="actions" style="margin:0;">
-                    <button class="btn btn-ghost" type="submit">Lọc</button>
-                    <a class="btn btn-ghost" href="orders.html">Reset</a>
+                <div class="actions">
+                    <a class="btn btn-ghost" href="#">Đóng</a>
+                    <button class="btn" type="submit">Lưu</button>
                 </div>
 
             </form>
 
-        </section>
-
-        <!-- ACTIONS -->
-        <div class="actions">
-            <a class="btn" href="#modal-add-order">+ Tạo đơn</a>
-            <a class="btn btn-ghost" href="#modal-edit-order">Sửa</a>
-            <a class="btn btn-ghost" href="#modal-status">Cập nhật trạng thái</a>
-            <a class="btn btn-ghost" href="#modal-cancel">Hủy đơn</a>
-            <a class="btn btn-danger" href="#modal-delete-order">Xóa</a>
         </div>
 
-        <!-- BẢNG ĐƠN HÀNG -->
-        <section class="card">
+    </div>
 
-            <div class="table-wrap">
+    <!-- HỦY ĐƠN -->
+    <div id="modal-cancel" class="modal modal-sm">
+        <a href="#" class="modal-overlay" aria-label="Đóng"></a>
 
-                <table class="table">
-
-                    <thead>
-                    <tr>
-                        <th><input type="checkbox" aria-label="Chọn tất cả" /></th>
-                        <th>Mã</th>
-                        <th>Khách</th>
-                        <th>Ngày</th>
-                        <th>Thanh toán</th>
-                        <th>Tổng (₫)</th>
-                        <th>Trạng thái</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-
-                    <tr>
-                        <td><input type="checkbox" aria-label="Chọn" /></td>
-                        <td>DH10234</td>
-                        <td>Nguyễn Văn A</td>
-                        <td>25/10/2025</td>
-                        <td>COD</td>
-                        <td>1.280.000</td>
-                        <td><span class="badge ok">Đã giao</span></td>
-                    </tr>
-
-                    <tr>
-                        <td><input type="checkbox" aria-label="Chọn" /></td>
-                        <td>DH10233</td>
-                        <td>Lê Thị B</td>
-                        <td>25/10/2025</td>
-                        <td>Chuyển khoản</td>
-                        <td>520.000</td>
-                        <td><span class="badge">Chờ xử lý</span></td>
-                    </tr>
-
-                    <tr>
-                        <td><input type="checkbox" aria-label="Chọn" /></td>
-                        <td>DH10232</td>
-                        <td>Phạm Văn C</td>
-                        <td>24/10/2025</td>
-                        <td>Ví điện tử</td>
-                        <td>2.350.000</td>
-                        <td><span class="badge ok">Đang giao</span></td>
-                    </tr>
-
-                    </tbody>
-
-                </table>
-
+        <div class="modal-body">
+            <h3>Hủy đơn hàng?</h3>
+            <p>Bạn có chắc muốn hủy <strong>DH10232</strong>?</p>
+            <div class="actions">
+                <a class="btn btn-ghost" href="#">Không</a>
+                <button class="btn" type="button">Xác nhận hủy</button>
             </div>
+        </div>
 
-        </section>
+    </div>
 
-        <footer class="foot">© 2025 MedHome Admin</footer>
+    <!-- XÓA ĐƠN -->
+    <div id="modal-delete-order" class="modal modal-sm">
+        <a href="#" class="modal-overlay" aria-label="Đóng"></a>
 
-    </main>
-
-</div>
-
-<!-- MODALS -->
-
-<!-- TẠO ĐƠN -->
-<div id="modal-add-order" class="modal">
-    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
-
-    <div class="modal-body">
-
-        <h3>Tạo đơn hàng</h3>
-
-        <form class="form" action="#" method="post">
-
-            <label>Khách hàng
-                <input class="input" name="customer" required />
-            </label>
-
-            <label>Số điện thoại
-                <input class="input" name="phone" required />
-            </label>
-
-            <label>Địa chỉ
-                <input class="input" name="address" required />
-            </label>
-
-            <label>Phương thức thanh toán
-                <select class="input" name="payment">
-                    <option>COD</option>
-                    <option>Chuyển khoản</option>
-                    <option>Ví điện tử</option>
-                </select>
-            </label>
-
-            <label>Tổng tiền (₫)
-                <input class="input"
-                       type="number"
-                       name="total"
-                       min="0"
-                       step="1000"
-                       required />
-            </label>
-
+        <div class="modal-body">
+            <h3>Xóa đơn hàng?</h3>
+            <p>Bạn chắc chắn muốn xóa <strong>DH10233</strong>?</p>
             <div class="actions">
                 <a class="btn btn-ghost" href="#">Hủy</a>
-                <button class="btn" type="submit">Tạo đơn</button>
+                <button class="btn btn-danger" type="button">Xóa</button>
             </div>
-
-        </form>
-
-    </div>
-
-</div>
-
-<!-- SỬA ĐƠN -->
-<div id="modal-edit-order" class="modal">
-    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
-
-    <div class="modal-body">
-
-        <h3>Sửa đơn hàng</h3>
-
-        <form class="form" action="#" method="post">
-
-            <label>Mã đơn
-                <input class="input" name="code" value="DH10233" />
-            </label>
-
-            <label>Khách hàng
-                <input class="input" name="customer" value="Lê Thị B" />
-            </label>
-
-            <label>Phương thức thanh toán
-                <select class="input" name="payment">
-                    <option>COD</option>
-                    <option selected>Chuyển khoản</option>
-                    <option>Ví điện tử</option>
-                </select>
-            </label>
-
-            <label>Tổng tiền (₫)
-                <input class="input"
-                       type="number"
-                       name="total"
-                       value="520000" />
-            </label>
-
-            <div class="actions">
-                <a class="btn btn-ghost" href="#">Hủy</a>
-                <button class="btn" type="submit">Cập nhật</button>
-            </div>
-
-        </form>
-
-    </div>
-
-</div>
-
-<!-- CẬP NHẬT TRẠNG THÁI -->
-<div id="modal-status" class="modal modal-sm">
-    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
-
-    <div class="modal-body">
-
-        <h3>Cập nhật trạng thái</h3>
-
-        <form class="form" action="#" method="post">
-
-            <label>Trạng thái
-                <select class="input" name="status">
-                    <option>Chờ xử lý</option>
-                    <option>Đang giao</option>
-                    <option>Đã giao</option>
-                    <option>Đã hủy</option>
-                </select>
-            </label>
-
-            <div class="actions">
-                <a class="btn btn-ghost" href="#">Đóng</a>
-                <button class="btn" type="submit">Lưu</button>
-            </div>
-
-        </form>
-
-    </div>
-
-</div>
-
-<!-- HỦY ĐƠN -->
-<div id="modal-cancel" class="modal modal-sm">
-    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
-
-    <div class="modal-body">
-        <h3>Hủy đơn hàng?</h3>
-        <p>Bạn có chắc muốn hủy <strong>DH10232</strong>?</p>
-        <div class="actions">
-            <a class="btn btn-ghost" href="#">Không</a>
-            <button class="btn" type="button">Xác nhận hủy</button>
         </div>
+
     </div>
 
-</div>
-
-<!-- XÓA ĐƠN -->
-<div id="modal-delete-order" class="modal modal-sm">
-    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
-
-    <div class="modal-body">
-        <h3>Xóa đơn hàng?</h3>
-        <p>Bạn chắc chắn muốn xóa <strong>DH10233</strong>?</p>
-        <div class="actions">
-            <a class="btn btn-ghost" href="#">Hủy</a>
-            <button class="btn btn-danger" type="button">Xóa</button>
-        </div>
-    </div>
-
-</div>
-
-<script src="app.js"></script>
+    <script src="app.js"></script>
 
 </body>
 
