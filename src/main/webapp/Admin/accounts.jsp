@@ -1,0 +1,295 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+            <!doctype html>
+            <html lang="vi">
+
+            <head>
+                <meta charset="utf-8" />
+                <title>MedHome Admin — Tài khoản</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin/admin.css" />
+            </head>
+
+            <body>
+
+                <!-- HEADER -->
+                <header class="site-header">
+
+                    <button id="btn-toggle" class="hamburger" aria-label="Mở/đóng menu" aria-controls="sidebar"
+                        aria-expanded="true">☰</button>
+
+                    <a href="overview.html" class="logo">HKH</a>
+                    <form class="searchbar" action="#" role="search">
+                        <input type="text" placeholder="Tìm người dùng..." />
+                        <button type="submit">Tìm</button>
+                    </form>
+                    <nav class="header-right">
+                        <a class="topbtn" href="#" title="Thông báo">🔔</a>
+                        <a class="topbtn" href="#" title="Tài khoản">👤</a>
+                    </nav>
+
+                </header>
+
+                <!-- MAIN LAYOUT -->
+                <div class="layout">
+
+                    <!-- SIDEBAR -->
+                    <aside id="sidebar" class="sidebar" aria-hidden="false">
+
+                        <div class="sidebar-title">Quản trị</div>
+
+                        <nav class="menu">
+                            <a class="menu-item" href="overview.html">🏠 Tổng quan</a>
+                            <a class="menu-item active" href="accounts">👥 Tài khoản</a>
+                            <!-- Link tới servlet accounts -->
+                            <a class="menu-item" href="products.html">🧰 Sản phẩm</a>
+                            <a class="menu-item" href="orders.html">🧾 Đơn hàng</a>
+                            <a class="menu-item" href="revenue.html">💹 Lịch Khám</a>
+                            <a class="menu-item" href="revenue.html">💹 Doanh thu</a>
+                            <a class="menu-item" href="settings.html">⚙️ Cài đặt</a>
+                            <a class="menu-item danger" href="#">🚪 Đăng xuất</a>
+                        </nav>
+
+
+                    </aside>
+
+                    <!-- CONTENT -->
+                    <main class="content">
+
+                        <h2>Quản lý tài khoản</h2>
+
+                        <!-- BỘ LỌC -->
+                        <section class="card" style="padding:12px; margin: 10px 0 14px;">
+
+                            <form class="form" action="#" method="get"
+                                style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; align-items:end;">
+
+                                <label>
+                                    Tên / Email
+                                    <input class="input" type="text" name="q" placeholder="Nhập từ khóa..." />
+                                </label>
+
+                                <label>
+                                    Vai trò
+                                    <select class="input" name="role">
+                                        <option value="">Tất cả</option>
+                                        <option>Admin</option>
+                                        <option>Customer</option>
+                                    </select>
+                                </label>
+
+                                <label>
+                                    Trạng thái
+                                    <select class="input" name="status">
+                                        <option value="">Tất cả</option>
+                                        <option>Active</option>
+                                        <option>Locked</option>
+                                        <option>Inactive</option>
+                                    </select>
+                                </label>
+
+                                <div class="actions" style="margin:0;">
+                                    <button class="btn btn-ghost" type="submit">Lọc</button>
+                                    <a class="btn btn-ghost" href="accounts">Reset</a>
+                                </div>
+
+                            </form>
+
+                        </section>
+
+                        <!-- THAO TÁC -->
+                        <div class="actions">
+                            <a class="btn" href="#modal-add-account">+ Thêm tài khoản</a>
+                            <a class="btn btn-ghost" href="#modal-edit-account">Sửa</a>
+                            <a class="btn btn-ghost" href="#modal-lock">Khóa/Mở khóa</a>
+                            <a class="btn btn-danger" href="#modal-delete-account">Xóa</a>
+                        </div>
+
+                        <!-- BẢNG DỮ LIỆU -->
+                        <section class="card">
+
+                            <div class="table-wrap">
+
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" aria-label="Chọn tất cả" /></th>
+                                            <th>Mã</th>
+                                            <th>Tên</th>
+                                            <th>Email</th>
+                                            <th>Vai trò</th>
+                                            <th>Trạng thái</th>
+                                            <th>Ngày tạo</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <c:forEach items="${listA}" var="o">
+                                            <tr>
+                                                <td><input type="checkbox" aria-label="Chọn" /></td>
+                                                <td>U${o.id}</td>
+                                                <td>${o.username}</td>
+                                                <td>${o.email}</td>
+                                                <td><span
+                                                        class="badge ${o.role == 'Admin' ? '' : 'secondary'}">${o.role}</span>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        class="badge ${o.status == 'Active' ? 'ok' : (o.status == 'Locked' ? 'danger' : 'warn')}">
+                                                        ${o.status}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <fmt:formatDate value="${o.createdAt}" pattern="dd/MM/yyyy" />
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </section>
+
+                        <footer class="foot">© 2025 MedHome Admin</footer>
+
+                    </main>
+
+                </div>
+
+                <!-- MODALS -->
+
+                <!-- THÊM -->
+                <div id="modal-add-account" class="modal">
+                    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+                    <div class="modal-body">
+
+                        <h3>Thêm tài khoản</h3>
+
+                        <form class="form" action="accounts" method="post">
+
+                            <label>Tên đăng nhập
+                                <input class="input" name="username" required />
+                            </label>
+
+                            <label>Email
+                                <input class="input" type="email" name="email" required />
+                            </label>
+
+                            <label>Mật khẩu
+                                <input class="input" type="password" name="password" required />
+                            </label>
+
+                            <label>Vai trò
+                                <select class="input" name="role">
+                                    <option>Admin</option>
+                                    <option selected>Customer</option>
+                                </select>
+                            </label>
+
+                            <label>Trạng thái
+                                <select class="input" name="status">
+                                    <option selected>Active</option>
+                                    <option>Locked</option>
+                                    <option>Inactive</option>
+                                </select>
+                            </label>
+
+                            <div class="actions">
+                                <a class="btn btn-ghost" href="#">Hủy</a>
+                                <button class="btn" type="submit">Lưu</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+                <!-- SỬA -->
+                <div id="modal-edit-account" class="modal">
+                    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+
+                    <div class="modal-body">
+
+                        <h3>Sửa tài khoản</h3>
+
+                        <form class="form" action="#" method="post">
+
+                            <label>Họ tên
+                                <input class="input" name="name" value="Trần Thị Nhân Viên" />
+                            </label>
+
+                            <label>Email
+                                <input class="input" type="email" name="email" value="nhanvien@medhome.vn" />
+                            </label>
+
+                            <label>Mật khẩu (để trống nếu giữ nguyên)
+                                <input class="input" type="password" name="password" />
+                            </label>
+
+                            <label>Vai trò
+                                <select class="input" name="role">
+                                    <option>Admin</option>
+                                    <option selected>Customer</option>
+                                </select>
+                            </label>
+
+                            <label>Trạng thái
+                                <select class="input" name="status">
+                                    <option selected>Active</option>
+                                    <option>Locked</option>
+                                    <option>Inactive</option>
+                                </select>
+                            </label>
+
+                            <div class="actions">
+                                <a class="btn btn-ghost" href="#">Hủy</a>
+                                <button class="btn" type="submit">Cập nhật</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <!-- KHÓA / MỞ KHÓA -->
+                <div id="modal-lock" class="modal modal-sm">
+                    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+
+                    <div class="modal-body">
+                        <h3>Khóa / Mở khóa tài khoản?</h3>
+                        <p>Bạn muốn thay đổi trạng thái của <strong>...</strong>?</p>
+                        <div class="actions">
+                            <a class="btn btn-ghost" href="#">Hủy</a>
+                            <button class="btn" type="button">Xác nhận</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- XÓA -->
+                <div id="modal-delete-account" class="modal modal-sm">
+                    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+
+                    <div class="modal-body">
+                        <h3>Xóa tài khoản?</h3>
+                        <p>Bạn có chắc chắn muốn xóa tài khoản này không? Hành động này không thể hoàn tác.</p>
+                        <div class="actions">
+                            <a class="btn btn-ghost" href="#">Hủy</a>
+                            <button class="btn btn-danger" type="button">Xóa</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <script src="${pageContext.request.contextPath}/Admin/app.js"></script>
+
+            </body>
+
+            </html>
