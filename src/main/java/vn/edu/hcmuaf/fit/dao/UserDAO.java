@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.dao;
 
 import vn.edu.hcmuaf.fit.db.DBConnect;
+import vn.edu.hcmuaf.fit.model.Customer;
 import vn.edu.hcmuaf.fit.model.User;
 
 import java.sql.Connection;
@@ -110,4 +111,5 @@ public class UserDAO {
         }
         return -1;
     }
+
 }
