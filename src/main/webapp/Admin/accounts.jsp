@@ -101,10 +101,10 @@
 
                         <!-- THAO TÁC -->
                         <div class="actions">
-                            <a class="btn" href="#modal-add-account">+ Thêm tài khoản</a>
-                            <a class="btn btn-ghost" href="#modal-edit-account">Sửa</a>
-                            <a class="btn btn-ghost" href="#modal-lock">Khóa/Mở khóa</a>
-                            <a class="btn btn-danger" href="#modal-delete-account">Xóa</a>
+                            <!-- <a class="btn" href="#modal-add-account">+ Thêm tài khoản</a> -->
+                            <a class="btn btn-ghost" href="#modal-edit-account" id="btn-edit">Sửa</a>
+                            <!-- <a class="btn btn-ghost" href="#modal-lock">Khóa/Mở khóa</a> -->
+                            <!-- <a class="btn btn-danger" href="#modal-delete-account">Xóa</a> -->
                         </div>
 
                         <!-- BẢNG DỮ LIỆU -->
@@ -130,7 +130,10 @@
 
                                         <c:forEach items="${listA}" var="o">
                                             <tr>
-                                                <td><input type="checkbox" aria-label="Chọn" /></td>
+                                                <td><input type="checkbox" aria-label="Chọn" data-id="${o.id}"
+                                                        data-username="${o.username}" data-email="${o.email}"
+                                                        data-role="${o.role}" data-status="${o.status}" />
+                                                </td>
                                                 <td>U${o.id}</td>
                                                 <td>${o.username}</td>
                                                 <td>${o.email}</td>
@@ -166,50 +169,7 @@
                 <!-- MODALS -->
 
                 <!-- THÊM -->
-                <div id="modal-add-account" class="modal">
-                    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
-                    <div class="modal-body">
-
-                        <h3>Thêm tài khoản</h3>
-
-                        <form class="form" action="accounts" method="post">
-
-                            <label>Tên đăng nhập
-                                <input class="input" name="username" required />
-                            </label>
-
-                            <label>Email
-                                <input class="input" type="email" name="email" required />
-                            </label>
-
-                            <label>Mật khẩu
-                                <input class="input" type="password" name="password" required />
-                            </label>
-
-                            <label>Vai trò
-                                <select class="input" name="role">
-                                    <option>Admin</option>
-                                    <option selected>Customer</option>
-                                </select>
-                            </label>
-
-                            <label>Trạng thái
-                                <select class="input" name="status">
-                                    <option selected>Active</option>
-                                    <option>Locked</option>
-                                    <option>Inactive</option>
-                                </select>
-                            </label>
-
-                            <div class="actions">
-                                <a class="btn btn-ghost" href="#">Hủy</a>
-                                <button class="btn" type="submit">Lưu</button>
-                            </div>
-
-                        </form>
-
-                    </div>
-                </div>
+                <!-- Modals removed as requested -->
 
                 <!-- SỬA -->
                 <div id="modal-edit-account" class="modal">
@@ -219,14 +179,16 @@
 
                         <h3>Sửa tài khoản</h3>
 
-                        <form class="form" action="#" method="post">
+                        <form class="form" action="accounts" method="post">
+                            <input type="hidden" name="action" value="update">
+                            <input type="hidden" name="id" id="edit-id">
 
-                            <label>Họ tên
-                                <input class="input" name="name" value="Trần Thị Nhân Viên" />
+                            <label>Tên đăng nhập
+                                <input class="input" name="username" id="edit-username" required />
                             </label>
 
                             <label>Email
-                                <input class="input" type="email" name="email" value="nhanvien@medhome.vn" />
+                                <input class="input" type="email" name="email" id="edit-email" required />
                             </label>
 
                             <label>Mật khẩu (để trống nếu giữ nguyên)
@@ -234,15 +196,15 @@
                             </label>
 
                             <label>Vai trò
-                                <select class="input" name="role">
+                                <select class="input" name="role" id="edit-role">
                                     <option>Admin</option>
-                                    <option selected>Customer</option>
+                                    <option>Customer</option>
                                 </select>
                             </label>
 
                             <label>Trạng thái
-                                <select class="input" name="status">
-                                    <option selected>Active</option>
+                                <select class="input" name="status" id="edit-status">
+                                    <option>Active</option>
                                     <option>Locked</option>
                                     <option>Inactive</option>
                                 </select>
@@ -259,37 +221,26 @@
 
                 </div>
 
-                <!-- KHÓA / MỞ KHÓA -->
-                <div id="modal-lock" class="modal modal-sm">
-                    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
+                <!-- Lock modal removed -->
 
-                    <div class="modal-body">
-                        <h3>Khóa / Mở khóa tài khoản?</h3>
-                        <p>Bạn muốn thay đổi trạng thái của <strong>...</strong>?</p>
-                        <div class="actions">
-                            <a class="btn btn-ghost" href="#">Hủy</a>
-                            <button class="btn" type="button">Xác nhận</button>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- XÓA -->
-                <div id="modal-delete-account" class="modal modal-sm">
-                    <a href="#" class="modal-overlay" aria-label="Đóng"></a>
-
-                    <div class="modal-body">
-                        <h3>Xóa tài khoản?</h3>
-                        <p>Bạn có chắc chắn muốn xóa tài khoản này không? Hành động này không thể hoàn tác.</p>
-                        <div class="actions">
-                            <a class="btn btn-ghost" href="#">Hủy</a>
-                            <button class="btn btn-danger" type="button">Xóa</button>
-                        </div>
-                    </div>
-
-                </div>
+                <!-- Delete modal removed -->
 
                 <script src="${pageContext.request.contextPath}/Admin/app.js"></script>
+                <script>
+                    document.getElementById('btn-edit').addEventListener('click', function (e) {
+                        const checked = document.querySelector('table input[type="checkbox"]:checked');
+                        if (checked) {
+                            document.getElementById('edit-id').value = checked.getAttribute('data-id');
+                            document.getElementById('edit-username').value = checked.getAttribute('data-username');
+                            document.getElementById('edit-email').value = checked.getAttribute('data-email');
+                            document.getElementById('edit-role').value = checked.getAttribute('data-role');
+                            document.getElementById('edit-status').value = checked.getAttribute('data-status');
+                        } else {
+                            e.preventDefault();
+                            alert("Vui lòng chọn một tài khoản để sửa!");
+                        }
+                    });
+                </script>
 
             </body>
 

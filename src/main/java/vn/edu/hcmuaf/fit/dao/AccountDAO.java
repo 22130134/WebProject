@@ -84,4 +84,31 @@ public class AccountDAO {
         }
         return list;
     }
+
+    public void update(Account account) {
+        String query = "UPDATE accounts SET Username=?, Email=?, Role=?, Status=? WHERE AccountID=?";
+        if (account.getPasswordHash() != null && !account.getPasswordHash().isEmpty()) {
+            query = "UPDATE accounts SET Username=?, Email=?, Role=?, Status=?, PasswordHash=? WHERE AccountID=?";
+        }
+
+        try {
+            conn = DBConnect.get();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, account.getUsername());
+            ps.setString(2, account.getEmail());
+            ps.setString(3, account.getRole());
+            ps.setString(4, account.getStatus());
+
+            if (account.getPasswordHash() != null && !account.getPasswordHash().isEmpty()) {
+                ps.setString(5, account.getPasswordHash());
+                ps.setInt(6, account.getId());
+            } else {
+                ps.setInt(5, account.getId());
+            }
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

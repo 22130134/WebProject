@@ -40,6 +40,29 @@ public class AdminAccountController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        String action = request.getParameter("action");
+        if ("update".equals(action)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String username = request.getParameter("username");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            String role = request.getParameter("role");
+            String status = request.getParameter("status");
+
+            Account account = new Account();
+            account.setId(id);
+            account.setUsername(username);
+            account.setEmail(email);
+            account.setRole(role);
+            account.setStatus(status);
+            account.setPasswordHash(password); // Will check null inside DAO
+
+            AccountDAO dao = new AccountDAO();
+            dao.update(account);
+
+            response.sendRedirect("accounts");
+        } else {
+            doGet(request, response);
+        }
     }
 }
