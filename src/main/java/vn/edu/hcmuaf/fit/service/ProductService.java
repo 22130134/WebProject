@@ -300,4 +300,100 @@ public class ProductService {
         }
         return list;
     }
+
+    public List<Product> filterAdmin(String search, String brand, String status, String priceRange) {
+        List<Product> list = new ArrayList<>();
+        Connection conn = DBConnect.get();
+        if (conn == null)
+            return list;
+
+        StringBuilder sql = new StringBuilder("SELECT p.ProductID, p.ProductName, p.Brand, p.ImageURL, " +
+                "p.Rating, p.ReviewCount, p.Badge, p.IsInstallment, p.SoldQuantity, " +
+                "d.Price, d.OldPrice, d.StockQuantity " +
+                "FROM products p " +
+                "JOIN productdetails d ON p.ProductID = d.ProductID " +
+                "WHERE 1=1 ");
+
+        if (search != null && !search.trim().isEmpty()) {
+            sql.append("AND (p.ProductName LIKE ? OR p.ProductID = ?) ");
+        }
+
+        if (brand != null && !brand.isEmpty()) {
+            sql.append("AND p.Brand = ? ");
+        }
+
+        if (status != null && !status.isEmpty()) {
+            if ("Còn hàng".equals(status)) {
+                sql.append("AND d.StockQuantity > 0 ");
+            } else if ("Hết hàng".equals(status)) {
+                sql.append("AND d.StockQuantity <= 0 ");
+            }
+        }
+
+        double minPrice = 0;
+        double maxPrice = Double.MAX_VALUE;
+        if (priceRange != null && !priceRange.isEmpty()) {
+            try {
+                String[] parts = priceRange.split("-");
+                if (parts.length >= 1)
+                    minPrice = Double.parseDouble(parts[0]);
+                if (parts.length >= 2)
+                    maxPrice = Double.parseDouble(parts[1]);
+                sql.append("AND d.Price >= ? AND d.Price <= ? ");
+            } catch (NumberFormatException e) {
+                // ignore invalid price format
+            }
+        }
+
+        sql.append("ORDER BY p.ProductID DESC");
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql.toString());
+            int index = 1;
+
+            if (search != null && !search.trim().isEmpty()) {
+                ps.setString(index++, "%" + search + "%");
+                int idTry = -1;
+                try {
+                    idTry = Integer.parseInt(search.replace("SP", ""));
+                } catch (Exception e) {
+                }
+                ps.setInt(index++, idTry);
+            }
+
+            if (brand != null && !brand.isEmpty()) {
+                ps.setString(index++, brand);
+            }
+
+            // Status check is hardcoded in SQL, no param needed
+
+            if (priceRange != null && !priceRange.isEmpty()) {
+                if (minPrice != 0 || maxPrice != Double.MAX_VALUE) {
+                    ps.setDouble(index++, minPrice);
+                    ps.setDouble(index++, maxPrice);
+                }
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("ProductID"));
+                p.setName(rs.getString("ProductName"));
+                p.setBrand(rs.getString("Brand"));
+                p.setImg(rs.getString("ImageURL"));
+                p.setRating(rs.getDouble("Rating"));
+                p.setReviews(rs.getInt("ReviewCount"));
+                p.setBadge(rs.getString("Badge"));
+                p.setInstallment(rs.getBoolean("IsInstallment"));
+                p.setSold(rs.getInt("SoldQuantity"));
+                p.setPrice(rs.getDouble("Price"));
+                p.setOldPrice(rs.getDouble("OldPrice"));
+                p.setStock(rs.getInt("StockQuantity"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

@@ -64,12 +64,12 @@
                         <!-- BỘ LỌC -->
                         <section class="card" style="padding:12px; margin:10px 0 14px;">
 
-                            <form class="form" action="#" method="get"
+                            <form class="form" action="products" method="get"
                                 style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; align-items:end;">
 
                                 <label>
                                     Tên / Mã
-                                    <input class="input" type="text" name="q"
+                                    <input class="input" type="text" name="q" value="${msgName}"
                                         placeholder="Ví dụ: HEM-7120, nhiệt kế..." />
                                 </label>
 
@@ -77,9 +77,9 @@
                                     Thương hiệu
                                     <select class="input" name="brand">
                                         <option value="">Tất cả</option>
-                                        <option>Omron</option>
-                                        <option>Microlife</option>
-                                        <option>Khác</option>
+                                        <option ${msgBrand=='Omron' ? 'selected' : '' }>Omron</option>
+                                        <option ${msgBrand=='Microlife' ? 'selected' : '' }>Microlife</option>
+                                        <option ${msgBrand=='Khác' ? 'selected' : '' }>Khác</option>
                                     </select>
                                 </label>
 
@@ -87,14 +87,15 @@
                                     Trạng thái
                                     <select class="input" name="status">
                                         <option value="">Tất cả</option>
-                                        <option>Còn hàng</option>
-                                        <option>Hết hàng</option>
+                                        <option ${msgStatus=='Còn hàng' ? 'selected' : '' }>Còn hàng</option>
+                                        <option ${msgStatus=='Hết hàng' ? 'selected' : '' }>Hết hàng</option>
                                     </select>
                                 </label>
 
                                 <label>
                                     Khoảng giá (₫)
-                                    <input class="input" type="text" name="price" placeholder="vd: 100000-1000000" />
+                                    <input class="input" type="text" name="price" value="${msgPrice}"
+                                        placeholder="vd: 100000-1000000" />
                                 </label>
 
                                 <div class="actions" style="margin:0;">
