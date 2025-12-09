@@ -124,11 +124,25 @@
                                     </select>
                                 </div>
 
-                                <div class="filter-search">
-                                    <div class="search-box">
+                                <div class="filter-group" style="align-self: flex-end;">
+                                    <button class="btn btn-primary" type="submit"
+                                        style="height: 38px; padding: 0 15px;">
+                                        <i class="fa-solid fa-filter"></i> Lọc
+                                    </button>
+                                    <a class="btn btn-outline" href="appointments"
+                                        style="height: 38px; padding: 0 15px; line-height: 36px;">
+                                        <i class="fa-solid fa-rotate-left"></i> Reset
+                                    </a>
+                                </div>
+
+                                <div class="filter-search" style="flex: 1; max-width: 300px; margin-left: auto;">
+                                    <div class="search-box"
+                                        style="display: flex; align-items: center; background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 0 10px; height: 38px;">
                                         <input type="text" name="q" value="${msgKeyword}"
-                                            placeholder="Tìm theo mã, tên, sđt...">
-                                        <button type="submit" style="border:none; background:none; cursor:pointer;">
+                                            placeholder="🔍 Tên, SĐT, Mã..."
+                                            style="border: none; outline: none; flex: 1; font-size: 14px;">
+                                        <button type="submit"
+                                            style="background: none; border: none; color: #666; cursor: pointer;">
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                         </button>
                                     </div>
