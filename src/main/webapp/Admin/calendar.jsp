@@ -73,19 +73,19 @@
                             </div>
                         </div>
 
-                        <!-- Thống kê nhanh -> Dummy data for now -->
+                        <!-- Thống kê nhanh -->
                         <div class="stats-row">
                             <div class="stat-card">
                                 <div class="stat-label">Tổng lịch hôm nay</div>
-                                <div class="stat-value">18</div>
-                                <div class="stat-extra"><i class="fa-solid fa-circle"></i> 5 chưa xác nhận</div>
+                                <div class="stat-value">${todayTotal}</div>
+                                <div class="stat-extra"><i class="fa-solid fa-circle"
+                                        style="font-size: 8px; color: #ffb74d;"></i> ${todayNew} mới</div>
                             </div>
                             <div class="stat-card">
                                 <div class="stat-label">Đã xác nhận</div>
-                                <div class="stat-value">10</div>
-                                <div class="stat-extra">Đang trong trạng thái chờ khám</div>
+                                <div class="stat-value">${confirmedTotal}</div>
+                                <div class="stat-extra">Đang chờ khám</div>
                             </div>
-                            <!-- ... other stats ... -->
                         </div>
 
                         <!-- Bộ lọc -->

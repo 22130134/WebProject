@@ -264,6 +264,46 @@ public class AppointmentDAO {
         return list;
     }
 
+    // Stats methods
+    public int countAppointmentsToday() {
+        String sql = "SELECT COUNT(*) FROM appointments WHERE DATE(AppointmentDateTime) = CURDATE()";
+        try {
+            PreparedStatement ps = DBConnect.get().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int countNewAppointmentsToday() {
+        String sql = "SELECT COUNT(*) FROM appointments WHERE DATE(AppointmentDateTime) = CURDATE() AND Status = 'New'";
+        try {
+            PreparedStatement ps = DBConnect.get().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int countConfirmedAppointments() {
+        String sql = "SELECT COUNT(*) FROM appointments WHERE Status = 'Confirmed'";
+        try {
+            PreparedStatement ps = DBConnect.get().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     /**
      * Helper method to extract Appointment object from ResultSet
      */
