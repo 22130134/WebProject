@@ -24,6 +24,218 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/footer/footer.css"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* --- CSS CHO TRANG PROFILE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            min-height: calc(100vh - 70px);
+            gap: 15px;
+            padding: 35px 140px 8px;
+            background-color: #f8f8f8;
+        }
+
+        .profile {
+            flex: 1;
+            background: white;
+        }
+
+        .profile-header {
+            margin-bottom: 30px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .avatar-large {
+            width: 100px;
+            height: 100px;
+            background-color: #bb5e41;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 10px;
+        }
+
+        .change-avatar {
+            background: none;
+            border: none;
+            color: #0a66c2;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .info-table {
+            width: 100%;
+            padding: 0 190px;
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: 200px 1fr 100px;
+            padding: 16px 0;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+            text-align: left;
+        }
+
+        .info-row.editable {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .label {
+            color: #555;
+            font-size: 15px;
+        }
+
+        .value {
+            font-size: 15px;
+        }
+
+        .info-row input.value {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+
+        .info-row input.value:focus {
+            border-color: #0a66c2;
+            outline: none;
+        }
+
+        .action, .info-row button.action {
+            color: #0a66c2;
+            font-size: 15px;
+            cursor: pointer;
+            justify-self: end;
+            background: none;
+            border: none;
+            padding: 0;
+            text-decoration: none;
+        }
+
+        .info-row button.action {
+            color: white;
+            background-color: #0a66c2;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .info-row button.action:hover {
+            background-color: #084c98;
+        }
+
+        .verified {
+            color: #2ecc71;
+            margin-left: 5px;
+        }
+
+        /* --- 🔴 CSS CHO MODAL (POPUP) --- */
+        /* Lớp nền mờ che phủ toàn màn hình */
+        .modal {
+            display: none; /* Mặc định ẩn */
+            position: fixed; /* Cố định vị trí so với màn hình */
+            z-index: 9999; /* Luôn nổi lên trên cùng */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Cho phép cuộn nếu modal quá dài */
+            background-color: rgba(0, 0, 0, 0.5); /* Màu đen mờ 50% */
+        }
+
+        /* Hộp nội dung Modal */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; /* Cách trên 10% và căn giữa ngang */
+            padding: 25px;
+            border: 1px solid #888;
+            width: 400px; /* Chiều rộng cố định */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.3s;
+            position: relative;
+        }
+
+        /* Nút tắt (x) */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        /* Form bên trong Modal */
+        .modal h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn-save-pass {
+            width: 100%;
+            padding: 10px;
+            background-color: #0a66c2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn-save-pass:hover {
+            background-color: #084c98;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -54,12 +266,16 @@
                  style="color: green; padding: 10px; border: 1px solid green; margin-bottom: 20px; transition: opacity 0.5s ease;">
                     ${message}
             </div>
+            <c:remove var="message" scope="session"/>
+            <c:remove var="message" scope="request"/>
         </c:if>
 
         <c:if test="${not empty error}">
             <div style="color: red; padding: 10px; border: 1px solid red; margin-bottom: 20px;">
                     ${error}
             </div>
+            <c:remove var="message" scope="session"/>
+            <c:remove var="message" scope="request"/>
         </c:if>
 
         <%--        &lt;%&ndash; Hiển thị thông báo cũ &ndash;%&gt;--%>
@@ -139,7 +355,9 @@
             <div class="info-row">
                 <span class="label">Mật khẩu</span>
                 <span class="value">*****</span>
-                <a class="action" href="#">Đổi mật khẩu</a>
+                <%-- CẬP NHẬT: THÊM SỰ KIỆN ONCLICK MỞ MODAL --%>
+                <%-- Thêm 'event' vào openModal(event) để chặn hành vi load lại trang --%>
+                <a class="action" href="#" onclick="openModal(event)">Đổi mật khẩu</a>
             </div>
 
             <%--            <div class="info-row">--%>
@@ -158,12 +376,69 @@
 <%--<div class="content">--%>
 <%--</div>--%>
 
-<%-- CẬP NHẬT: Script xử lý ẩn thông báo sau 3s --%>
+<%-- CẬP NHẬT: HTML CHO MODAL ĐỔI MẬT KHẨU --%>
+<div id="passwordModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3>Đổi Mật Khẩu</h3>
+
+        <%-- Form gửi đến ChangePasswordController --%>
+        <form action="${pageContext.request.contextPath}/change-password" method="post">
+            <div class="form-group">
+                <label>Mật khẩu cũ</label>
+                <input type="password" name="oldPass" required placeholder="Nhập mật khẩu hiện tại">
+            </div>
+
+            <div class="form-group">
+                <label>Mật khẩu mới</label>
+                <input type="password" name="newPass" required placeholder="Nhập mật khẩu mới">
+            </div>
+
+            <div class="form-group">
+                <label>Nhập lại mật khẩu mới</label>
+                <input type="password" name="confirmPass" required placeholder="Xác nhận mật khẩu mới">
+            </div>
+
+            <button type="submit" class="btn-save-pass">Xác nhận đổi</button>
+        </form>
+    </div>
+</div>
+
+<%-- SCRIPT XỬ LÝ JS --%>
 <script>
+    <%-- CẬP NHẬT: Xử lý Modal ChangePassword --%>
+    var modal = document.getElementById("passwordModal");
+
+    // Thêm tham số 'event'
+    function openModal(event) {
+        if (event) event.preventDefault(); // Chặn load lại trang
+
+        var modal = document.getElementById("passwordModal");
+        if (modal) {
+            modal.style.display = "block";
+        } else {
+            console.error("Lỗi: Không tìm thấy Modal ID='passwordModal'");
+        }
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("passwordModal");
+        if (modal) modal.style.display = "none";
+    }
+
+    // Đóng modal khi click ra ngoài vùng trắng
+    window.onclick = function (event) {
+        var modal = document.getElementById("passwordModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    <%-- CẬP NHẬT: Script xử lý ẩn thông báo sau 1s --%>
     document.addEventListener("DOMContentLoaded", function () {
         var alertBox = document.getElementById("success-alert");
         if (alertBox) {
-            // Đợi 3 giây (1000ms)
+            // Đợi 1 giây (1000ms)
             setTimeout(function () {
                 // Bước 1: Làm mờ dần
                 alertBox.style.opacity = "0";

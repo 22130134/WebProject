@@ -112,4 +112,38 @@ public class UserDAO {
         return -1;
     }
 
+    // HUNG (ChangePassword) Lấy mật khẩu hiện tại (đã mã hóa) để kiểm tra
+    public String getPasswordById(int accountID) {
+        String query = "SELECT PasswordHash FROM Accounts WHERE AccountID = ?";
+        try {
+            conn = DBConnect.get();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, accountID);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("PasswordHash");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // HUNG (ChangePassword) Cập nhật mật khẩu mới
+    public boolean changePassword(int accountID, String newPasswordHash) {
+        String query = "UPDATE Accounts SET PasswordHash = ? WHERE AccountID = ?";
+        try {
+            conn = DBConnect.get();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, newPasswordHash);
+            ps.setInt(2, accountID);
+
+            int row = ps.executeUpdate();
+            return row > 0; // Trả về true nếu update thành công
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

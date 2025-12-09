@@ -36,6 +36,29 @@ public class UserService {
         new UserDAO().register(username, hashPassword(password), email);
     }
 
+    // HUNG (ChangePassword)
+    public boolean changePassword(int accountID, String oldPassword, String newPassword) {
+        UserDAO dao = new UserDAO();
+
+        // Bước 1: Lấy mật khẩu hiện tại (đã mã hóa) trong Database
+        String currentHashInDB = dao.getPasswordById(accountID);
+
+        // Bước 2: Mã hóa mật khẩu cũ mà người dùng nhập vào
+        String oldPasswordInputHash = hashPassword(oldPassword);
+
+        // Bước 3: So sánh
+        // Nếu không tìm thấy user hoặc mật khẩu cũ nhập vào không khớp với DB
+        if (currentHashInDB == null || !currentHashInDB.equals(oldPasswordInputHash)) {
+            return false; // Đổi mật khẩu thất bại do sai mật khẩu cũ
+        }
+
+        // Bước 4: Nếu đúng, mã hóa mật khẩu MỚI
+        String newPasswordHash = hashPassword(newPassword);
+
+        // Bước 5: Gọi DAO để cập nhật
+        return dao.changePassword(accountID, newPasswordHash);
+    }
+
     public String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
