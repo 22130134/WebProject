@@ -36,13 +36,10 @@
                         <div class="sidebar-title">Quản trị</div>
                         <nav class="menu">
                             <a class="menu-item" href="overview.html">🏠 Tổng quan</a>
-                            <a class="menu-item active" href="products">🧰 Sản phẩm</a>
                             <a class="menu-item" href="accounts">👥 Tài khoản</a>
-                            <a class="menu-item" href="orders.html">🧾 Đơn hàng</a>
-                            <a class="menu-item" href="calendar.html">💹 Lịch Khám</a>
-                            <a class="menu-item" href="revenue.html">💹 Doanh thu</a>
-                            <a class="menu-item" href="settings.html">⚙️ Cài đặt</a>
-                            <a class="menu-item danger" href="#">🚪 Đăng xuất</a>
+                            <a class="menu-item active" href="products">🧰 Sản phẩm</a>
+                            <a class="menu-item" href="orders">🧾 Đơn hàng</a>
+                            <a class="menu-item" href="appointments">💹 Lịch Khám</a>
                         </nav>
                     </aside>
 

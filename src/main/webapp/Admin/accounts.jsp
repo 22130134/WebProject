@@ -42,13 +42,9 @@
                         <nav class="menu">
                             <a class="menu-item" href="overview.html">🏠 Tổng quan</a>
                             <a class="menu-item active" href="accounts">👥 Tài khoản</a>
-                            <!-- Link tới servlet accounts -->
-                            <a class="menu-item" href="products.html">🧰 Sản phẩm</a>
-                            <a class="menu-item" href="orders.html">🧾 Đơn hàng</a>
-                            <a class="menu-item" href="revenue.html">💹 Lịch Khám</a>
-                            <a class="menu-item" href="revenue.html">💹 Doanh thu</a>
-                            <a class="menu-item" href="settings.html">⚙️ Cài đặt</a>
-                            <a class="menu-item danger" href="#">🚪 Đăng xuất</a>
+                            <a class="menu-item" href="products">🧰 Sản phẩm</a>
+                            <a class="menu-item" href="orders">🧾 Đơn hàng</a>
+                            <a class="menu-item" href="appointments">💹 Lịch Khám</a>
                         </nav>
 
 
