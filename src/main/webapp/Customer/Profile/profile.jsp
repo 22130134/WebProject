@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Customer/Profile/profile.css">
 
     <%-- CSS của các thành phần chung (Header, Footer, Sidebar) --%>
-    <%-- Lưu ý: Vẫn cần giữ các link CSS này để style hiển thị đúng --%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/header/header.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Customer/User_sidebar/user_sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/footer/footer.css"/>
@@ -48,17 +47,32 @@
     <%-- 4. NỘI DUNG CHÍNH (FORM PROFILE) --%>
     <section class="profile">
 
-        <%-- Hiển thị thông báo --%>
+        <%-- Hiển thị thông báo (1s mờ dần) --%>
         <c:if test="${not empty message}">
-            <div style="color: green; padding: 10px; border: 1px solid green; margin-bottom: 20px;">
+            <%-- Thêm id="success-alert" và class transition để làm hiệu ứng mờ dần --%>
+            <div id="success-alert"
+                 style="color: green; padding: 10px; border: 1px solid green; margin-bottom: 20px; transition: opacity 0.5s ease;">
                     ${message}
             </div>
         </c:if>
+
         <c:if test="${not empty error}">
             <div style="color: red; padding: 10px; border: 1px solid red; margin-bottom: 20px;">
                     ${error}
             </div>
         </c:if>
+
+        <%--        &lt;%&ndash; Hiển thị thông báo cũ &ndash;%&gt;--%>
+        <%--        <c:if test="${not empty message}">--%>
+        <%--            <div style="color: green; padding: 10px; border: 1px solid green; margin-bottom: 20px;">--%>
+        <%--                    ${message}--%>
+        <%--            </div>--%>
+        <%--        </c:if>--%>
+        <%--        <c:if test="${not empty error}">--%>
+        <%--            <div style="color: red; padding: 10px; border: 1px solid red; margin-bottom: 20px;">--%>
+        <%--                    ${error}--%>
+        <%--            </div>--%>
+        <%--        </c:if>--%>
 
         <div class="profile-header">
             <%-- Avatar chữ cái đầu --%>
@@ -81,24 +95,43 @@
             <%-- FORM CẬP NHẬT --%>
             <form action="${pageContext.request.contextPath}/update-profile" method="post">
 
+                <%-- 1. HỌ TÊN: Thêm required --%>
                 <div class="info-row editable">
                     <span class="label">Họ tên</span>
-                    <input type="text" name="fullName" class="value" value="${customer.fullName}"
-                           placeholder="Cập nhật họ tên">
+                    <input type="text"
+                           name="fullName"
+                           class="value"
+                           value="${customer.fullName}"
+                           placeholder="Cập nhật họ tên"
+                           required
+                           title="Họ tên không được để trống">
                     <button type="submit" class="action">Lưu</button>
                 </div>
 
+                <%-- 2. ĐIỆN THOẠI: Thêm required + pattern số --%>
                 <div class="info-row editable">
                     <span class="label">Điện thoại</span>
-                    <input type="text" name="phone" class="value" value="${customer.phoneNumber}"
-                           placeholder="Cập nhật số điện thoại">
+                    <input type="text"
+                           name="phone"
+                           class="value"
+                           value="${customer.phoneNumber}"
+                           placeholder="Cập nhật số điện thoại"
+                           required
+                           pattern="[0-9]{10,11}"
+                           title="Số điện thoại phải là số và có 10-11 chữ số">
                     <button type="submit" class="action">Lưu</button>
                 </div>
 
+                <%-- 3. ĐỊA CHỈ: Thêm required --%>
                 <div class="info-row editable">
                     <span class="label">Địa chỉ</span>
-                    <input type="text" name="address" class="value" value="${customer.address}"
-                           placeholder="Cập nhật địa chỉ">
+                    <input type="text"
+                           name="address"
+                           class="value"
+                           value="${customer.address}"
+                           placeholder="Cập nhật địa chỉ"
+                           required
+                           title="Địa chỉ không được để trống">
                     <button type="submit" class="action">Lưu</button>
                 </div>
             </form>
@@ -109,11 +142,11 @@
                 <a class="action" href="#">Đổi mật khẩu</a>
             </div>
 
-            <div class="info-row">
-                <span class="label">Vô hiệu hóa và xóa</span>
-                <span class="value long-text">Vô hiệu hóa tạm thời hoặc xóa vĩnh viễn tài khoản.</span>
-                <a class="action" href="#">Xem</a>
-            </div>
+            <%--            <div class="info-row">--%>
+            <%--                <span class="label">Vô hiệu hóa và xóa</span>--%>
+            <%--                <span class="value long-text">Vô hiệu hóa tạm thời hoặc xóa vĩnh viễn tài khoản.</span>--%>
+            <%--                <a class="action" href="#">Xem</a>--%>
+            <%--            </div>--%>
         </div>
 
     </section>
@@ -124,6 +157,25 @@
 <%-- <jsp:include page="/footer.jsp" /> --%>
 <%--<div class="content">--%>
 <%--</div>--%>
+
+<%-- CẬP NHẬT: Script xử lý ẩn thông báo sau 3s --%>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var alertBox = document.getElementById("success-alert");
+        if (alertBox) {
+            // Đợi 3 giây (1000ms)
+            setTimeout(function () {
+                // Bước 1: Làm mờ dần
+                alertBox.style.opacity = "0";
+
+                // Bước 2: Sau khi mờ xong (0.5s), ẩn hẳn khỏi layout
+                setTimeout(function () {
+                    alertBox.style.display = "none";
+                }, 500);
+            }, 1000);
+        }
+    });
+</script>
 </body>
 
 </html>

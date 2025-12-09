@@ -7,6 +7,7 @@ import vn.edu.hcmuaf.fit.service.CustomerService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+
 import java.io.IOException;
 
 @WebServlet(name = "CustomerController", value = "/update-profile")
@@ -21,13 +22,13 @@ public class CustomerController extends HttpServlet {
 
         // Kiểm tra đăng nhập
         if (user == null) {
-            response.sendRedirect("/Login/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
         // Chuyển hướng đến trang JSP hiển thị profile (Bạn sẽ tạo file này sau)
         // Giả sử đường dẫn là User/profile.jsp
-        request.getRequestDispatcher("Customer/Profile/profile.jsp").forward(request, response);
+        request.getRequestDispatcher("/Customer/Profile/profile.jsp").forward(request, response);
     }
 
     // doPost: Xử lý logic cập nhật thông tin khi bấm nút "Lưu"
@@ -42,7 +43,7 @@ public class CustomerController extends HttpServlet {
         User user = (User) session.getAttribute("auth");
 
         if (user == null) {
-            response.sendRedirect("login");
+            response.sendRedirect("/login");
             return;
         }
 
@@ -51,11 +52,28 @@ public class CustomerController extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
 
+        // Thêm logic VALIDATION (kiểm tra dữ liệu)
+        if (fullName == null || fullName.trim().isEmpty() ||
+                phone == null || phone.trim().isEmpty() ||
+                address == null || address.trim().isEmpty()) {
+
+            request.setAttribute("error", "Vui lòng điền đầy đủ thông tin!");
+            request.getRequestDispatcher("/Customer/Profile/profile.jsp").forward(request, response);
+            return; // Dừng xử lý, không gọi Service
+        }
+
+        // Kiểm tra định dạng số điện thoại
+        if (!phone.matches("\\d{10,11}")) {
+            request.setAttribute("error", "Số điện thoại không hợp lệ (phải là 10-11 số)!");
+            request.getRequestDispatcher("/Customer/Profile/profile.jsp").forward(request, response);
+            return;
+        }
+
         // 4. Gọi Service để update vào Database
         boolean isUpdated = CustomerService.getInstance().updateCustomerInfo(
-                user.getAccountID(), 
-                fullName, 
-                phone, 
+                user.getAccountID(),
+                fullName,
+                phone,
                 address
         );
 
