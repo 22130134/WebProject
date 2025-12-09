@@ -538,4 +538,18 @@ public class ProductService {
         }
         return false;
     }
+
+    public int countTotalProducts() {
+        String sql = "SELECT COUNT(*) FROM products";
+        Connection conn = DBConnect.get();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

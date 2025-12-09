@@ -111,4 +111,18 @@ public class AccountDAO {
             e.printStackTrace();
         }
     }
+
+    public int countTotalAccounts() {
+        String query = "SELECT COUNT(*) FROM accounts";
+        try {
+            conn = DBConnect.get();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
