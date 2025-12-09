@@ -1,0 +1,273 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+            <!DOCTYPE html>
+            <html lang="vi">
+
+            <head>
+                <meta charset="UTF-8">
+                <title>Quản lý lịch khám</title>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+                <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin/calendar.css">
+                <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin/admin.css">
+
+            </head>
+
+            <body>
+                <header class="site-header">
+
+                    <button id="btn-toggle" class="hamburger" aria-label="Mở/đóng menu" aria-controls="sidebar"
+                        aria-expanded="true">☰</button>
+
+                    <a href="overview.html" class="logo">HKH</a>
+                    <form class="searchbar" action="#" role="search">
+                        <input type="text" placeholder="Tìm người dùng..." />
+                        <button type="submit">Tìm</button>
+                    </form>
+                    <nav class="header-right">
+                        <a class="topbtn" href="#" title="Thông báo">🔔</a>
+                        <a class="topbtn" href="#" title="Tài khoản">👤</a>
+                    </nav>
+
+                </header>
+                <div class="layout">
+
+                    <!-- SIDEBAR -->
+                    <aside id="sidebar" class="sidebar" aria-hidden="false">
+
+                        <div class="sidebar-title">Quản trị</div>
+                        <nav class="menu">
+                            <a class="menu-item" href="overview.html">🏠 Tổng quan</a>
+
+                            <a class="menu-item" href="products">🧰 Sản phẩm</a>
+                            <a class="menu-item" href="orders">🧾 Đơn hàng</a>
+                            <a class="menu-item active" href="appointments">💹 Lịch Khám</a>
+                            <a class="menu-item" href="revenue.html">💹 Doanh thu</a>
+                            <a class="menu-item" href="settings.html">⚙️ Cài đặt</a>
+
+                        </nav>
+
+
+                    </aside>
+
+                    <div class="page-wrapper">
+                        <div class="page-header">
+                            <div>
+                                <div class="page-title">
+                                    <i class="fa-solid fa-calendar-check"></i>
+                                    <span>Quản lý lịch khám</span>
+                                </div>
+                                <div class="page-subtitle">
+                                    Theo dõi, lọc và quản lý các lịch hẹn khám bệnh của khách hàng.
+                                </div>
+                            </div>
+                            <div class="page-actions">
+                                <a class="btn btn-outline" href="appointments">
+                                    <i class="fa-solid fa-arrow-rotate-right"></i>
+                                    Làm mới
+                                </a>
+                                <!-- <button class="btn btn-primary">
+                        <i class="fa-solid fa-plus"></i>
+                        Thêm lịch khám
+                    </button> -->
+                            </div>
+                        </div>
+
+                        <!-- Thống kê nhanh -> Dummy data for now -->
+                        <div class="stats-row">
+                            <div class="stat-card">
+                                <div class="stat-label">Tổng lịch hôm nay</div>
+                                <div class="stat-value">18</div>
+                                <div class="stat-extra"><i class="fa-solid fa-circle"></i> 5 chưa xác nhận</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">Đã xác nhận</div>
+                                <div class="stat-value">10</div>
+                                <div class="stat-extra">Đang trong trạng thái chờ khám</div>
+                            </div>
+                            <!-- ... other stats ... -->
+                        </div>
+
+                        <!-- Bộ lọc -->
+                        <div class="filter-card">
+                            <form class="filter-row" action="appointments" method="get">
+                                <div class="filter-group">
+                                    <label>Từ ngày</label>
+                                    <input type="date" class="filter-input" name="dateFrom" value="${msgDateFrom}">
+                                </div>
+                                <div class="filter-group">
+                                    <label>Đến ngày</label>
+                                    <input type="date" class="filter-input" name="dateTo" value="${msgDateTo}">
+                                </div>
+
+                                <div class="filter-group">
+                                    <label>Trạng thái</label>
+                                    <select class="filter-select" name="status">
+                                        <option value="">Tất cả</option>
+                                        <option ${msgStatus=='New' ? 'selected' : '' } value="New">Mới</option>
+                                        <option ${msgStatus=='Confirmed' ? 'selected' : '' } value="Confirmed">Đã xác
+                                            nhận</option>
+                                        <option ${msgStatus=='Completed' ? 'selected' : '' } value="Completed">Đã khám
+                                        </option>
+                                        <option ${msgStatus=='Cancelled' ? 'selected' : '' } value="Cancelled">Đã hủy
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-group">
+                                    <label>Hình thức khám</label>
+                                    <select class="filter-select" name="type">
+                                        <option value="">Tất cả</option>
+                                        <option ${msgType=='AtClinic' ? 'selected' : '' } value="AtClinic">Tại phòng
+                                            khám</option>
+                                        <option ${msgType=='AtHome' ? 'selected' : '' } value="AtHome">Tại nhà</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-search">
+                                    <div class="search-box">
+                                        <input type="text" name="q" value="${msgKeyword}"
+                                            placeholder="Tìm theo mã, tên, sđt...">
+                                        <button type="submit" style="border:none; background:none; cursor:pointer;">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Bảng lịch khám -->
+                        <div class="table-card">
+                            <div class="table-header">
+                                <div class="table-header-title">Danh sách lịch khám</div>
+                                <div class="table-header-info">Hiển thị ${listA.size()} lịch</div>
+                            </div>
+
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Mã lịch</th>
+                                            <th>Bệnh nhân</th>
+                                            <th>Dịch vụ</th>
+                                            <th>Ngày khám</th>
+                                            <th>Giờ</th>
+                                            <!-- <th>Bác sĩ</th> -->
+                                            <th>Hình thức</th>
+                                            <th>Trạng thái</th>
+                                            <th class="text-right">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${listA}" var="a">
+                                            <tr>
+                                                <td>#LK${a.appointmentID}</td>
+                                                <td>
+                                                    <div class="patient-name">${a.customerName}</div>
+                                                    <div class="patient-phone"><i class="fa-solid fa-phone"></i>
+                                                        ${a.customerPhone}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="service-name">${a.productName != null ? a.productName :
+                                                        'Khám tổng quát'}</div>
+                                                </td>
+                                                <td>
+                                                    <fmt:parseDate value="${a.appointmentDateTime}"
+                                                        pattern="yyyy-MM-dd'T'HH:mm" var="parsedDate" type="both" />
+                                                    <!-- LocalDatetime might need formatting handling -->
+                                                    <!-- Since it's LocalDateTime, we might need custom tag or simpler formatting if supported, checking output first -->
+                                                    ${a.appointmentDateTime.toLocalDate()}
+                                                </td>
+                                                <td>
+                                                    ${a.appointmentDateTime.toLocalTime()}
+                                                </td>
+                                                <!-- <td>
+                                        <div class="doctor-name">--</div>
+                                    </td> -->
+                                                <td>
+                                                    <c:if test="${a.appointmentType == 'AT_CLINIC'}">
+                                                        <span class="badge badge-info">
+                                                            <i class="fa-solid fa-house-medical"></i> Tại phòng khám
+                                                        </span>
+                                                    </c:if>
+                                                    <c:if test="${a.appointmentType == 'AT_HOME'}">
+                                                        <span class="badge badge-info">
+                                                            <i class="fa-solid fa-house-user"></i> Tại nhà
+                                                        </span>
+                                                    </c:if>
+                                                    <!-- Fallback or check Enum value directly -->
+                                                    <c:if test="${a.appointmentType.value == 'AtClinic'}">
+                                                        <span class="badge badge-info"><i
+                                                                class="fa-solid fa-house-medical"></i> Tại phòng
+                                                            khám</span>
+                                                    </c:if>
+                                                    <c:if test="${a.appointmentType.value == 'AtHome'}">
+                                                        <span class="badge badge-info"><i
+                                                                class="fa-solid fa-house-user"></i> Tại nhà</span>
+                                                    </c:if>
+                                                </td>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${a.status.value == 'New'}">
+                                                            <span class="badge badge-warning"><i
+                                                                    class="fa-solid fa-clock"></i> Mới</span>
+                                                        </c:when>
+                                                        <c:when test="${a.status.value == 'Confirmed'}">
+                                                            <span class="badge badge-success"><i
+                                                                    class="fa-solid fa-circle-check"></i> Đã xác
+                                                                nhận</span>
+                                                        </c:when>
+                                                        <c:when test="${a.status.value == 'Completed'}">
+                                                            <span class="badge badge-success"><i
+                                                                    class="fa-solid fa-check"></i> Đã khám</span>
+                                                        </c:when>
+                                                        <c:when test="${a.status.value == 'Cancelled'}">
+                                                            <span class="badge badge-danger"><i
+                                                                    class="fa-solid fa-circle-xmark"></i> Đã hủy</span>
+                                                        </c:when>
+                                                        <c:otherwise>${a.status}</c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div class="cell-actions">
+                                                        <!-- Simple actions for now -->
+                                                        <form action="appointments" method="post"
+                                                            style="display:inline;">
+                                                            <input type="hidden" name="id" value="${a.appointmentID}">
+                                                            <input type="hidden" name="action" value="updateStatus">
+
+                                                            <c:if test="${a.status.value == 'New'}">
+                                                                <button type="submit" name="status" value="Confirmed"
+                                                                    class="btn-xs" title="Xác nhận">
+                                                                    <i class="fa-solid fa-check"></i>
+                                                                </button>
+                                                            </c:if>
+
+                                                            <c:if
+                                                                test="${a.status.value != 'Cancelled' && a.status.value != 'Completed'}">
+                                                                <button type="submit" name="status" value="Cancelled"
+                                                                    class="btn-xs btn-xs-danger" title="Hủy"
+                                                                    onclick="return confirm('Bạn có chắc muốn hủy lịch này?');">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </c:if>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                                <c:if test="${empty listA}">
+                                    <div style="padding: 20px; text-align: center; color: #666;">Không tìm thấy lịch
+                                        khám nào.</div>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script src="${pageContext.request.contextPath}/Admin/app.js"></script>
+
+            </body>
+
+            </html>

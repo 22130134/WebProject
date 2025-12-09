@@ -144,6 +144,35 @@ public class Appointment implements Serializable {
         this.adminNote = adminNote;
     }
 
+    // Transient fields for display
+    private String customerName;
+    private String customerPhone;
+    private String productName;
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     @Override
     public String toString() {
         return "Appointment{" +
@@ -155,6 +184,7 @@ public class Appointment implements Serializable {
                 ", address='" + address + '\'' +
                 ", status=" + status +
                 ", adminNote='" + adminNote + '\'' +
+                ", customerName='" + customerName + '\'' +
                 '}';
     }
 }
