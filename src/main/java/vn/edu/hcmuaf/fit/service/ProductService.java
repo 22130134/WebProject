@@ -300,4 +300,256 @@ public class ProductService {
         }
         return list;
     }
+
+    public List<Product> filterAdmin(String search, String brand, String status, String priceRange) {
+        List<Product> list = new ArrayList<>();
+        Connection conn = DBConnect.get();
+        if (conn == null)
+            return list;
+
+        StringBuilder sql = new StringBuilder("SELECT p.ProductID, p.ProductName, p.Brand, p.ImageURL, " +
+                "p.Rating, p.ReviewCount, p.Badge, p.IsInstallment, p.SoldQuantity, " +
+                "d.Price, d.OldPrice, d.StockQuantity " +
+                "FROM products p " +
+                "JOIN productdetails d ON p.ProductID = d.ProductID " +
+                "WHERE 1=1 ");
+
+        if (search != null && !search.trim().isEmpty()) {
+            sql.append("AND (p.ProductName LIKE ? OR p.ProductID = ?) ");
+        }
+
+        if (brand != null && !brand.isEmpty()) {
+            sql.append("AND p.Brand = ? ");
+        }
+
+        if (status != null && !status.isEmpty()) {
+            if ("Còn hàng".equals(status)) {
+                sql.append("AND d.StockQuantity > 0 ");
+            } else if ("Hết hàng".equals(status)) {
+                sql.append("AND d.StockQuantity <= 0 ");
+            }
+        }
+
+        double minPrice = 0;
+        double maxPrice = Double.MAX_VALUE;
+        if (priceRange != null && !priceRange.isEmpty()) {
+            try {
+                String[] parts = priceRange.split("-");
+                if (parts.length >= 1)
+                    minPrice = Double.parseDouble(parts[0]);
+                if (parts.length >= 2)
+                    maxPrice = Double.parseDouble(parts[1]);
+                sql.append("AND d.Price >= ? AND d.Price <= ? ");
+            } catch (NumberFormatException e) {
+                // ignore invalid price format
+            }
+        }
+
+        sql.append("ORDER BY p.ProductID DESC");
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql.toString());
+            int index = 1;
+
+            if (search != null && !search.trim().isEmpty()) {
+                ps.setString(index++, "%" + search + "%");
+                int idTry = -1;
+                try {
+                    idTry = Integer.parseInt(search.replace("SP", ""));
+                } catch (Exception e) {
+                }
+                ps.setInt(index++, idTry);
+            }
+
+            if (brand != null && !brand.isEmpty()) {
+                ps.setString(index++, brand);
+            }
+
+            // Status check is hardcoded in SQL, no param needed
+
+            if (priceRange != null && !priceRange.isEmpty()) {
+                if (minPrice != 0 || maxPrice != Double.MAX_VALUE) {
+                    ps.setDouble(index++, minPrice);
+                    ps.setDouble(index++, maxPrice);
+                }
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("ProductID"));
+                p.setName(rs.getString("ProductName"));
+                p.setBrand(rs.getString("Brand"));
+                p.setImg(rs.getString("ImageURL"));
+                p.setRating(rs.getDouble("Rating"));
+                p.setReviews(rs.getInt("ReviewCount"));
+                p.setBadge(rs.getString("Badge"));
+                p.setInstallment(rs.getBoolean("IsInstallment"));
+                p.setSold(rs.getInt("SoldQuantity"));
+                p.setPrice(rs.getDouble("Price"));
+                p.setOldPrice(rs.getDouble("OldPrice"));
+                p.setStock(rs.getInt("StockQuantity"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public boolean addProduct(Product p) {
+        Connection conn = DBConnect.get();
+        if (conn == null)
+            return false;
+
+        String sql1 = "INSERT INTO products (ProductName, Brand, ImageURL, CreatedAt) VALUES (?, ?, ?, NOW())";
+        String sql2 = "INSERT INTO productdetails (ProductID, Price, StockQuantity, DetailDescription) VALUES (?, ?, ?, ?)";
+
+        try {
+            conn.setAutoCommit(false); // Start Transaction
+
+            // Insert into products
+            PreparedStatement ps1 = conn.prepareStatement(sql1, PreparedStatement.RETURN_GENERATED_KEYS);
+            ps1.setString(1, p.getName());
+            ps1.setString(2, p.getBrand());
+            ps1.setString(3, p.getImg());
+
+            int affected = ps1.executeUpdate();
+            if (affected > 0) {
+                ResultSet rsKey = ps1.getGeneratedKeys();
+                if (rsKey.next()) {
+                    int productId = rsKey.getInt(1);
+
+                    // Insert into productdetails
+                    PreparedStatement ps2 = conn.prepareStatement(sql2);
+                    ps2.setInt(1, productId);
+                    ps2.setDouble(2, p.getPrice());
+                    ps2.setInt(3, p.getStock());
+                    ps2.setString(4, p.getDescription());
+
+                    ps2.executeUpdate();
+
+                    conn.commit(); // Commit
+                    return true;
+                }
+            }
+            conn.rollback(); // Rollback if something wrong
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public boolean updateProduct(Product p) {
+        Connection conn = DBConnect.get();
+        if (conn == null)
+            return false;
+
+        String sql1 = "UPDATE products SET ProductName=?, Brand=?, ImageURL=? WHERE ProductID=?";
+        String sql2 = "UPDATE productdetails SET Price=?, StockQuantity=?, DetailDescription=? WHERE ProductID=?";
+
+        try {
+            conn.setAutoCommit(false); // Start Transaction
+
+            // Update products
+            PreparedStatement ps1 = conn.prepareStatement(sql1);
+            ps1.setString(1, p.getName());
+            ps1.setString(2, p.getBrand());
+            ps1.setString(3, p.getImg());
+            ps1.setInt(4, p.getId());
+
+            ps1.executeUpdate();
+
+            // Update productdetails
+            PreparedStatement ps2 = conn.prepareStatement(sql2);
+            ps2.setDouble(1, p.getPrice());
+            ps2.setInt(2, p.getStock());
+            ps2.setString(3, p.getDescription());
+            ps2.setInt(4, p.getId());
+
+            ps2.executeUpdate();
+
+            conn.commit(); // Commit
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteProduct(int id) {
+        Connection conn = DBConnect.get();
+        if (conn == null)
+            return false;
+
+        String sql1 = "DELETE FROM productdetails WHERE ProductID=?";
+        String sql2 = "DELETE FROM products WHERE ProductID=?";
+
+        try {
+            conn.setAutoCommit(false); // Start Transaction
+
+            // Delete details first (FK constraint)
+            PreparedStatement ps1 = conn.prepareStatement(sql1);
+            ps1.setInt(1, id);
+            ps1.executeUpdate();
+
+            // Delete product
+            PreparedStatement ps2 = conn.prepareStatement(sql2);
+            ps2.setInt(1, id);
+            int affected = ps2.executeUpdate();
+
+            conn.commit();
+            return affected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public int countTotalProducts() {
+        String sql = "SELECT COUNT(*) FROM products";
+        Connection conn = DBConnect.get();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

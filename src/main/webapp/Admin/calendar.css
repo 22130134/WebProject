@@ -101,7 +101,7 @@ body {
 /* Thống kê nhanh */
 .stats-row {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
     margin-bottom: 20px;
 }
@@ -250,7 +250,8 @@ thead tr {
     background: #f8fafc;
 }
 
-th, td {
+th,
+td {
     padding: 8px 12px;
     border-bottom: 1px solid #f0f0f0;
     text-align: left;
@@ -386,14 +387,17 @@ tbody tr:hover {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .filter-row {
         flex-direction: column;
         align-items: stretch;
     }
+
     .filter-search {
         margin-left: 0;
         width: 100%;
     }
+
     .search-box {
         width: 100%;
     }
@@ -403,6 +407,7 @@ tbody tr:hover {
     .stats-row {
         grid-template-columns: 1fr;
     }
+
     .page-wrapper {
         margin-top: 16px;
     }

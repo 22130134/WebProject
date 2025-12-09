@@ -187,6 +187,124 @@ public class AppointmentDAO {
     }
 
     /**
+     * Get all appointments with display info
+     */
+    public List<Appointment> getAll() {
+        return filter(null, null, null, null, null);
+    }
+
+    /**
+     * Filter appointments
+     */
+    public List<Appointment> filter(String keyword, String type, String status, String dateFrom, String dateTo) {
+        List<Appointment> list = new ArrayList<>();
+        Connection conn = DBConnect.get();
+        if (conn == null)
+            return list;
+
+        StringBuilder sql = new StringBuilder(
+                "SELECT a.*, c.FullName, c.PhoneNumber, p.ProductName " +
+                        "FROM appointments a " +
+                        "JOIN customers c ON a.CustomerID = c.CustomerID " +
+                        "LEFT JOIN products p ON a.ProductID = p.ProductID " +
+                        "WHERE 1=1 ");
+
+        if (keyword != null && !keyword.isEmpty()) {
+            sql.append("AND (a.AppointmentID = ? OR c.FullName LIKE ? OR c.PhoneNumber LIKE ?) ");
+        }
+        if (type != null && !type.isEmpty()) {
+            sql.append("AND a.AppointmentType = ? ");
+        }
+        if (status != null && !status.isEmpty()) {
+            sql.append("AND a.Status = ? ");
+        }
+        if (dateFrom != null && !dateFrom.isEmpty()) {
+            sql.append("AND a.AppointmentDateTime >= ? ");
+        }
+        if (dateTo != null && !dateTo.isEmpty()) {
+            sql.append("AND a.AppointmentDateTime <= ? ");
+        }
+
+        sql.append("ORDER BY a.AppointmentDateTime DESC");
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql.toString());
+            int index = 1;
+
+            if (keyword != null && !keyword.isEmpty()) {
+                int idTry = -1;
+                try {
+                    idTry = Integer.parseInt(keyword.replace("#LK", "").trim());
+                } catch (Exception e) {
+                }
+                ps.setInt(index++, idTry);
+                ps.setString(index++, "%" + keyword + "%");
+                ps.setString(index++, "%" + keyword + "%");
+            }
+            if (type != null && !type.isEmpty()) {
+                ps.setString(index++, type);
+            }
+            if (status != null && !status.isEmpty()) {
+                ps.setString(index++, status);
+            }
+            if (dateFrom != null && !dateFrom.isEmpty()) {
+                ps.setString(index++, dateFrom + " 00:00:00");
+            }
+            if (dateTo != null && !dateTo.isEmpty()) {
+                ps.setString(index++, dateTo + " 23:59:59");
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(extractAppointmentFromResultSet(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // Stats methods
+    public int countAppointmentsToday() {
+        String sql = "SELECT COUNT(*) FROM appointments WHERE DATE(AppointmentDateTime) = CURDATE()";
+        try {
+            PreparedStatement ps = DBConnect.get().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int countNewAppointmentsToday() {
+        String sql = "SELECT COUNT(*) FROM appointments WHERE DATE(AppointmentDateTime) = CURDATE() AND Status = 'New'";
+        try {
+            PreparedStatement ps = DBConnect.get().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int countConfirmedAppointments() {
+        String sql = "SELECT COUNT(*) FROM appointments WHERE Status = 'Confirmed'";
+        try {
+            PreparedStatement ps = DBConnect.get().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    /**
      * Helper method to extract Appointment object from ResultSet
      */
     private Appointment extractAppointmentFromResultSet(ResultSet rs) throws SQLException {
@@ -206,6 +324,16 @@ public class AppointmentDAO {
         appointment.setAddress(rs.getString("Address"));
         appointment.setStatus(AppointmentStatus.fromString(rs.getString("Status")));
         appointment.setAdminNote(rs.getString("AdminNote"));
+
+        // Extra fields
+        try {
+            appointment.setCustomerName(rs.getString("FullName"));
+            appointment.setCustomerPhone(rs.getString("PhoneNumber"));
+            appointment.setProductName(rs.getString("ProductName"));
+        } catch (SQLException e) {
+            // Columns might not exist if using select * from appointments only
+            System.out.println("Warning: Display fields missing in ResultSet");
+        }
 
         return appointment;
     }
