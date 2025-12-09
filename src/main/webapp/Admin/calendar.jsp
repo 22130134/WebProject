@@ -199,26 +199,24 @@
                                         <div class="doctor-name">--</div>
                                     </td> -->
                                                 <td>
-                                                    <c:if test="${a.appointmentType == 'AT_CLINIC'}">
-                                                        <span class="badge badge-info">
-                                                            <i class="fa-solid fa-house-medical"></i> Tại phòng khám
-                                                        </span>
-                                                    </c:if>
-                                                    <c:if test="${a.appointmentType == 'AT_HOME'}">
-                                                        <span class="badge badge-info">
-                                                            <i class="fa-solid fa-house-user"></i> Tại nhà
-                                                        </span>
-                                                    </c:if>
-                                                    <!-- Fallback or check Enum value directly -->
-                                                    <c:if test="${a.appointmentType.value == 'AtClinic'}">
-                                                        <span class="badge badge-info"><i
-                                                                class="fa-solid fa-house-medical"></i> Tại phòng
-                                                            khám</span>
-                                                    </c:if>
-                                                    <c:if test="${a.appointmentType.value == 'AtHome'}">
-                                                        <span class="badge badge-info"><i
-                                                                class="fa-solid fa-house-user"></i> Tại nhà</span>
-                                                    </c:if>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when
+                                                            test="${a.appointmentType.value == 'AtClinic' || a.appointmentType == 'AT_CLINIC'}">
+                                                            <span class="badge badge-info">
+                                                                <i class="fa-solid fa-house-medical"></i> Tại phòng khám
+                                                            </span>
+                                                        </c:when>
+                                                        <c:when
+                                                            test="${a.appointmentType.value == 'AtHome' || a.appointmentType == 'AT_HOME'}">
+                                                            <span class="badge badge-info">
+                                                                <i class="fa-solid fa-house-user"></i> Tại nhà
+                                                            </span>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <span class="badge">${a.appointmentType}</span>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </td>
                                                 <td>
                                                     <c:choose>
@@ -244,27 +242,56 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <div class="cell-actions">
-                                                        <!-- Simple actions for now -->
                                                         <form action="appointments" method="post"
                                                             style="display:inline;">
                                                             <input type="hidden" name="id" value="${a.appointmentID}">
                                                             <input type="hidden" name="action" value="updateStatus">
 
-                                                            <c:if test="${a.status.value == 'New'}">
-                                                                <button type="submit" name="status" value="Confirmed"
-                                                                    class="btn-xs" title="Xác nhận">
-                                                                    <i class="fa-solid fa-check"></i>
-                                                                </button>
-                                                            </c:if>
+                                                            <c:choose>
+                                                                <%-- New: Confirm or Cancel --%>
+                                                                    <c:when test="${a.status.value == 'New'}">
+                                                                        <button type="submit" name="status"
+                                                                            value="Confirmed" class="btn-xs"
+                                                                            title="Xác nhận"
+                                                                            style="color: var(--ok); border-color: var(--ok);">
+                                                                            <i class="fa-solid fa-check"></i>
+                                                                        </button>
+                                                                        <button type="submit" name="status"
+                                                                            value="Cancelled"
+                                                                            class="btn-xs btn-xs-danger" title="Hủy"
+                                                                            onclick="return confirm('Hủy lịch này?');">
+                                                                            <i class="fa-solid fa-xmark"></i>
+                                                                        </button>
+                                                                    </c:when>
 
-                                                            <c:if
-                                                                test="${a.status.value != 'Cancelled' && a.status.value != 'Completed'}">
-                                                                <button type="submit" name="status" value="Cancelled"
-                                                                    class="btn-xs btn-xs-danger" title="Hủy"
-                                                                    onclick="return confirm('Bạn có chắc muốn hủy lịch này?');">
-                                                                    <i class="fa-solid fa-xmark"></i>
-                                                                </button>
-                                                            </c:if>
+                                                                    <%-- Confirmed: Complete or Cancel --%>
+                                                                        <c:when test="${a.status.value == 'Confirmed'}">
+                                                                            <button type="submit" name="status"
+                                                                                value="Completed" class="btn-xs"
+                                                                                style="color: var(--primary); border-color: var(--primary);"
+                                                                                title="Đã khám xong">
+                                                                                <i class="fa-solid fa-stethoscope"></i>
+                                                                            </button>
+                                                                            <button type="submit" name="status"
+                                                                                value="Cancelled"
+                                                                                class="btn-xs btn-xs-danger" title="Hủy"
+                                                                                onclick="return confirm('Hủy lịch này?');">
+                                                                                <i class="fa-solid fa-xmark"></i>
+                                                                            </button>
+                                                                        </c:when>
+
+                                                                        <%-- Cancelled: Reset --%>
+                                                                            <c:when
+                                                                                test="${a.status.value == 'Cancelled'}">
+                                                                                <button type="submit" name="status"
+                                                                                    value="New" class="btn-xs"
+                                                                                    title="Phục hồi (Reset)"
+                                                                                    style="color: var(--text-muted);">
+                                                                                    <i
+                                                                                        class="fa-solid fa-rotate-left"></i>
+                                                                                </button>
+                                                                            </c:when>
+                                                            </c:choose>
                                                         </form>
                                                     </div>
                                                 </td>
