@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 
@@ -37,14 +37,14 @@
             </li>
 
                 <%-- MỤC 2: ĐỊA CHỈ --%>
-            <li>
+            <li class="${currentPath == '/address' ? 'active' : ''}">
                 <a href="${contextPath}/address">
                     <i class="fa-solid fa-location-dot"></i> Địa chỉ
                 </a>
             </li>
 
                 <%-- MỤC 3: LỊCH SỬ MUA HÀNG --%>
-            <li>
+            <li class="${currentPath == '/purchase-history' ? 'active' : ''}">
                 <a href="${contextPath}/purchase-history">
                     <i class="fa-regular fa-clock"></i> Lịch sử mua hàng
                 </a>
@@ -53,7 +53,7 @@
                 <%-- MỤC 4: SẢN PHẨM ĐÃ XEM --%>
             <li>
                 <a href="${contextPath}/viewed-products">
-                    <i class="fa-regular fa-eye"></i> Sản phẩm đã xem
+                    <i class="fa-regular fa-eye"></i> Xem lịch đặt khám
                 </a>
             </li>
 
