@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.edu.hcmuaf.fit.model.Appointment;
 import vn.edu.hcmuaf.fit.model.Cart;
+import vn.edu.hcmuaf.fit.model.Customer; // Import Customer
+import vn.edu.hcmuaf.fit.model.User;     // Import User
 import vn.edu.hcmuaf.fit.service.AppointmentService;
 import vn.edu.hcmuaf.fit.service.CartService;
 
@@ -27,10 +29,21 @@ public class BookingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Load cart from database (same as HomeServlet)
         HttpSession session = request.getSession();
-        int dummyCustomerId = 1;
-        Cart cart = CartService.getInstance().getCart(dummyCustomerId);
+
+        // 1. KIỂM TRA ĐĂNG NHẬP (SỬA LẠI)
+        // Nếu chưa đăng nhập, chuyển hướng về trang login thay vì load dummy cart
+        Customer customer = (Customer) session.getAttribute("customer");
+        User user = (User) session.getAttribute("auth");
+
+        if (user == null || customer == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        // 2. Load giỏ hàng của USER THẬT (SỬA LẠI)
+        // Bỏ dòng dummyCustomerId = 1
+        Cart cart = CartService.getInstance().getCart(customer.getCustomerID());
         session.setAttribute("cart", cart);
 
         // Forward to booking page
@@ -44,10 +57,23 @@ public class BookingServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         Map<String, Object> jsonResponse = new HashMap<>();
+        HttpSession session = request.getSession(); // Lấy session
 
         try {
+            // 3. KIỂM TRA ĐĂNG NHẬP TRONG POST (THÊM MỚI)
+            Customer customer = (Customer) session.getAttribute("customer");
+            User user = (User) session.getAttribute("auth");
+
+            if (user == null || customer == null) {
+                jsonResponse.put("status", "error");
+                jsonResponse.put("message", "Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.");
+                response.getWriter().write(new Gson().toJson(jsonResponse));
+                return;
+            }
+
             // Get form parameters
             String serviceType = request.getParameter("serviceType");
+            String productIdParam = request.getParameter("productId"); // Nhận thêm Product ID nếu có
             String appointmentDate = request.getParameter("appointmentDate"); // yyyy-MM-dd
             String appointmentTime = request.getParameter("appointmentTime"); // HH:mm
             String careType = request.getParameter("careType"); // "AtHome" or "AtClinic"
@@ -97,8 +123,9 @@ public class BookingServlet extends HttpServlet {
                 return;
             }
 
-            // Get customer ID from session (dummy for now)
-            int dummyCustomerId = 1;
+            // 4. LẤY ID THẬT TỪ ĐỐI TƯỢNG CUSTOMER (SỬA QUAN TRỌNG NHẤT)
+            // Đã xóa dòng: int dummyCustomerId = 1;
+            int realCustomerId = customer.getCustomerID();
 
             // Build admin note with service type and additional notes
             StringBuilder adminNote = new StringBuilder();
@@ -109,19 +136,31 @@ public class BookingServlet extends HttpServlet {
 
             // Create appointment object
             Appointment appointment = new Appointment();
-            appointment.setCustomerID(dummyCustomerId);
+            appointment.setCustomerID(realCustomerId); // Gán ID thật
+
+            // Xử lý Product ID (nếu có truyền lên) để hiển thị tên trong lịch sử
+            if (productIdParam != null && !productIdParam.isEmpty()) {
+                try {
+                    appointment.setProductID(Integer.parseInt(productIdParam));
+                } catch (NumberFormatException e) {
+                    // Bỏ qua nếu lỗi
+                }
+            }
+
             appointment.setAppointmentDateTime(appointmentDateTime);
             appointment.setAppointmentType(appointmentType);
             appointment.setAddress(address);
             appointment.setAdminNote(adminNote.toString());
 
-            // Save to database
+            // Save to database (DAO của bạn đã đúng, nó sẽ lấy ID từ appointment object này)
             int appointmentId = AppointmentService.getInstance().bookAppointment(appointment);
 
             if (appointmentId > 0) {
                 jsonResponse.put("status", "success");
                 jsonResponse.put("message", "Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.");
                 jsonResponse.put("appointmentId", appointmentId);
+                // Thêm URL redirect để JS chuyển hướng
+                jsonResponse.put("redirectUrl", request.getContextPath() + "/appointment-history");
             } else {
                 jsonResponse.put("status", "error");
                 jsonResponse.put("message", "Có lỗi xảy ra khi đặt lịch. Vui lòng thử lại.");
