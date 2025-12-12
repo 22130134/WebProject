@@ -100,13 +100,12 @@
             <h2 style="padding-bottom: 10px;">Lịch sử đơn hàng</h2>
 
             <div class="tabs">
-                <button class="tab active">Tất cả</button>
-                <%-- Thêm tab Tất cả --%>
-                <button class="tab">Chờ xác nhận</button>
-                <button class="tab">Đã xác nhận</button>
-                <button class="tab">Đang giao</button>
-                <button class="tab">Đã giao</button>
-                <button class="tab">Đã hủy</button>
+                <button class="tab active" onclick="filterOrders('all', this)">Tất cả</button>
+                <button class="tab" onclick="filterOrders('Pending', this)">Chờ xác nhận</button>
+                <button class="tab" onclick="filterOrders('Processing', this)">Đã xác nhận</button>
+                <button class="tab" onclick="filterOrders('Shipping', this)">Đang giao</button>
+                <button class="tab" onclick="filterOrders('Completed', this)">Đã giao</button>
+                <button class="tab" onclick="filterOrders('Cancelled', this)">Đã hủy</button>
             </div>
 
             <div class="search-box">
@@ -183,6 +182,81 @@
 </div>
 
 <%--<jsp:include page="/style/footer/footer.jsp"/>--%>
+
+<script>
+    // 1. Tự động chuyển Tab nếu URL có ?tab=...
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const activeTab = urlParams.get('tab');
+        if (activeTab) {
+            // Tìm nút tab có chứa giá trị tương ứng
+            // Lưu ý: activeTab từ URL cần khớp với tham số trong onclick (ví dụ: ?tab=Pending)
+            let buttons = document.querySelectorAll('.tab');
+            buttons.forEach(btn => {
+                // Kiểm tra xem nút có chứa chuỗi status đó không
+                if (btn.getAttribute('onclick').toLowerCase().includes(activeTab.toLowerCase())) {
+                    filterOrders(activeTab, btn);
+                }
+            });
+        }
+    });
+
+    // 2. Hàm lọc Tab
+    function filterOrders(statusType, btnElement) {
+        // Active nút tab
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        if (btnElement) btnElement.classList.add('active');
+
+        // Lọc danh sách
+        let cards = document.querySelectorAll('.order-card');
+
+        cards.forEach(card => {
+            let cardStatus = card.getAttribute('data-status');
+
+            // So sánh không phân biệt hoa thường
+            if (statusType === 'all' ||
+                (cardStatus && cardStatus.toUpperCase() === statusType.toUpperCase())) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // 3. Hàm Tìm kiếm
+    function searchOrders() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let cards = document.querySelectorAll('.order-card');
+
+        cards.forEach(card => {
+            // Lấy text mã đơn hàng
+            let idText = card.querySelector('.order-id-text').innerText.toLowerCase();
+
+            // Lấy text tên sản phẩm (có thể có nhiều sản phẩm trong 1 đơn)
+            let hasProduct = false;
+            let productNames = card.querySelectorAll('.search-target');
+            productNames.forEach(name => {
+                if (name.innerText.toLowerCase().includes(input)) hasProduct = true;
+            });
+
+            if (idText.includes(input) || hasProduct) {
+                card.classList.remove('hidden');
+                card.style.display = 'block';
+            } else {
+                card.classList.add('hidden');
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // 4. Hàm Hủy Đơn Hàng
+    function confirmCancelOrder(orderId) {
+        if (confirm("Bạn có chắc chắn muốn hủy đơn hàng #" + orderId + " không?")) {
+            // Gọi Servlet CancelOrderController
+            window.location.href = "${contextPath}/cancel-order?id=" + orderId;
+        }
+    }
+</script>
 </body>
 
 </html>
