@@ -209,4 +209,27 @@ public class AppointmentDAO {
 
         return appointment;
     }
+
+    //HUNG
+    /**
+     * Kiểm tra lịch hẹn có thuộc về Khách hàng đang đăng nhập không (Bảo mật)
+     * @param appointmentID ID lịch hẹn cần hủy
+     * @param customerID ID khách hàng đang đăng nhập
+     * @return true nếu khách hàng là chủ sở hữu lịch hẹn
+     */
+    public boolean isAppointmentOwnedByCustomer(int appointmentID, int customerID) {
+        String query = "SELECT COUNT(*) FROM appointments WHERE AppointmentID = ? AND CustomerID = ?";
+        try (Connection conn = DBConnect.get();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, appointmentID);
+            ps.setInt(2, customerID);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

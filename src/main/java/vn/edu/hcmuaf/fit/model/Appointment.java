@@ -70,7 +70,7 @@ public class Appointment implements Serializable {
     }
 
     public Appointment(int customerID, LocalDateTime appointmentDateTime, AppointmentType appointmentType,
-            String address, String adminNote) {
+                       String address, String adminNote) {
         this.customerID = customerID;
         this.appointmentDateTime = appointmentDateTime;
         this.appointmentType = appointmentType;
@@ -156,5 +156,55 @@ public class Appointment implements Serializable {
                 ", status=" + status +
                 ", adminNote='" + adminNote + '\'' +
                 '}';
+    }
+
+    //HUNG
+    // --- CÁC HÀM TIỆN ÍCH CHO JSP ---
+
+    /**
+     * Định dạng ngày giờ đẹp (VD: 12/12/2025 14:30)
+     */
+    public String getFormattedDateTime() {
+        if (appointmentDateTime == null) return "";
+        return appointmentDateTime.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+    }
+
+    /**
+     * Hiển thị loại cuộc hẹn tiếng Việt
+     */
+    public String getTypeVietnamese() {
+        if (appointmentType == null) return "Không xác định";
+        // Enum value: AtClinic, AtHome
+        if (appointmentType == AppointmentType.AT_CLINIC) return "Tại phòng khám";
+        if (appointmentType == AppointmentType.AT_HOME) return "Tại nhà";
+        return appointmentType.getValue();
+    }
+
+    /**
+     * Hiển thị trạng thái tiếng Việt
+     */
+    public String getStatusVietnamese() {
+        if (status == null) return "Mới";
+        switch (status) {
+            case NEW: return "Chờ xác nhận";
+            case CONFIRMED: return "Đã xác nhận";
+            case COMPLETED: return "Đã khám xong";
+            case CANCELLED: return "Đã hủy";
+            default: return status.getValue();
+        }
+    }
+
+    /**
+     * Lấy class CSS cho trạng thái (để tô màu badge)
+     */
+    public String getStatusCssClass() {
+        if (status == null) return "secondary";
+        switch (status) {
+            case NEW: return "warning";    // Vàng
+            case CONFIRMED: return "primary"; // Xanh dương
+            case COMPLETED: return "success"; // Xanh lá
+            case CANCELLED: return "danger";  // Đỏ
+            default: return "secondary";
+        }
     }
 }

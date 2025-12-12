@@ -51,8 +51,8 @@
             </li>
 
                 <%-- MỤC 4: SẢN PHẨM ĐÃ XEM --%>
-            <li>
-                <a href="${contextPath}/viewed-products">
+            <li class="${currentPath == '/appointment-history' ? 'active' : ''}">
+                <a href="${contextPath}/appointment-history">
                     <i class="fa-regular fa-eye"></i> Xem lịch đặt khám
                 </a>
             </li>
