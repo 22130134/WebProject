@@ -14,7 +14,7 @@ import java.util.Map;
 public class OrderDAO {
     private static OrderDAO instance;
 
-    private OrderDAO() {
+    public OrderDAO() {
     }
 
     public static OrderDAO getInstance() {
@@ -167,6 +167,21 @@ public class OrderDAO {
             if (rs.next()) {
                 return rs.getInt(1) > 0;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // 3. Hàm hủy đơn hàng (Chỉ hủy khi trạng thái là Pending để an toàn)
+    public boolean cancelOrder(int orderId) {
+        // Cập nhật thêm điều kiện: Chỉ cho hủy nếu status đang là 'Pending'
+        String query = "UPDATE orders SET Status = 'Cancelled' WHERE OrderID = ? AND Status = 'Pending'";
+        try (Connection conn = DBConnect.get();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, orderId);
+            int rows = ps.executeUpdate();
+            return rows > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }

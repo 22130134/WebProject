@@ -6,7 +6,8 @@
 <c:set var="user" value="${sessionScope.auth}"/>
 <c:set var="customer" value="${sessionScope.customer}"/>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<c:set var="currentPath" value="${pageContext.request.servletPath}"/>
+<%--<c:set var="currentPath" value="${pageContext.request.servletPath}"/>--%>
+<c:set var="currentURI" value="${pageContext.request.requestURI}"/>
 
 <c:if test="${not empty user}">
     <aside class="sidebar">
@@ -36,33 +37,33 @@
                 </a>
             </li>
 
-                <%-- MỤC 2: ĐỊA CHỈ --%>
-            <li class="${currentPath == '/address' ? 'active' : ''}">
-                <a href="${contextPath}/address">
-                    <i class="fa-solid fa-location-dot"></i> Địa chỉ
-                </a>
-            </li>
+                <%--                &lt;%&ndash; MỤC 2: ĐỊA CHỈ &ndash;%&gt;--%>
+                <%--            <li class="${currentPath == '/address' ? 'active' : ''}">--%>
+                <%--                <a href="${contextPath}/address">--%>
+                <%--                    <i class="fa-solid fa-location-dot"></i> Địa chỉ--%>
+                <%--                </a>--%>
+                <%--            </li>--%>
 
                 <%-- MỤC 3: LỊCH SỬ MUA HÀNG --%>
-            <li class="${currentPath == '/purchase-history' ? 'active' : ''}">
+            <li class="${fn:contains(currentURI, 'purchase-history') ? 'active' : ''}">
                 <a href="${contextPath}/purchase-history">
                     <i class="fa-regular fa-clock"></i> Lịch sử mua hàng
                 </a>
             </li>
 
                 <%-- MỤC 4: SẢN PHẨM ĐÃ XEM --%>
-            <li class="${currentPath == '/appointment-history' ? 'active' : ''}">
+            <li class="${fn:contains(currentURI, 'appointment-history') ? 'active' : ''}">
                 <a href="${contextPath}/appointment-history">
                     <i class="fa-regular fa-eye"></i> Xem lịch đặt khám
                 </a>
             </li>
 
-                <%-- MỤC 5: ĐÁNH GIÁ CỦA TÔI --%>
-            <li>
-                <a href="${contextPath}/my-ratings">
-                    <i class="fa-regular fa-star"></i> Đánh giá của tôi
-                </a>
-            </li>
+                <%--                &lt;%&ndash; MỤC 5: ĐÁNH GIÁ CỦA TÔI &ndash;%&gt;--%>
+                <%--            <li>--%>
+                <%--                <a href="${contextPath}/my-ratings">--%>
+                <%--                    <i class="fa-regular fa-star"></i> Đánh giá của tôi--%>
+                <%--                </a>--%>
+                <%--            </li>--%>
 
                 <%-- MỤC 6: ĐĂNG XUẤT --%>
             <li>
