@@ -32,6 +32,8 @@
                 </header>
                 <div class="layout">
 
+                    <!-- End -->
+
                     <!-- SIDEBAR -->
                     <aside id="sidebar" class="sidebar" aria-hidden="false">
 
