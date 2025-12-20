@@ -8,6 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+/**
+ * DAO class for handling User authentication and registration
+ */
 public class UserDAO {
     Connection conn = null;
     PreparedStatement ps = null;
