@@ -73,6 +73,7 @@ public class UserDAO {
         return false;
     }
 
+    // Register new user account and associated customer record
     public void register(String username, String password, String email) {
         String queryAccount = "INSERT INTO Accounts (Username, PasswordHash, Email, Role, Status) VALUES (?, ?, ?, 'Customer', 'Active')";
         String queryCustomer = "INSERT INTO Customers (AccountID) VALUES (?)";
