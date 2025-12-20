@@ -40,6 +40,7 @@ public class CustomerDAO {
         return list;
     }
 
+    // Retrieve customer by specific ID
     public Customer getById(int id) {
         String query = "SELECT * FROM customers WHERE CustomerID = ?";
         try {
