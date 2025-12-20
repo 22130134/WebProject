@@ -16,6 +16,7 @@ public class UserDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
+    // Check user login credentials against database
     public User checkLogin(String username, String password) {
         try {
             String query = "SELECT * FROM Accounts WHERE Username = ? AND PasswordHash = ? AND Status = 'Active'";
