@@ -1,10 +1,12 @@
 package vn.edu.hcmuaf.fit.controller;
 
+import vn.edu.hcmuaf.fit.model.Customer;
 import vn.edu.hcmuaf.fit.model.User;
 import vn.edu.hcmuaf.fit.model.Cart;
 import vn.edu.hcmuaf.fit.model.CartItem;
 import vn.edu.hcmuaf.fit.service.UserService;
 import vn.edu.hcmuaf.fit.service.CartService;
+import vn.edu.hcmuaf.fit.service.CustomerService;
 import vn.edu.hcmuaf.fit.dao.UserDAO;
 
 import jakarta.servlet.*;
@@ -30,7 +32,11 @@ public class LoginController extends HttpServlet {
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("auth", user);
-            response.sendRedirect("home"); // Redirect to home servlet
+
+            //HUNG: Lấy và lưu thông tin Customer
+            Customer customer = CustomerService.getInstance().getCustomerByAccountId(user.getAccountID());
+            session.setAttribute("customer", customer); // Lưu Customer vào session
+
 
             // Merge Session Cart to DB Cart
             Cart sessionCart = (Cart) session.getAttribute("cart");
@@ -45,6 +51,8 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("cart", dbCart);
                 }
             }
+
+            response.sendRedirect("home"); // Redirect to home servlet
         } else {
             request.setAttribute("error", "Tên đăng nhập hoặc mật khẩu không đúng.");
             request.getRequestDispatcher("Login/login.jsp").forward(request, response);

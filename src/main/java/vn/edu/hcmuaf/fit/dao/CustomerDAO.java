@@ -57,8 +57,36 @@ public class CustomerDAO {
         return null;
     }
 
-    public Customer getByAccountId(int accountId) {
-        String query = "SELECT * FROM customers WHERE AccountID = ?";
+    /**
+     * Hàm cập nhật thông tin cá nhân khách hàng
+     * Dựa vào AccountID để xác định dòng cần sửa
+     */
+    public boolean updateCustomerInfo(int accountId, String fullName, String phone, String address) {
+        String query = "UPDATE customers SET FullName = ?, PhoneNumber = ?, Address = ? WHERE AccountID = ?";
+        try {
+            conn = DBConnect.get();
+            ps = conn.prepareStatement(query);
+
+            // Set các tham số
+            ps.setString(1, fullName);
+            ps.setString(2, phone);
+            ps.setString(3, address);
+            ps.setInt(4, accountId);
+
+            // Thực thi
+            int row = ps.executeUpdate();
+            return row > 0; // Trả về true nếu có dòng được cập nhật
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * Hàm lấy thông tin Customer theo AccountID
+     */
+    public Customer getCustomerByAccountId(int accountId) {
+        String query = "SELECT CustomerID, AccountID, FullName, PhoneNumber, Address FROM customers WHERE AccountID = ?";
         try {
             conn = DBConnect.get();
             ps = conn.prepareStatement(query);
