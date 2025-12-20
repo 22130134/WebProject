@@ -3,8 +3,8 @@ package vn.edu.hcmuaf.fit.model;
 import java.io.Serializable;
 
 public class Customer implements Serializable {
-    private int customerId;
-    private int accountId;
+    private int customerID;
+    private int accountID; // Khóa ngoại liên kết với User
     private String fullName;
     private String phoneNumber;
     private String address;
@@ -12,28 +12,29 @@ public class Customer implements Serializable {
     public Customer() {
     }
 
-    public Customer(int customerId, int accountId, String fullName, String phoneNumber, String address) {
-        this.customerId = customerId;
-        this.accountId = accountId;
+    // Constructor dùng để tạo đối tượng khi đọc từ DB
+    public Customer(int customerID, int accountID, String fullName, String phoneNumber, String address) {
+        this.customerID = customerID;
+        this.accountID = accountID;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public int getCustomerID() {
+        return customerID;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
     }
 
-    public int getAccountId() {
-        return accountId;
+    public int getAccountID() {
+        return accountID;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
     }
 
     public String getFullName() {
@@ -63,8 +64,8 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
         return "Customer{" +
-                "customerId=" + customerId +
-                ", accountId=" + accountId +
+                "customerID=" + customerID +
+                ", accountID=" + accountID +
                 ", fullName='" + fullName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
