@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DAO class for handling Customer operations
+ */
 public class CustomerDAO {
     Connection conn = null;
     PreparedStatement ps = null;
