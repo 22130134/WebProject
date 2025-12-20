@@ -10,11 +10,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DAO class for handling Customer operations
+ */
 public class CustomerDAO {
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
 
+    // Retrieve all customers from database
     public List<Customer> getAll() {
         List<Customer> list = new ArrayList<>();
         String query = "SELECT * FROM customers";
@@ -36,6 +40,7 @@ public class CustomerDAO {
         return list;
     }
 
+    // Retrieve customer by specific ID
     public Customer getById(int id) {
         String query = "SELECT * FROM customers WHERE CustomerID = ?";
         try {

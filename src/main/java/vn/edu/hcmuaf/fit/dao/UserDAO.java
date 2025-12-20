@@ -8,11 +8,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+/**
+ * DAO class for handling User authentication and registration
+ */
 public class UserDAO {
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
 
+    // Check user login credentials against database
     public User checkLogin(String username, String password) {
         try {
             String query = "SELECT * FROM Accounts WHERE Username = ? AND PasswordHash = ? AND Status = 'Active'";
@@ -69,6 +73,7 @@ public class UserDAO {
         return false;
     }
 
+    // Register new user account and associated customer record
     public void register(String username, String password, String email) {
         String queryAccount = "INSERT INTO Accounts (Username, PasswordHash, Email, Role, Status) VALUES (?, ?, ?, 'Customer', 'Active')";
         String queryCustomer = "INSERT INTO Customers (AccountID) VALUES (?)";
