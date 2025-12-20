@@ -18,6 +18,7 @@ public class CustomerDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
+    // Retrieve all customers from database
     public List<Customer> getAll() {
         List<Customer> list = new ArrayList<>();
         String query = "SELECT * FROM customers";
