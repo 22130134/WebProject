@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.controller;
+package vn.edu.hcmuaf.fit.controller.booking;
 
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;

@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.controller;
+package vn.edu.hcmuaf.fit.controller.booking;
 
 import vn.edu.hcmuaf.fit.dao.AppointmentDAO;
 import vn.edu.hcmuaf.fit.model.Appointment.AppointmentStatus;
