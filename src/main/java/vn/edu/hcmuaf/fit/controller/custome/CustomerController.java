@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.controller;
+package vn.edu.hcmuaf.fit.controller.custome;
 
 import vn.edu.hcmuaf.fit.model.Customer;
 import vn.edu.hcmuaf.fit.model.User;
@@ -37,6 +37,7 @@ public class CustomerController extends HttpServlet {
             throws ServletException, IOException {
         // 1. Xử lý tiếng Việt
         request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
         // 2. Kiểm tra đăng nhập
         HttpSession session = request.getSession();

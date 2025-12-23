@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.controller;
+package vn.edu.hcmuaf.fit.controller.auth;
 
 import vn.edu.hcmuaf.fit.service.UserService;
 

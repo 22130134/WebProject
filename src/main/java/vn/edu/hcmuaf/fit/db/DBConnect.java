@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnect {
-    private static String url = "jdbc:mysql://localhost:3306/dataweb";
+    private static String url = "jdbc:mysql://localhost:3306/dataweb?useUnicode=true&characterEncoding=UTF-8";
     private static String user = "root";
     private static String pass = "12345";
     private static Connection connection;
