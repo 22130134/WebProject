@@ -37,6 +37,7 @@ public class CustomerController extends HttpServlet {
             throws ServletException, IOException {
         // 1. Xử lý tiếng Việt
         request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
         // 2. Kiểm tra đăng nhập
         HttpSession session = request.getSession();
