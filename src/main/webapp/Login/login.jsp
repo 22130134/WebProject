@@ -39,7 +39,17 @@
 
                 <button class="btn-social email">✉️ Đăng nhập bằng email</button>
                 <button class="btn-social zalo">💬 Đăng nhập bằng Zalo</button>
-                <button class="btn-social google">🌐 Đăng nhập bằng Google</button>
+                <%
+                    // Tạo URL đăng nhập Google
+                    String googleClientId = "1055685939412-k630p44torb19vi19th2gpu20n6ulhev.apps.googleusercontent.com"; // ID
+                    String redirectUri = "http://localhost:8080/webapp_war/login-google";
+                    String googleLoginLink = "https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri="
+                            + redirectUri + "&response_type=code&client_id=" + googleClientId + "&approval_prompt=force";
+                %>
+
+                <a href="<%= googleLoginLink %>" class="btn-social google" style="text-decoration: none; display: block; text-align: center; line-height: normal;">
+                    🌐 Đăng nhập bằng Google
+                </a>
             </div>
         </main>
         <script src="${pageContext.request.contextPath}/style/header/header.js"></script>

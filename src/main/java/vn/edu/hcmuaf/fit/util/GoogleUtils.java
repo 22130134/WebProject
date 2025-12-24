@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit;
+package vn.edu.hcmuaf.fit.util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -9,9 +9,9 @@ import vn.edu.hcmuaf.fit.model.GooglePojo;
 import java.io.IOException;
 
 public class GoogleUtils {
-    public static final String GOOGLE_CLIENT_ID = "YOUR_CLIENT_ID_HERE"; 
-    public static final String GOOGLE_CLIENT_SECRET = "YOUR_CLIENT_SECRET_HERE";
-    public static final String GOOGLE_REDIRECT_URI = "http://localhost:8080/DuAnWeb/login-google"; // Sửa 'DuAnWeb' cho đúng tên Project của bạn
+    public static final String GOOGLE_CLIENT_ID = "1055685939412-k630p44torb19vi19th2gpu20n6ulhev.apps.googleusercontent.com";
+    public static final String GOOGLE_CLIENT_SECRET = "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";
+    public static final String GOOGLE_REDIRECT_URI = "http://localhost:8080/webapp_war/login-google";
     public static final String GOOGLE_GRANT_TYPE = "authorization_code";
     public static final String GOOGLE_LINK_GET_TOKEN = "https://accounts.google.com/o/oauth2/token";
     public static final String GOOGLE_LINK_GET_USER_INFO = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";

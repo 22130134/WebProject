@@ -151,4 +151,39 @@ public class UserDAO {
         return false;
     }
 
+    // 1. Lấy User bằng Email (Dùng cho Google Login)
+    public User getUserByEmail(String email) {
+        String query = "SELECT * FROM Accounts WHERE Email = ? AND Status = 'Active'";
+        try {
+            conn = DBConnect.get();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("AccountID"),
+                        rs.getString("Username"),
+                        rs.getString("PasswordHash"),
+                        rs.getString("Email"),
+                        rs.getString("Role"),
+                        rs.getString("Status"),
+                        rs.getTimestamp("CreatedAt"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // 2. Đăng ký nhanh cho Google User (Mật khẩu để ngẫu nhiên hoặc null)
+    public void registerGoogle(String email, String name, String avatarUrl) {
+        // Username lấy mặc định là phần trước @ của email
+        String username = email.split("@")[0];
+        // Password hash đại một chuỗi ngẫu nhiên để không ai login thường được
+        String randomPass = "GOOGLE_LOGIN_" + System.currentTimeMillis();
+
+        register(username, randomPass, email); // Tận dụng hàm register cũ
+
+    }
+
 }
