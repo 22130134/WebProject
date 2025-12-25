@@ -31,6 +31,9 @@ public class AdminAppointmentController extends HttpServlet {
         AppointmentDAO dao = AppointmentDAO.getInstance();
         List<Appointment> list = dao.filter(keyword, type, status, dateFrom, dateTo);
 
+
+
+
         // Stats
         int todayTotal = dao.countAppointmentsToday();
         int todayNew = dao.countNewAppointmentsToday();
