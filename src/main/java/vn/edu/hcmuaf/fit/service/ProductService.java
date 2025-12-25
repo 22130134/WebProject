@@ -38,13 +38,14 @@ public class ProductService {
                 "p.Rating, p.ReviewCount, p.Badge, p.IsInstallment, p.SoldQuantity, " +
                 "d.Price, d.OldPrice " +
                 "FROM products p " +
-                "JOIN productdetails d ON p.ProductID = d.ProductID ");
+                "JOIN productdetails d ON p.ProductID = d.ProductID " +
+                "WHERE d.StockQuantity >= 0 ");
 
         if (categoryId != null) {
             sql.append("JOIN product_categories pc ON p.ProductID = pc.ProductID ");
         }
 
-        sql.append("WHERE 1=1 ");
+        sql.append("AND 1=1 ");
 
         if (categoryId != null) {
             sql.append("AND pc.CategoryID = ? ");
@@ -155,7 +156,7 @@ public class ProductService {
                 "d.Price, d.OldPrice, d.DetailDescription, d.StockQuantity " +
                 "FROM products p " +
                 "JOIN productdetails d ON p.ProductID = d.ProductID " +
-                "WHERE p.ProductID = ?";
+                "WHERE p.ProductID = ? AND d.StockQuantity >= 0";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -195,6 +196,7 @@ public class ProductService {
                 "d.Price, d.OldPrice " +
                 "FROM products p " +
                 "JOIN productdetails d ON p.ProductID = d.ProductID " +
+                "WHERE d.StockQuantity >= 0 " +
                 "ORDER BY RAND() LIMIT ?";
 
         try {
@@ -233,6 +235,7 @@ public class ProductService {
                 "d.Price, d.OldPrice " +
                 "FROM products p " +
                 "JOIN productdetails d ON p.ProductID = d.ProductID " +
+                "WHERE d.StockQuantity >= 0 " +
                 "ORDER BY p.SoldQuantity DESC LIMIT ?";
 
         try {
@@ -272,7 +275,8 @@ public class ProductService {
                 "FROM products p " +
                 "JOIN productdetails d ON p.ProductID = d.ProductID " +
                 "JOIN product_categories pc ON p.ProductID = pc.ProductID " +
-                "WHERE pc.CategoryID = ? " +
+                "JOIN product_categories pc ON p.ProductID = pc.ProductID " +
+                "WHERE pc.CategoryID = ? AND d.StockQuantity >= 0 " +
                 "LIMIT ?";
 
         try {
@@ -312,7 +316,7 @@ public class ProductService {
                 "d.Price, d.OldPrice, d.StockQuantity " +
                 "FROM products p " +
                 "JOIN productdetails d ON p.ProductID = d.ProductID " +
-                "WHERE 1=1 ");
+                "WHERE d.StockQuantity >= 0 ");
 
         if (search != null && !search.trim().isEmpty()) {
             sql.append("AND (p.ProductName LIKE ? OR p.ProductID = ?) ");
@@ -326,7 +330,7 @@ public class ProductService {
             if ("Còn hàng".equals(status)) {
                 sql.append("AND d.StockQuantity > 0 ");
             } else if ("Hết hàng".equals(status)) {
-                sql.append("AND d.StockQuantity <= 0 ");
+                sql.append("AND d.StockQuantity = 0 ");
             }
         }
 
@@ -504,37 +508,16 @@ public class ProductService {
         if (conn == null)
             return false;
 
-        String sql1 = "DELETE FROM productdetails WHERE ProductID=?";
-        String sql2 = "DELETE FROM products WHERE ProductID=?";
+        // Soft delete: Set StockQuantity = -1
+        String sql = "UPDATE productdetails SET StockQuantity = -1 WHERE ProductID = ?";
 
         try {
-            conn.setAutoCommit(false); // Start Transaction
-
-            // Delete details first (FK constraint)
-            PreparedStatement ps1 = conn.prepareStatement(sql1);
-            ps1.setInt(1, id);
-            ps1.executeUpdate();
-
-            // Delete product
-            PreparedStatement ps2 = conn.prepareStatement(sql2);
-            ps2.setInt(1, id);
-            int affected = ps2.executeUpdate();
-
-            conn.commit();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            int affected = ps.executeUpdate();
             return affected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            try {
-                conn.rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        } finally {
-            try {
-                conn.setAutoCommit(true);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return false;
     }
