@@ -49,6 +49,6 @@ public class EmailUtils {
 
     // Main test thử
     public static void main(String[] args) {
-        sendEmail("khachhang@gmail.com", "Test Email", "<h1>Xin chào!</h1><p>Đây là email test.</p>");
+        sendEmail("23130130@st.hcmuaf.edu.vn", "Test OTP", "Mã test là: 123456");
     }
 }
