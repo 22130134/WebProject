@@ -5,55 +5,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập META.vn</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/Login/login.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/header/header.css">
+    <title>Lấy lại mật khẩu</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Login/forgot_password.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/header/header.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/footer/footer.css"/>
+
+    <style>
+        .alert-error {
+            color: #d9534f;
+            background: #f2dede;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background: #dff0d8;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
+
 <jsp:include page="/style/header/header.jsp"/>
 
-
-<!-- MAIN -->
-<main class="container">
-    <!-- Banner -->
-    <div class="banner">
-        <img src="https://i.imgur.com/fNNz2Kt.png" alt="META banner">
+<div class="container">
+    <div class="banner-left">
+        <img src="https://i.imgur.com/7lFwwFv.jpeg" alt="Banner">
     </div>
 
-    <!-- Login Form -->
-    <div class="login-box">
-        <h2>Đăng nhập</h2>
-        <p style="color: red; text-align: center;">${error}</p>
-        <form action="${pageContext.request.contextPath}/login" method="post">
-            <input type="text" name="username" placeholder="Nhập tên đăng nhập" required>
-            <input type="password" name="password" placeholder="Mật khẩu" required>
-            <a href="${pageContext.request.contextPath}/forgot-password" class="forgot">Quên mật khẩu?</a>
-            <button type="submit" class="btn-login"> Đăng nhập</button>
+    <div class="form-box">
+        <a href="${pageContext.request.contextPath}/Login/login.jsp" class="back-btn"><i class="fa fa-arrow-left"></i>
+            Quay lại</a>
+        <h2>Lấy lại mật khẩu</h2>
+        <p>Nhập địa chỉ email bạn đã đăng ký với HKH.vn.</p>
+
+        <% if (request.getAttribute("error") != null) { %>
+        <div class="alert-error"><%= request.getAttribute("error") %>
+        </div>
+        <% } %>
+        <% if (request.getAttribute("message") != null) { %>
+        <div class="alert-success"><%= request.getAttribute("message") %>
+        </div>
+        <% } %>
+
+        <form action="${pageContext.request.contextPath}/forgot-password" method="post">
+            <input type="email" name="email" class="email-input" placeholder="Nhập email" required>
+
+            <div class="links">
+                <a href="#" style="float:right;">Bạn cần hỗ trợ?</a>
+            </div>
+
+            <button type="submit" class="submit-btn">TIẾP THEO</button>
         </form>
-
-        <p>Bạn chưa có tài khoản? <a href="${pageContext.request.contextPath}/register">Đăng ký</a></p>
-
-        <div class="divider">HOẶC</div>
-
-        <button class="btn-social email">✉️ Đăng nhập bằng email</button>
-        <button class="btn-social zalo">💬 Đăng nhập bằng Zalo</button>
-        <%
-            // Tạo URL đăng nhập Google
-            String googleClientId = "1055685939412-k630p44torb19vi19th2gpu20n6ulhev.apps.googleusercontent.com"; // ID
-            String redirectUri = "http://localhost:8080/webapp_war/login-google";
-            String googleLoginLink = "https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri="
-                    + redirectUri + "&response_type=code&client_id=" + googleClientId + "&approval_prompt=force";
-        %>
-
-        <a href="<%= googleLoginLink %>" class="btn-social google"
-           style="text-decoration: none; display: block; text-align: center; line-height: normal;">
-            🌐 Đăng nhập bằng Google
-        </a>
     </div>
-</main>
-<script src="${pageContext.request.contextPath}/style/header/header.js"></script>
+</div>
 
 <!-- FOOTER -->
 <div class="content">
@@ -143,6 +155,6 @@
     </div>
 
 </div>
-</body>
 
+</body>
 </html>

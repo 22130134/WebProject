@@ -1,59 +1,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập META.vn</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/Login/login.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/header/header.css">
+    <title>Tạo mật khẩu mới</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Login/new_password.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/header/header.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/footer/footer.css"/>
 </head>
-
 <body>
 <jsp:include page="/style/header/header.jsp"/>
 
+<div class="container">
+    <div class="form-box" style="margin: 0 auto;"> <h2>Thiết lập mật khẩu mới</h2>
+        <p>Nhập mật khẩu mới cho tài khoản: <b><%= session.getAttribute("email_forgot") %></b></p>
 
-<!-- MAIN -->
-<main class="container">
-    <!-- Banner -->
-    <div class="banner">
-        <img src="https://i.imgur.com/fNNz2Kt.png" alt="META banner">
-    </div>
-
-    <!-- Login Form -->
-    <div class="login-box">
-        <h2>Đăng nhập</h2>
         <p style="color: red; text-align: center;">${error}</p>
-        <form action="${pageContext.request.contextPath}/login" method="post">
-            <input type="text" name="username" placeholder="Nhập tên đăng nhập" required>
-            <input type="password" name="password" placeholder="Mật khẩu" required>
-            <a href="${pageContext.request.contextPath}/forgot-password" class="forgot">Quên mật khẩu?</a>
-            <button type="submit" class="btn-login"> Đăng nhập</button>
+
+        <form action="${pageContext.request.contextPath}/new-password" method="post">
+            <input type="password" name="newPassword" class="email-input" placeholder="Mật khẩu mới" required>
+            <input type="password" name="confirmPassword" class="email-input" placeholder="Nhập lại mật khẩu" required>
+
+            <button type="submit" class="submit-btn" style="background-color: #d60000; color: white; cursor: pointer;">ĐỔI MẬT KHẨU</button>
         </form>
-
-        <p>Bạn chưa có tài khoản? <a href="${pageContext.request.contextPath}/register">Đăng ký</a></p>
-
-        <div class="divider">HOẶC</div>
-
-        <button class="btn-social email">✉️ Đăng nhập bằng email</button>
-        <button class="btn-social zalo">💬 Đăng nhập bằng Zalo</button>
-        <%
-            // Tạo URL đăng nhập Google
-            String googleClientId = "1055685939412-k630p44torb19vi19th2gpu20n6ulhev.apps.googleusercontent.com"; // ID
-            String redirectUri = "http://localhost:8080/webapp_war/login-google";
-            String googleLoginLink = "https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri="
-                    + redirectUri + "&response_type=code&client_id=" + googleClientId + "&approval_prompt=force";
-        %>
-
-        <a href="<%= googleLoginLink %>" class="btn-social google"
-           style="text-decoration: none; display: block; text-align: center; line-height: normal;">
-            🌐 Đăng nhập bằng Google
-        </a>
     </div>
-</main>
-<script src="${pageContext.request.contextPath}/style/header/header.js"></script>
+</div>
 
 <!-- FOOTER -->
 <div class="content">
@@ -144,5 +114,4 @@
 
 </div>
 </body>
-
 </html>
