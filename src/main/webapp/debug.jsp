@@ -20,8 +20,6 @@
                     </li>
                     <li>MYSQLUSER: <%= System.getenv("MYSQLUSER") %>
                     </li>
-                    <li>MYSQL_URL (Old): <%= System.getenv("MYSQL_URL") %>
-                    </li>
                 </ul>
 
                 <h3>Connection Test:</h3>
@@ -39,6 +37,7 @@
                     }
                     } catch (Exception e) {
                     out.println("<p style='color:red'>Query 'categories' failed: " + e.getMessage() + "</p>");
+
                     // Try uppercase
                     out.println("<p>Trying 'Categories'...</p>");
                     try (PreparedStatement ps2 = conn.prepareStatement("SELECT count(*) FROM Categories");
