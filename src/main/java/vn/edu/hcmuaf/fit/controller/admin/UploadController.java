@@ -27,15 +27,19 @@ import java.util.UUID;
 )
 public class UploadController extends HttpServlet {
     // Configure this path to match your local setup
-    private static final String UPLOAD_DIR = "C:/data/uploads";
+    // OLD: private static final String UPLOAD_DIR = "C:/data/uploads";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
+        // Use dynamic path inside webapp/uploads
+        String applicationPath = req.getServletContext().getRealPath("");
+        String uploadFilePath = applicationPath + File.separator + "uploads";
+
         // Create upload directory if it doesn't exist
-        File uploadDir = new File(UPLOAD_DIR);
+        File uploadDir = new File(uploadFilePath);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
@@ -63,7 +67,7 @@ public class UploadController extends HttpServlet {
                 }
 
                 String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
-                Path filePath = Paths.get(UPLOAD_DIR, uniqueFileName);
+                Path filePath = Paths.get(uploadFilePath, uniqueFileName);
 
                 // Save the file
                 Files.copy(filePart.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
