@@ -7,11 +7,22 @@ import java.sql.SQLException;
 public class DBConnect {
     // Use environment variables for Cloud deployment (Railway), fallback to
     // localhost
-    private static String url = System.getenv("MYSQL_URL") != null
-            ? System.getenv("MYSQL_URL").replace("mysql://", "jdbc:mysql://")
+    // Use environment variables for Cloud deployment (Railway), fallback to
+    // localhost
+    private static String host = System.getenv("MYSQLHOST");
+    private static String port = System.getenv("MYSQLPORT");
+    private static String dbName = System.getenv("MYSQLDATABASE");
+    private static String username = System.getenv("MYSQLUSER");
+    private static String password = System.getenv("MYSQLPASSWORD");
+
+    // Construct JDBC URL safely
+    private static String url = (host != null)
+            ? "jdbc:mysql://" + host + ":" + (port != null ? port : "3306") + "/"
+                    + (dbName != null ? dbName : "railway") + "?useUnicode=true&characterEncoding=UTF-8"
             : "jdbc:mysql://localhost:3306/dataweb?useUnicode=true&characterEncoding=UTF-8";
-    private static String user = System.getenv("MYSQLUSER") != null ? System.getenv("MYSQLUSER") : "root";
-    private static String pass = System.getenv("MYSQLPASSWORD") != null ? System.getenv("MYSQLPASSWORD") : "12345";
+
+    private static String user = (username != null) ? username : "root";
+    private static String pass = (password != null) ? password : "12345";
     private static Connection connection;
 
     public static Connection get() {
