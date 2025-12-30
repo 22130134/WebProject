@@ -38,14 +38,13 @@ public class ProductService {
                 "p.Rating, p.ReviewCount, p.Badge, p.IsInstallment, p.SoldQuantity, " +
                 "d.Price, d.OldPrice " +
                 "FROM products p " +
-                "JOIN productdetails d ON p.ProductID = d.ProductID " +
-                "WHERE d.StockQuantity >= 0 ");
+                "JOIN productdetails d ON p.ProductID = d.ProductID ");
 
         if (categoryId != null) {
             sql.append("JOIN product_categories pc ON p.ProductID = pc.ProductID ");
         }
 
-        sql.append("AND 1=1 ");
+        sql.append("WHERE d.StockQuantity >= 0 AND 1=1 ");
 
         if (categoryId != null) {
             sql.append("AND pc.CategoryID = ? ");

@@ -19,7 +19,7 @@ public class UserDAO {
     // Check user login credentials against database
     public User checkLogin(String username, String password) {
         try {
-            String query = "SELECT * FROM Accounts WHERE Username = ? AND PasswordHash = ? AND Status = 'Active'";
+            String query = "SELECT * FROM accounts WHERE Username = ? AND PasswordHash = ? AND Status = 'Active'";
             conn = DBConnect.get();
             ps = conn.prepareStatement(query);
             ps.setString(1, username);
@@ -42,7 +42,7 @@ public class UserDAO {
     }
 
     public boolean checkUserExist(String username) {
-        String query = "SELECT * FROM Accounts WHERE Username = ?";
+        String query = "SELECT * FROM accounts WHERE Username = ?";
         try {
             conn = DBConnect.get();
             ps = conn.prepareStatement(query);
@@ -58,7 +58,7 @@ public class UserDAO {
     }
 
     public boolean checkEmailExist(String email) {
-        String query = "SELECT * FROM Accounts WHERE Email = ?";
+        String query = "SELECT * FROM accounts WHERE Email = ?";
         try {
             conn = DBConnect.get();
             ps = conn.prepareStatement(query);
@@ -75,8 +75,8 @@ public class UserDAO {
 
     // Register new user account and associated customer record
     public void register(String username, String password, String email) {
-        String queryAccount = "INSERT INTO Accounts (Username, PasswordHash, Email, Role, Status) VALUES (?, ?, ?, 'Customer', 'Active')";
-        String queryCustomer = "INSERT INTO Customers (AccountID) VALUES (?)";
+        String queryAccount = "INSERT INTO accounts (Username, PasswordHash, Email, Role, Status) VALUES (?, ?, ?, 'Customer', 'Active')";
+        String queryCustomer = "INSERT INTO customers (AccountID) VALUES (?)";
         try {
             conn = DBConnect.get();
             // Use PreparedStatement with RETURN_GENERATED_KEYS to get the new AccountID
@@ -102,7 +102,7 @@ public class UserDAO {
     }
 
     public int getCustomerIdByAccountId(int accountId) {
-        String query = "SELECT CustomerID FROM Customers WHERE AccountID = ?";
+        String query = "SELECT CustomerID FROM customers WHERE AccountID = ?";
         try {
             conn = DBConnect.get();
             ps = conn.prepareStatement(query);
@@ -119,7 +119,7 @@ public class UserDAO {
 
     // HUNG (ChangePassword) Lấy mật khẩu hiện tại (đã mã hóa) để kiểm tra
     public String getPasswordById(int accountID) {
-        String query = "SELECT PasswordHash FROM Accounts WHERE AccountID = ?";
+        String query = "SELECT PasswordHash FROM accounts WHERE AccountID = ?";
         try {
             conn = DBConnect.get();
             ps = conn.prepareStatement(query);
@@ -136,7 +136,7 @@ public class UserDAO {
 
     // HUNG (ChangePassword) Cập nhật mật khẩu mới
     public boolean changePassword(int accountID, String newPasswordHash) {
-        String query = "UPDATE Accounts SET PasswordHash = ? WHERE AccountID = ?";
+        String query = "UPDATE accounts SET PasswordHash = ? WHERE AccountID = ?";
         try {
             conn = DBConnect.get();
             ps = conn.prepareStatement(query);
@@ -153,7 +153,7 @@ public class UserDAO {
 
     // 1. Lấy User bằng Email (Dùng cho Google Login)
     public User getUserByEmail(String email) {
-        String query = "SELECT * FROM Accounts WHERE Email = ? AND Status = 'Active'";
+        String query = "SELECT * FROM accounts WHERE Email = ? AND Status = 'Active'";
         try {
             conn = DBConnect.get();
             ps = conn.prepareStatement(query);
