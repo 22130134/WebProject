@@ -5,7 +5,7 @@
             <header class="site-header">
                 <div class="header-left">
                     <input type="checkbox" id="nav-toggle" hidden>
-                    <a href="${pageContext.request.contextPath}/index.jsp" class="logo">HKH</a>
+                    <a href="${pageContext.request.contextPath}/home" class="logo">HKH</a>
                 </div>
 
                 <form class="searchbar" action="${pageContext.request.contextPath}/catalog" method="get">
