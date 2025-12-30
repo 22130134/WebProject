@@ -65,6 +65,51 @@
                     </div>
                     <section id="dm-section">
                         <%-- Featured Products --%>
+                            <c:if test="${not empty featuredProducts}">
+                                <div class="dm-container">
+                                    <div class="dm-head">
+                                        <h2>Sản phẩm nổi bật</h2>
+                                        <a class="dm-viewall" href="catalog?sort=best">Xem tất cả ></a>
+                                    </div>
+                                    <div class="dm-slider">
+                                        <button class="dm-nav dm-prev" aria-label="Trước">&#10094;</button>
+                                        <div class="dm-track" style="--ppv:5">
+                                            <c:forEach var="p" items="${featuredProducts}">
+                                                <a class="dm-card" href="product-detail?id=${p.id}">
+                                                    <c:if test="${not empty p.badge}">
+                                                        <span
+                                                            class="badge ${p.badge.contains('%') ? 'badge--sale' : 'badge--gift'}">${p.badge}</span>
+                                                    </c:if>
+                                                    <div class="thumb"><img src="${p.img}" alt="${p.name}"></div>
+                                                    <div class="brand">${p.brand}</div>
+                                                    <h4 class="name">${p.name}</h4>
+                                                    <div class="price">
+                                                        <span class="new">
+                                                            <fmt:formatNumber value="${p.price}" type="currency"
+                                                                currencySymbol="đ" />
+                                                        </span>
+                                                        <c:if test="${p.oldPrice > p.price}">
+                                                            <span class="old">
+                                                                <fmt:formatNumber value="${p.oldPrice}" type="currency"
+                                                                    currencySymbol="đ" />
+                                                            </span>
+                                                        </c:if>
+                                                    </div>
+                                                    <div class="rating">
+                                                        <span class="stars">
+                                                            <c:forEach begin="1" end="${p.rating.intValue()}">★
+                                                            </c:forEach>
+                                                            <c:if test="${p.rating % 1 != 0}">☆</c:if>
+                                                        </span>
+                                                        <span class="count">(${p.reviews})</span>
+                                                    </div>
+                                                </a>
+                                            </c:forEach>
+                                        </div>
+                                        <button class="dm-nav dm-next" aria-label="Sau">&#10095;</button>
+                                    </div>
+                                </div>
+                            </c:if>
 
 
                             <%-- Category Sections --%>
