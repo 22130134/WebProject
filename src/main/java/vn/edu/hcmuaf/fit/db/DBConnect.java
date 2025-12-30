@@ -22,6 +22,10 @@ public class DBConnect {
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+            // Try to reconnect if failed? No, just let it be for now but print error
+            // clearly
+            System.err.println("Database Connection Failed!");
+            System.err.println("URL: " + url);
         }
         return connection;
     }
