@@ -275,7 +275,6 @@ public class ProductService {
                 "FROM products p " +
                 "JOIN productdetails d ON p.ProductID = d.ProductID " +
                 "JOIN product_categories pc ON p.ProductID = pc.ProductID " +
-                "JOIN product_categories pc ON p.ProductID = pc.ProductID " +
                 "WHERE pc.CategoryID = ? AND d.StockQuantity >= 0 " +
                 "LIMIT ?";
 

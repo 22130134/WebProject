@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <enabled>true</enabled>
+    
+    <baseDir>C:/data/uploads/</baseDir> 
+    
+    <baseURL>/WebProject/uploads/</baseURL>
+
+    <license>
+        <name></name>
+        <key></key>
+    </license>
+
+    <types>
+        <type name="Files">
+            <url>/WebProject/uploads/files/</url>
+            <allowedExtensions>pdf,doc,docx,zip</allowedExtensions>
+        </type>
+        <type name="Images">
+            <url>/WebProject/uploads/images/</url>
+            <allowedExtensions>bmp,gif,jpeg,jpg,png</allowedExtensions>
+        </type>
+    </types>
+</config>
