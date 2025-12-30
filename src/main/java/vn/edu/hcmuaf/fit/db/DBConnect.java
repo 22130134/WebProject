@@ -31,7 +31,7 @@ public class DBConnect {
             // Hardcoded Public Railway Connection
             url = "jdbc:mysql://gondola.proxy.rlwy.net:18468/railway?useUnicode=true&characterEncoding=UTF-8";
             user = "root";
-            pass = "StlRplvUDCIGsWPYsboqynpgqlnGCYiH";
+            pass = "StlRplvUDCIGsWPYsboqynpgqlnGCyiH";
             System.out.println("LOG: Loaded Hardcoded Cloud Config (Railway Public)");
         }
     }
