@@ -5,7 +5,7 @@
             <header class="site-header">
                 <div class="header-left">
                     <input type="checkbox" id="nav-toggle" hidden>
-                    <a href="${pageContext.request.contextPath}/index.jsp" class="logo">HKH</a>
+                    <a href="${pageContext.request.contextPath}/home" class="logo">HKH</a>
                 </div>
 
                 <form class="searchbar" action="${pageContext.request.contextPath}/catalog" method="get">
@@ -71,11 +71,13 @@
                     </div>
 
                     <a class="topbtn" href="#"><i class="fa-solid fa-phone"> </i>Hotline</a>
+
                     <c:choose>
                         <c:when test="${sessionScope.auth != null}">
-                            <a class="topbtn" href="${pageContext.request.contextPath}/logout"><i
+                            <a class="topbtn" href="${pageContext.request.contextPath}/update-profile"><i
                                     class="fa-solid fa-user"> </i>${sessionScope.auth.username}</a>
                         </c:when>
+
                         <c:otherwise>
                             <a class="topbtn" href="${pageContext.request.contextPath}/login"><i
                                     class="fa-solid fa-user"> </i>Đăng Nhập </a>

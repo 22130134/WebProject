@@ -1,20 +1,25 @@
 package vn.edu.hcmuaf.fit.dao;
 
 import vn.edu.hcmuaf.fit.db.DBConnect;
+import vn.edu.hcmuaf.fit.model.Customer;
 import vn.edu.hcmuaf.fit.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+/**
+ * DAO class for handling User authentication and registration
+ */
 public class UserDAO {
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
 
+    // Check user login credentials against database
     public User checkLogin(String username, String password) {
         try {
-            String query = "SELECT * FROM Accounts WHERE Username = ? AND PasswordHash = ? AND Status = 'Active'";
+            String query = "SELECT * FROM accounts WHERE Username = ? AND PasswordHash = ? AND Status = 'Active'";
             conn = DBConnect.get();
             ps = conn.prepareStatement(query);
             ps.setString(1, username);
@@ -37,7 +42,7 @@ public class UserDAO {
     }
 
     public boolean checkUserExist(String username) {
-        String query = "SELECT * FROM Accounts WHERE Username = ?";
+        String query = "SELECT * FROM accounts WHERE Username = ?";
         try {
             conn = DBConnect.get();
             ps = conn.prepareStatement(query);
@@ -53,7 +58,7 @@ public class UserDAO {
     }
 
     public boolean checkEmailExist(String email) {
-        String query = "SELECT * FROM Accounts WHERE Email = ?";
+        String query = "SELECT * FROM accounts WHERE Email = ?";
         try {
             conn = DBConnect.get();
             ps = conn.prepareStatement(query);
@@ -68,9 +73,10 @@ public class UserDAO {
         return false;
     }
 
+    // Register new user account and associated customer record
     public void register(String username, String password, String email) {
-        String queryAccount = "INSERT INTO Accounts (Username, PasswordHash, Email, Role, Status) VALUES (?, ?, ?, 'Customer', 'Active')";
-        String queryCustomer = "INSERT INTO Customers (AccountID) VALUES (?)";
+        String queryAccount = "INSERT INTO accounts (Username, PasswordHash, Email, Role, Status) VALUES (?, ?, ?, 'Customer', 'Active')";
+        String queryCustomer = "INSERT INTO customers (AccountID) VALUES (?)";
         try {
             conn = DBConnect.get();
             // Use PreparedStatement with RETURN_GENERATED_KEYS to get the new AccountID
@@ -96,7 +102,7 @@ public class UserDAO {
     }
 
     public int getCustomerIdByAccountId(int accountId) {
-        String query = "SELECT CustomerID FROM Customers WHERE AccountID = ?";
+        String query = "SELECT CustomerID FROM customers WHERE AccountID = ?";
         try {
             conn = DBConnect.get();
             ps = conn.prepareStatement(query);
@@ -110,4 +116,74 @@ public class UserDAO {
         }
         return -1;
     }
+
+    // HUNG (ChangePassword) Lấy mật khẩu hiện tại (đã mã hóa) để kiểm tra
+    public String getPasswordById(int accountID) {
+        String query = "SELECT PasswordHash FROM accounts WHERE AccountID = ?";
+        try {
+            conn = DBConnect.get();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, accountID);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("PasswordHash");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // HUNG (ChangePassword) Cập nhật mật khẩu mới
+    public boolean changePassword(int accountID, String newPasswordHash) {
+        String query = "UPDATE accounts SET PasswordHash = ? WHERE AccountID = ?";
+        try {
+            conn = DBConnect.get();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, newPasswordHash);
+            ps.setInt(2, accountID);
+
+            int row = ps.executeUpdate();
+            return row > 0; // Trả về true nếu update thành công
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // 1. Lấy User bằng Email (Dùng cho Google Login)
+    public User getUserByEmail(String email) {
+        String query = "SELECT * FROM accounts WHERE Email = ? AND Status = 'Active'";
+        try {
+            conn = DBConnect.get();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("AccountID"),
+                        rs.getString("Username"),
+                        rs.getString("PasswordHash"),
+                        rs.getString("Email"),
+                        rs.getString("Role"),
+                        rs.getString("Status"),
+                        rs.getTimestamp("CreatedAt"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // 2. Đăng ký nhanh cho Google User (Mật khẩu để ngẫu nhiên hoặc null)
+    public void registerGoogle(String email, String name, String avatarUrl) {
+        // Username lấy mặc định là phần trước @ của email
+        String username = email.split("@")[0];
+        // Password hash đại một chuỗi ngẫu nhiên để không ai login thường được
+        String randomPass = "GOOGLE_LOGIN_" + System.currentTimeMillis();
+
+        register(username, randomPass, email); // Tận dụng hàm register cũ
+
+    }
+
 }

@@ -4,14 +4,17 @@ import vn.edu.hcmuaf.fit.db.DBConnect;
 import vn.edu.hcmuaf.fit.model.Cart;
 import vn.edu.hcmuaf.fit.model.CartItem;
 import vn.edu.hcmuaf.fit.model.Order;
+import vn.edu.hcmuaf.fit.model.OrderItem;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class OrderDAO {
     private static OrderDAO instance;
 
-    private OrderDAO() {
+    public OrderDAO() {
     }
 
     public static OrderDAO getInstance() {
@@ -103,6 +106,36 @@ public class OrderDAO {
         return list;
     }
 
+    // HUNG
+    // 1. Lấy danh sách đơn hàng theo CustomerID (Sắp xếp mới nhất lên đầu)
+    public List<Order> getOrdersByCustomerId(int customerId) {
+        List<Order> list = new ArrayList<>();
+        String query = "SELECT * FROM orders WHERE CustomerID = ? ORDER BY OrderDate DESC";
+
+        try (Connection conn = DBConnect.get();
+                PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, customerId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                // Tạo đối tượng Order từ DB (Khớp với Constructor trong Model của bạn)
+                list.add(new Order(
+                        rs.getInt("OrderID"),
+                        rs.getInt("CustomerID"),
+                        rs.getTimestamp("OrderDate"),
+                        rs.getDouble("TotalAmount"),
+                        rs.getString("Status"),
+                        rs.getString("PaymentMethod"),
+                        rs.getString("RecipientName"),
+                        rs.getString("ShippingAddress")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public Order getById(int id) {
         String query = "SELECT * FROM orders WHERE OrderID = ?";
         Connection conn = DBConnect.get();
@@ -137,6 +170,32 @@ public class OrderDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new vn.edu.hcmuaf.fit.model.OrderItem(
+                        rs.getInt("OrderItemID"),
+                        rs.getInt("OrderID"),
+                        rs.getInt("ProductID"),
+                        rs.getInt("Quantity"),
+                        rs.getDouble("PriceAtOrder")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // 2. Lấy danh sách chi tiết sản phẩm (Items) theo OrderID
+    public List<OrderItem> getOrderItemsByOrderId(int orderId) {
+        List<OrderItem> list = new ArrayList<>();
+        String query = "SELECT * FROM orderitems WHERE OrderID = ?";
+
+        try (Connection conn = DBConnect.get();
+                PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, orderId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                // Tạo đối tượng OrderItem từ DB
+                list.add(new OrderItem(
                         rs.getInt("OrderItemID"),
                         rs.getInt("OrderID"),
                         rs.getInt("ProductID"),
@@ -242,5 +301,53 @@ public class OrderDAO {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public boolean updateOrderStatus(int orderId, String newStatus) {
+        String query = "UPDATE orders SET Status = ? WHERE OrderID = ?";
+        try (Connection conn = DBConnect.get();
+                PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, newStatus); // Ví dụ: 'Cancelled', 'Confirmed'
+            ps.setInt(2, orderId);
+
+            int rows = ps.executeUpdate();
+            return rows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Hàm kiểm tra xem đơn hàng có thuộc về user đó không (để bảo mật)
+    public boolean isOrderOwnedByCustomer(int orderId, int customerId) {
+        String query = "SELECT Count(*) FROM orders WHERE OrderID = ? AND CustomerID = ?";
+        try (Connection conn = DBConnect.get();
+                PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, orderId);
+            ps.setInt(2, customerId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // 3. Hàm hủy đơn hàng (Chỉ hủy khi trạng thái là Pending để an toàn)
+    public boolean cancelOrder(int orderId) {
+        // Cập nhật thêm điều kiện: Chỉ cho hủy nếu status đang là 'Pending'
+        String query = "UPDATE orders SET Status = 'Cancelled' WHERE OrderID = ? AND Status = 'Pending'";
+        try (Connection conn = DBConnect.get();
+                PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, orderId);
+            int rows = ps.executeUpdate();
+            return rows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

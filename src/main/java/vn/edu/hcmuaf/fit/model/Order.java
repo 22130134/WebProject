@@ -16,7 +16,7 @@ public class Order {
     }
 
     public Order(int orderId, int customerId, Timestamp orderDate, double totalAmount, String status,
-            String paymentMethod, String recipientName, String shippingAddress) {
+                 String paymentMethod, String recipientName, String shippingAddress) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.orderDate = orderDate;
@@ -89,5 +89,37 @@ public class Order {
 
     public void setShippingAddress(String shippingAddress) {
         this.shippingAddress = shippingAddress;
+    }
+
+    // HUNG
+    /**
+     * Hàm chuyển đổi trạng thái (status) tiếng Anh sang tiếng Việt để hiển thị trên web.
+     * Lưu ý: Mapping Processing -> Đã xác nhận; Completed -> Đã giao.
+     */
+    public String getStatusVietnamese() {
+        if (status == null) return "Không xác định";
+        switch (status) {
+            case "Pending":    return "Chờ xác nhận";
+            case "Processing": return "Đã xác nhận";
+            case "Shipping":   return "Đang giao";
+            case "Completed":  return "Đã giao";
+            case "Cancelled":  return "Đã hủy";
+            default:           return status;
+        }
+    }
+
+    /**
+     * Hàm lấy class CSS tương ứng với trạng thái để áp dụng màu sắc (Badge).
+     */
+    public String getStatusCssClass() {
+        if (status == null) return "secondary";
+        switch (status) {
+            case "Pending":    return "warning";   // Vàng
+            case "Processing": return "primary";   // Xanh dương
+            case "Shipping":   return "info";      // Xanh lơ
+            case "Completed":  return "success";   // Xanh lá
+            case "Cancelled":  return "danger";    // Đỏ
+            default:           return "secondary";
+        }
     }
 }

@@ -163,7 +163,16 @@
                                 <input class="input" name="name" required />
                             </label>
                             <label>Hình ảnh (URL)
-                                <input class="input" name="img" placeholder="http://..." />
+                                <div style="display:flex; gap:10px;">
+                                    <input class="input" name="img" id="add-img" placeholder="http://..." />
+                                    <button type="button" class="btn btn-ghost"
+                                        onclick="document.getElementById('upload-add').click()">Tải ảnh</button>
+                                    <input type="file" id="upload-add" style="display:none"
+                                        onchange="uploadImage(this, 'add-img', 'preview-add')">
+                                </div>
+                                <img id="preview-add"
+                                    style="max-height:100px; margin-top:10px; border-radius:4px; display:none; border: 1px solid #ddd;"
+                                    src="" alt="Preview">
                             </label>
                             <label>Thương hiệu
                                 <input class="input" name="brand" />
@@ -175,7 +184,7 @@
                                 <input class="input" type="number" name="stock" min="0" required />
                             </label>
                             <label>Mô tả chi tiết
-                                <textarea class="input" name="description" rows="3"></textarea>
+                                <textarea class="input" name="description" id="desc-add" rows="3"></textarea>
                             </label>
                             <div class="actions">
                                 <a class="btn btn-ghost" href="#">Hủy</a>
@@ -197,7 +206,16 @@
                                 <input class="input" name="name" id="edit-name" required />
                             </label>
                             <label>Hình ảnh (URL)
-                                <input class="input" name="img" id="edit-img" placeholder="http://..." />
+                                <div style="display:flex; gap:10px;">
+                                    <input class="input" name="img" id="edit-img" placeholder="http://..." />
+                                    <button type="button" class="btn btn-ghost"
+                                        onclick="document.getElementById('upload-edit').click()">Tải ảnh</button>
+                                    <input type="file" id="upload-edit" style="display:none"
+                                        onchange="uploadImage(this, 'edit-img', 'preview-edit')">
+                                </div>
+                                <img id="preview-edit"
+                                    style="max-height:100px; margin-top:10px; border-radius:4px; display:none; border: 1px solid #ddd;"
+                                    src="" alt="Preview">
                             </label>
                             <label>Thương hiệu
                                 <input class="input" name="brand" id="edit-brand" />
@@ -238,7 +256,73 @@
                 </div>
 
                 <script src="${pageContext.request.contextPath}/Admin/app.js"></script>
+                <!-- CKEditor 4 CDN -->
+                <script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
                 <script>
+                    // Init CKEditor for Add Modal
+                    CKEDITOR.replace('desc-add', {
+                        height: 200,
+                        removePlugins: 'exportpdf',
+                        versionCheck: false,
+                        uploadUrl: '${pageContext.request.contextPath}/api/upload',
+                        filebrowserUploadUrl: '${pageContext.request.contextPath}/api/upload',
+                        filebrowserImageUploadUrl: '${pageContext.request.contextPath}/api/upload'
+                    });
+
+                    // Init CKEditor for Edit Modal
+                    CKEDITOR.replace('edit-desc', {
+                        height: 200,
+                        removePlugins: 'exportpdf',
+                        versionCheck: false,
+                        uploadUrl: '${pageContext.request.contextPath}/api/upload',
+                        filebrowserUploadUrl: '${pageContext.request.contextPath}/api/upload',
+                        filebrowserImageUploadUrl: '${pageContext.request.contextPath}/api/upload'
+                    });
+
+                    // Function to handle Main Image Upload
+                    function uploadImage(fileInput, targetId, previewId) {
+                        const file = fileInput.files[0];
+                        if (!file) return;
+
+                        const formData = new FormData();
+                        formData.append("upload", file);
+
+                        // Show loading state
+                        const target = document.getElementById(targetId);
+                        const originalPlaceholder = target.placeholder;
+                        target.placeholder = "Đang tải lên...";
+
+                        fetch('${pageContext.request.contextPath}/api/upload', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.uploaded) {
+                                    target.value = data.url;
+
+                                    // Show preview
+                                    if (previewId) {
+                                        const img = document.getElementById(previewId);
+                                        img.src = data.url;
+                                        img.style.display = 'block';
+                                    }
+
+                                    alert("Upload ảnh thành công!");
+                                } else {
+                                    alert("Lỗi: " + (data.error ? data.error.message : 'Unknown error'));
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert("Lỗi kết nối khi upload file");
+                            })
+                            .finally(() => {
+                                target.placeholder = originalPlaceholder;
+                                fileInput.value = ''; // Reset input
+                            });
+                    }
+
                     document.getElementById('btn-edit').addEventListener('click', function (e) {
                         // Find checked checkboxes in table body
                         const checks = document.querySelectorAll('tbody input[type="checkbox"]:checked');
@@ -262,13 +346,25 @@
                         // Fill form
                         if (data.id) document.getElementById('edit-id').value = data.id;
                         if (data.name) document.getElementById('edit-name').value = data.name;
-                        if (data.img) document.getElementById('edit-img').value = data.img;
+                        if (data.img) {
+                            document.getElementById('edit-img').value = data.img;
+                            // Show existing image preview
+                            const imgPreview = document.getElementById('preview-edit');
+                            imgPreview.src = data.img;
+                            imgPreview.style.display = 'block';
+                        } else {
+                            // Hide preview if no image
+                            document.getElementById('preview-edit').style.display = 'none';
+                        }
                         if (data.brand) document.getElementById('edit-brand').value = data.brand;
                         if (data.price) document.getElementById('edit-price').value = data.price;
                         if (data.stock) document.getElementById('edit-stock').value = data.stock;
-                        if (data.description) document.getElementById('edit-desc').value = data.description;
-                    });
 
+                        // Set CKEditor data
+                        if (data.description) {
+                            CKEDITOR.instances['edit-desc'].setData(data.description);
+                        }
+                    });
                     document.getElementById('btn-delete').addEventListener('click', function (e) {
                         const checks = document.querySelectorAll('tbody input[type="checkbox"]:checked');
 
