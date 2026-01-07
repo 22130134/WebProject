@@ -11,3 +11,4 @@ Personal tracking of changes.
  - Update 10
  - Update 11
  - Update 12
+<!-- UTF-8 Encoding Fix -->
