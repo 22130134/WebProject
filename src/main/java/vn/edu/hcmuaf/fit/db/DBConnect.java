@@ -11,27 +11,28 @@ public class DBConnect {
 
     static {
         // Check if we are in Cloud environment (Railway)
-        // NOTE: If connection fails on Cloud, try DELETING the MYSQLHOST variable in Railway to force using the 'else' block below with Public URL.
+        // NOTE: If connection fails on Cloud, try DELETING the MYSQLHOST variable in
+        // Railway to force using the 'else' block below with Public URL.
         if (System.getenv("MYSQLHOST") != null) {
             String host = System.getenv("MYSQLHOST");
             String port = System.getenv("MYSQLPORT");
             String dbName = System.getenv("MYSQLDATABASE");
             String username = System.getenv("MYSQLUSER");
             String password = System.getenv("MYSQLPASSWORD");
-            
+
             // Build JDBC URL cleanly for Cloud (Internal Network)
             url = "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?useUnicode=true&characterEncoding=UTF-8";
             user = username;
             pass = password;
-            System.out.println("LOG: Loaded Cloud Database Config (Railway Internal)");
+            System.out.println("LOG: Loaded Cloud Database Config (Railway Internal). MYSQLHOST=" + host);
         } else {
-            // Local environment defaults -> NOW POINTED TO RAILWAY PUBLIC URL FOR BACKUP/TESTING
-            // Old Localhost: url = "jdbc:mysql://localhost:3306/dataweb?useUnicode=true&characterEncoding=UTF-8";
-            
-            // Hardcoded Public Railway Connection
-            url = "jdbc:mysql://gondola.proxy.rlwy.net:18468/railway?useUnicode=true&characterEncoding=UTF-8";
+            // Fallback if Env Vars are missing
+            System.out.println("LOG: Env Var MYSQLHOST is NULL. Using Hardcoded PUBLIC Config.");
+
+            // Hardcoded Public Railway Connection (FOR LOCAL RUN OR FALLBACK)
+            url = "jdbc:mysql://metro.proxy.rlwy.net:35161/railway?useUnicode=true&characterEncoding=UTF-8";
             user = "root";
-            pass = "StlRplvUDCIGsWPYsboqynpgqlnGCyiH";
+            pass = "PbZjFsqskYZCSjIMWPghtoDgcBmOltIz";
             System.out.println("LOG: Loaded Hardcoded Cloud Config (Railway Public)");
         }
     }
@@ -53,7 +54,10 @@ public class DBConnect {
         Connection conn = get();
         if (conn != null) {
             System.out.println("Kết nối thành công!");
-            try { conn.close(); } catch (SQLException e) {}
+            try {
+                conn.close();
+            } catch (SQLException e) {
+            }
         } else {
             System.out.println("Kết nối thất bại!");
         }
